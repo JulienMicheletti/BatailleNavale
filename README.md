@@ -7,3 +7,4 @@ Elliot This / Julien Micheletti / Noah Willaime
 EDIT : 
 -On a changé le lien Player -- BotStrategie pour y mettre une classe IA entre les deux, sinon impossible a implementer.
 -Renommé la classe abstraite Player en Acteur et Joueur en Player pour que ce soit plus clair.
+-ActionListener implements au lieu de extends
