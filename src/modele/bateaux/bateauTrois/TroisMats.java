@@ -4,23 +4,52 @@ import modele.bateaux.Case;
 
 public class TroisMats implements BateauTrois {
 
-    public int getX() {
-        return 0;
+    public int x;
+    public int y;
+    public int orientation;
+    public Case cases[];
+    public final int taille = 3;
+
+    public TroisMats(int x, int y, int orientation, Case[] cases){
+        this.x = x;
+        this.y = y;
+        this.orientation = orientation;
+        this.cases = cases;
     }
-    public int getY() {
-        return 0;
+
+    public void setX(int x) {
+        this.x = x;
     }
-    public int getOrientation() {
-        return 0;
+
+    public void setY(int y) {
+        this.y = y;
     }
-    public Case[] getCases() {
-        return null;
+
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
     }
+
+    public void setCases(Case cases[]) {
+        this.cases = cases;
+    }
+
     public int getTaille() {
-        return 0;
+        return taille;
     }
-    public void setX(int x) { }
-    public void setY(int y) { }
-    public void setOrientation(int orientation) { }
-    public void setCases(Case cases[]) { }
+
+    public Case[] getCases() {
+        return cases;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getOrientation() {
+        return orientation;
+    }
 }

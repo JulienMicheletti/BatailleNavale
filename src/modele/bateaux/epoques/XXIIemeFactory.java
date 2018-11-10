@@ -5,7 +5,7 @@ import modele.bateaux.ShipFactory;
 import modele.bateaux.bateauCinq.BateauCinq;
 import modele.bateaux.bateauCinq.Commander;
 import modele.bateaux.bateauDeux.BateauDeux;
-import modele.bateaux.bateauDeux.Zodiac;
+import modele.bateaux.bateauDeux.Pedalo;
 import modele.bateaux.bateauQuatre.BateauQuatre;
 import modele.bateaux.bateauQuatre.Destroyer;
 import modele.bateaux.bateauTrois.BateauTrois;
@@ -18,7 +18,7 @@ public class XXIIemeFactory implements ShipFactory {
     }
 
     public BateauDeux getBateauDeux(int x, int y, int orientation, Case[] cases) {
-        return new Zodiac(x, y, orientation, cases);
+        return new Pedalo(x, y, orientation, cases);
     }
 
     public BateauTrois getBateauTrois(int x, int y, int orientation, Case[] cases) {
