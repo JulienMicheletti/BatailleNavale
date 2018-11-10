@@ -1,6 +1,7 @@
 package vue;
 
 import controleur.GameController;
+import controleur.PositionController;
 import javafx.beans.Observable;
 import modele.GameManager;
 
@@ -8,35 +9,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Observer;
 
-public class VuePlateaux implements Observer {
+public class VuePlateaux extends JPanel implements Observer {
     protected JButton boardJoueur[][] = new JButton[10][10];
     protected JButton boardAdversaire[][] = new JButton[10][10];
     private GameManager gm;
-    private JPanel contentPane;
     private JPanel contentJoueur;
     private JPanel contentIAdversaire;
     int coteAAfficher;
 
     public VuePlateaux(GameManager gm){
+        super();
         gm.addObserver(this);
-        this.gm =gm;
-        contentPane = new JPanel();
+        this.gm = gm;
         contentIAdversaire = new JPanel();
         contentJoueur = new JPanel();
         setAffichage();
     }
 
     public void setAffichage(){
-        JFrame f=new JFrame();
-        f.setTitle("Bataille Navale");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        f.setContentPane(contentPane);
+        this.setLayout(new GridLayout(2, 0));
 
-        contentPane.setLayout(new GridLayout(2, 0));
-
-        contentPane.add(contentIAdversaire);
-        contentPane.add(contentJoueur);
+        this.add(contentIAdversaire);
+        this.add(contentJoueur);
 
         contentIAdversaire.setLayout(new GridLayout(11, 11));
         contentJoueur.setLayout(new GridLayout(11, 11));
@@ -60,15 +55,12 @@ public class VuePlateaux implements Observer {
             for (int j = 0; j < boardJoueur.length; j++){
                 boardAdversaire[i][j] = new JButton();
                 boardJoueur[i][j] = new JButton();
-                boardAdversaire[i][j].addActionListener(new GameController(gm, j+1, i+1));
-                boardJoueur[i][j].addActionListener(new GameController(gm, j+1, i+1));
+                boardAdversaire[i][j].addActionListener(new GameController(gm, j, i));
+                boardJoueur[i][j].addActionListener(new GameController(gm, j, i));
                 contentIAdversaire.add(boardAdversaire[i][j]);
                 contentJoueur.add(boardJoueur[i][j]);
             }
         }
-
-        f.pack();
-        f.setVisible(true);
     }
 
     @Override
