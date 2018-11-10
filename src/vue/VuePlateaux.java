@@ -1,5 +1,6 @@
 package vue;
 
+import controleur.GameController;
 import javafx.beans.Observable;
 import modele.GameManager;
 
@@ -10,6 +11,7 @@ import java.util.Observer;
 public class VuePlateaux implements Observer {
     protected JButton boardJoueur[][] = new JButton[10][10];
     protected JButton boardAdversaire[][] = new JButton[10][10];
+    private GameManager gm;
     private JPanel contentPane;
     private JPanel contentJoueur;
     private JPanel contentIAdversaire;
@@ -17,6 +19,7 @@ public class VuePlateaux implements Observer {
 
     public VuePlateaux(GameManager gm){
         gm.addObserver(this);
+        this.gm =gm;
         contentPane = new JPanel();
         contentIAdversaire = new JPanel();
         contentJoueur = new JPanel();
@@ -57,6 +60,8 @@ public class VuePlateaux implements Observer {
             for (int j = 0; j < boardJoueur.length; j++){
                 boardAdversaire[i][j] = new JButton();
                 boardJoueur[i][j] = new JButton();
+                boardAdversaire[i][j].addActionListener(new GameController(gm, j+1, i+1));
+                boardJoueur[i][j].addActionListener(new GameController(gm, j+1, i+1));
                 contentIAdversaire.add(boardAdversaire[i][j]);
                 contentJoueur.add(boardJoueur[i][j]);
             }
