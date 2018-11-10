@@ -1,5 +1,6 @@
 package modele;
 
+import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 import modele.bateaux.bateauCinq.BateauCinq;
 import modele.bateaux.bateauCinq.Commander;
@@ -47,7 +48,7 @@ public class GameManager extends Observable implements Serializable{
         this.taille = taille;
     }
 
-    public void positionnerBateau(int x, int y, int cases[], int taille) {
+    public void positionnerBateau(int x, int y, Case cases[], int taille) {
         if (taille == BATEAUDEUX) {
             bateauDeux.setX(x);
             bateauDeux.setY(y);

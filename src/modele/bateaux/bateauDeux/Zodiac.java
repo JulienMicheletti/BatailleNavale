@@ -1,31 +1,30 @@
 package modele.bateaux.bateauDeux;
 
+import modele.bateaux.Case;
+
 public class Zodiac implements BateauDeux {
     public int x;
     public int y;
     public int orientation;
     public int taille;
-    public int cases[];
+    public Case cases[];
 
-    public Zodiac(int x, int y, int orientation, int[] cases){
+    public Zodiac(int x, int y, int orientation, Case cases[]){
         this.x = x;
         this.y = y;
         this.orientation = orientation;
-        taille = 2;
+        taille = 5;
         this.cases = cases;
     }
 
-    @Override
     public void setX(int x) {
         this.x = x;
     }
 
-    @Override
     public void setY(int y) {
         this.y = y;
     }
 
-    @Override
     public void setOrientation(int orientation) {
         this.orientation = orientation;
     }
@@ -34,8 +33,7 @@ public class Zodiac implements BateauDeux {
         this.taille = taille;
     }
 
-    @Override
-    public void setCases(int[] cases) {
+    public void setCases(Case cases[]) {
         this.cases = cases;
     }
 
@@ -43,7 +41,7 @@ public class Zodiac implements BateauDeux {
         return taille;
     }
 
-    public int[] getCases() {
+    public Case[] getCases() {
         return cases;
     }
 

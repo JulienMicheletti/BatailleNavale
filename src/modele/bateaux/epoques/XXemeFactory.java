@@ -1,5 +1,6 @@
 package modele.bateaux.epoques;
 
+import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 import modele.bateaux.bateauCinq.BateauCinq;
 import modele.bateaux.bateauDeux.BateauDeux;
@@ -10,22 +11,22 @@ public class XXemeFactory implements ShipFactory {
 
 
     @Override
-    public BateauCinq getBateauCinq(int x, int y, int orientation, int[] cases) {
+    public BateauCinq getBateauCinq(int x, int y, int orientation, Case cases[]) {
         return null;
     }
 
     @Override
-    public BateauDeux getBateauDeux(int x, int y, int orientation, int[] cases) {
+    public BateauDeux getBateauDeux(int x, int y, int orientation, Case cases[]) {
         return null;
     }
 
     @Override
-    public BateauTrois getBateauTrois(int x, int y, int orientation, int[] cases) {
+    public BateauTrois getBateauTrois(int x, int y, int orientation, Case cases[]) {
         return null;
     }
 
     @Override
-    public BateauQuatre getBateauQuatre(int x, int y, int orientation, int[] cases) {
+    public BateauQuatre getBateauQuatre(int x, int y, int orientation, Case cases[]) {
         return null;
     }
 }

@@ -6,10 +6,8 @@ import modele.bateaux.bateauQuatre.BateauQuatre;
 import modele.bateaux.bateauTrois.BateauTrois;
 
 public interface ShipFactory {
-    public BateauCinq getBateauCinq(int x, int y, int orientation, int cases[]);
-    public BateauDeux getBateauDeux(int x, int y, int orientation, int cases[]);
-    public BateauTrois getBateauTrois(int x, int y, int orientation, int cases[]);
-    public BateauQuatre getBateauQuatre(int x, int y, int orientation, int cases[]);
-
-
+    public BateauCinq getBateauCinq(int x, int y, int orientation, Case cases[]);
+    public BateauDeux getBateauDeux(int x, int y, int orientation, Case cases[]);
+    public BateauTrois getBateauTrois(int x, int y, int orientation, Case cases[]);
+    public BateauQuatre getBateauQuatre(int x, int y, int orientation, Case cases[]);
 }
