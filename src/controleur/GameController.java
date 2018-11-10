@@ -19,6 +19,7 @@ public class GameController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Vous avez cliqué sur la case("+x+", "+y+")");
+        System.out.println("Vous avez cliqué sur la case("+x+", "+y+")"
+        );
     }
 }
