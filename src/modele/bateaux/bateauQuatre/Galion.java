@@ -3,6 +3,8 @@ package modele.bateaux.bateauQuatre;
 import modele.bateaux.Case;
 
 public class Galion implements BateauQuatre {
+
+    @Override
     public int getX() {
         return 0;
     }
@@ -19,14 +21,7 @@ public class Galion implements BateauQuatre {
         return 0;
     }
     public void setX(int x) { }
-    public void setY(int y) {
-
-    }
-    public void setOrientation(int orientation) {
-
-    }
-
-    public void setCases(Case cases[]) {
-
-    }
+    public void setY(int y) { }
+    public void setOrientation(int orientation) { }
+    public void setCases(Case cases[]) { }
 }

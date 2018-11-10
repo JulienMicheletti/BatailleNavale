@@ -3,6 +3,7 @@ package modele.joueurs;
 import modele.Plateau;
 
 public abstract class Acteur {
+
     private Plateau plateau;
 
     public Acteur(){

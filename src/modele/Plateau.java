@@ -1,6 +1,7 @@
 package modele;
 
 public class Plateau {
+
     private int[][] plateau;
 
     public Plateau(){

@@ -1,20 +1,19 @@
 package modele.bateaux.bateauTrois;
 
 import modele.bateaux.Case;
-import modele.bateaux.bateauDeux.BateauDeux;
 
 public class Intercepter implements BateauTrois {
+
     public int x;
     public int y;
     public int orientation;
-    public int taille;
     public Case cases[];
+    public final int taille = 3;
 
-    public Intercepter(int x, int y, int orientation, Case cases[]){
+    public Intercepter(int x, int y, int orientation, Case[] cases){
         this.x = x;
         this.y = y;
         this.orientation = orientation;
-        taille = 5;
         this.cases = cases;
     }
 
@@ -28,10 +27,6 @@ public class Intercepter implements BateauTrois {
 
     public void setOrientation(int orientation) {
         this.orientation = orientation;
-    }
-
-    public void setTaille(int taille) {
-        this.taille = taille;
     }
 
     public void setCases(Case cases[]) {

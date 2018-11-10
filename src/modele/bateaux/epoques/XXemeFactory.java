@@ -9,7 +9,6 @@ import modele.bateaux.bateauTrois.BateauTrois;
 
 public class XXemeFactory implements ShipFactory {
 
-
     @Override
     public BateauCinq getBateauCinq(int x, int y, int orientation, Case cases[]) {
         return null;

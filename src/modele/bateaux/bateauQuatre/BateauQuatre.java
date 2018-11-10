@@ -12,5 +12,4 @@ public interface BateauQuatre {
     public void setY(int y);
     public void setOrientation(int orientation);
     public void setCases(Case cases[]);
-
 }

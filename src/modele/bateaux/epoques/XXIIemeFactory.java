@@ -12,6 +12,7 @@ import modele.bateaux.bateauTrois.BateauTrois;
 import modele.bateaux.bateauTrois.Intercepter;
 
 public class XXIIemeFactory implements ShipFactory {
+
     public BateauCinq getBateauCinq(int x, int y, int orientation, Case[] cases) {
         return new Commander(x, y, orientation, cases);
     }

@@ -3,6 +3,7 @@ package modele.bateaux.bateauTrois;
 import modele.bateaux.Case;
 
 public class Furtif implements BateauTrois {
+
     public int getX() {
         return 0;
     }
@@ -19,15 +20,7 @@ public class Furtif implements BateauTrois {
         return 0;
     }
     public void setX(int x) { }
-    public void setY(int y) {
-
-    }
-    public void setOrientation(int orientation) {
-
-    }
-
-    public void setCases(Case cases[]) {
-
-    }
-
+    public void setY(int y) { }
+    public void setOrientation(int orientation) { }
+    public void setCases(Case cases[]) { }
 }

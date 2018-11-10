@@ -1,15 +1,13 @@
 package vue;
 
 import controleur.GameController;
-import controleur.PositionController;
-import javafx.beans.Observable;
 import modele.GameManager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Observer;
 
 public class VuePlateaux extends JPanel implements Observer {
+
     protected JButton boardJoueur[][] = new JButton[10][10];
     protected JButton boardAdversaire[][] = new JButton[10][10];
     private GameManager gm;
@@ -29,7 +27,6 @@ public class VuePlateaux extends JPanel implements Observer {
     public void setAffichage(){
 
         this.setLayout(new GridLayout(2, 0));
-
         this.add(contentIAdversaire);
         this.add(contentJoueur);
 

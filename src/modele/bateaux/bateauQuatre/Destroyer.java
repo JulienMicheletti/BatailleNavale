@@ -1,20 +1,19 @@
 package modele.bateaux.bateauQuatre;
 
 import modele.bateaux.Case;
-import modele.bateaux.bateauDeux.BateauDeux;
 
 public class Destroyer implements BateauQuatre {
+
     public int x;
     public int y;
     public int orientation;
-    public int taille;
+    public final int taille = 4;
     public Case cases[];
 
     public Destroyer(int x, int y, int orientation, Case cases[]){
         this.x = x;
         this.y = y;
         this.orientation = orientation;
-        taille = 5;
         this.cases = cases;
     }
 
@@ -28,10 +27,6 @@ public class Destroyer implements BateauQuatre {
 
     public void setOrientation(int orientation) {
         this.orientation = orientation;
-    }
-
-    public void setTaille(int taille) {
-        this.taille = taille;
     }
 
     public void setCases(Case cases[]) {

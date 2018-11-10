@@ -1,7 +1,6 @@
 package vue;
 
 import controleur.PositionController;
-import javafx.beans.Observable;
 import modele.GameManager;
 
 import javax.swing.*;

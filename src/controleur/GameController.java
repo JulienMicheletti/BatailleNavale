@@ -2,11 +2,11 @@ package controleur;
 
 
 import modele.GameManager;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameController implements ActionListener{
+
     private GameManager gameManager;
     private int x;
     private int y;
@@ -19,7 +19,6 @@ public class GameController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Vous avez cliqué sur la case("+x+", "+y+")"
-        );
+        System.out.println("Vous avez cliqué sur la case("+x+", "+y+")");
     }
 }

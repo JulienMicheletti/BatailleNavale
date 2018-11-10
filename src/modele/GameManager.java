@@ -3,7 +3,6 @@ package modele;
 import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 import modele.bateaux.bateauCinq.BateauCinq;
-import modele.bateaux.bateauCinq.Commander;
 import modele.bateaux.bateauDeux.BateauDeux;
 import modele.bateaux.bateauQuatre.BateauQuatre;
 import modele.bateaux.bateauTrois.BateauTrois;
@@ -12,10 +11,10 @@ import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Observable;
 
 public class GameManager extends Observable implements Serializable{
+
     private static int BATEAUDEUX = 2;
     private static int BATEAUTROIS= 3;
     private static int BATEAUQUATRE = 4;

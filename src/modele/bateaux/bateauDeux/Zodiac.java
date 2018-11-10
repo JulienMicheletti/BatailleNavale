@@ -3,17 +3,17 @@ package modele.bateaux.bateauDeux;
 import modele.bateaux.Case;
 
 public class Zodiac implements BateauDeux {
+
     public int x;
     public int y;
     public int orientation;
-    public int taille;
     public Case cases[];
+    public final int taille = 2;
 
     public Zodiac(int x, int y, int orientation, Case cases[]){
         this.x = x;
         this.y = y;
         this.orientation = orientation;
-        taille = 5;
         this.cases = cases;
     }
 
@@ -27,10 +27,6 @@ public class Zodiac implements BateauDeux {
 
     public void setOrientation(int orientation) {
         this.orientation = orientation;
-    }
-
-    public void setTaille(int taille) {
-        this.taille = taille;
     }
 
     public void setCases(Case cases[]) {
