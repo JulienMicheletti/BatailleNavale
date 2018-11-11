@@ -1,5 +1,6 @@
 package modele.bateaux.bateauQuatre;
 
+import modele.GameManager;
 import modele.bateaux.Case;
 
 public class Croiseur implements BateauQuatre {
@@ -10,11 +11,11 @@ public class Croiseur implements BateauQuatre {
     public final int taille = 4;
     public Case cases[];
 
-    public Croiseur(int x, int y, int orientation, Case cases[]){
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
-        this.cases = cases;
+    public Croiseur(){
+        this.x = 0;
+        this.y = 0;
+        this.orientation = GameManager.HORIZONTAL;
+        this.cases = new Case[taille];
     }
 
     public void setX(int x) {
@@ -35,6 +36,11 @@ public class Croiseur implements BateauQuatre {
 
     public int getTaille() {
         return taille;
+    }
+
+    @Override
+    public void setCoord(int x, int y) {
+
     }
 
     public Case[] getCases() {

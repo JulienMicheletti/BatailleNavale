@@ -1,5 +1,6 @@
 package modele.bateaux.bateauTrois;
 
+import modele.GameManager;
 import modele.bateaux.Case;
 
 public class Furtif implements BateauTrois {
@@ -10,11 +11,11 @@ public class Furtif implements BateauTrois {
     public Case cases[];
     public final int taille = 3;
 
-    public Furtif(int x, int y, int orientation, Case[] cases){
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
-        this.cases = cases;
+    public Furtif(){
+        this.x = 0;
+        this.y = 0;
+        this.orientation = GameManager.HORIZONTAL;
+        this.cases = new Case[taille];
     }
 
     public void setX(int x) {
@@ -35,6 +36,11 @@ public class Furtif implements BateauTrois {
 
     public int getTaille() {
         return taille;
+    }
+
+    @Override
+    public void setCoord(int x, int y) {
+
     }
 
     public Case[] getCases() {

@@ -30,7 +30,7 @@ public class PositionController implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("Case("+x+", "+y+")");
+        gm.setSelection(x, y);
     }
 
     @Override

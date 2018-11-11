@@ -11,10 +11,10 @@ public class VueGeneral implements Observer {
     public VueGeneral(GameManager gm){
         JFrame f=new JFrame();
         f.setTitle("Bataille Navale");
-        f.setPreferredSize(new Dimension(600,1000));
+        f.setPreferredSize(new Dimension(800,800));
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setContentPane(new VuePlateaux(gm));
+        f.setContentPane(new VueSelection(gm));
         f.pack();
         f.setVisible(true);
     }

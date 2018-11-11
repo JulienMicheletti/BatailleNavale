@@ -14,22 +14,22 @@ import modele.bateaux.bateauTrois.Furtif;
 public class XXemeFactory implements ShipFactory {
 
     @Override
-    public BateauCinq getBateauCinq(int x, int y, int orientation, Case cases[]) {
-        return new PorteAvion(x, y, orientation, cases);
+    public BateauCinq getBateauCinq() {
+        return new PorteAvion();
     }
 
     @Override
-    public BateauDeux getBateauDeux(int x, int y, int orientation, Case cases[]) {
-        return new Zodiac(x, y, orientation, cases);
+    public BateauDeux getBateauDeux() {
+        return new Zodiac();
     }
 
     @Override
-    public BateauTrois getBateauTrois(int x, int y, int orientation, Case cases[]) {
-        return new Furtif(x, y, orientation, cases);
+    public BateauTrois getBateauTrois() {
+        return new Furtif();
     }
 
     @Override
-    public BateauQuatre getBateauQuatre(int x, int y, int orientation, Case cases[]) {
-        return new Croiseur(x, y, orientation, cases);
+    public BateauQuatre getBateauQuatre() {
+        return new Croiseur();
     }
 }

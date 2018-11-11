@@ -15,56 +15,54 @@ import java.util.Observable;
 
 public class GameManager extends Observable implements Serializable{
 
-    private static int BATEAUDEUX = 2;
-    private static int BATEAUTROIS= 3;
-    private static int BATEAUQUATRE = 4;
-    private static int BATEAUCINQ = 5;
+    public static int BATEAUDEUX = 2;
+    public static int BATEAUTROIS1 = 31;
+    public static int BATEAUTROIS2 = 32;
+    public static int BATEAUQUATRE = 4;
+    public static int BATEAUCINQ = 5;
+    public static int HORIZONTAL = 10;
+    public static int VERTICAL = 11;
     private Joueur playerH;
     private JoueurIA playerIA;
-    private BateauQuatre bateauQuatre;
-    private BateauTrois bateauTrois;
-    private BateauCinq bateauCinq;
-    private BateauDeux bateauDeux;
     private int orientation;
     private int taille;
+    private Case[] selectionBateau;
     private ShipFactory epoque;
 
     public GameManager(){
         this.playerH = new Joueur();
         this.playerIA = new JoueurIA();
+        this.orientation = GameManager.HORIZONTAL;
+        this.taille = -1;
         epoque = new XXIIemeFactory();
-        bateauDeux = epoque.getBateauDeux(0, 0, orientation, null);
-        bateauTrois = epoque.getBateauTrois(0, 0, orientation, null);
-        bateauQuatre = epoque.getBateauQuatre(0, 0, orientation, null);
-        bateauCinq = epoque.getBateauCinq(0, 0, orientation, null);
+        this.playerH.setFactory(epoque);
     }
 
     public void setOrientation(int orientation){
         this.orientation = orientation;
+        this.playerH.setOrientation(orientation);
     }
 
     public void setTaille(int taille){
         this.taille = taille;
     }
 
-    public void positionnerBateau(int x, int y, Case cases[], int taille) {
-        if (taille == BATEAUDEUX) {
-            bateauDeux.setX(x);
-            bateauDeux.setY(y);
-            bateauDeux.setCases(cases);
-        } else if (taille == BATEAUTROIS) {
-            bateauTrois.setX(x);
-            bateauTrois.setY(y);
-            bateauTrois.setCases(cases);
-        } else if (taille == BATEAUQUATRE) {
-            bateauQuatre.setX(x);
-            bateauQuatre.setY(y);
-            bateauQuatre.setCases(cases);
-        } else if (taille == BATEAUCINQ) {
-            bateauCinq.setX(x);
-            bateauCinq.setY(y);
-            bateauCinq.setCases(cases);
+    public void setSelection(int x, int y){
+        if (taille != -1) {
+            if (this.playerH.setSelection(x, y, this.taille)) {
+                this.selectionBateau = this.playerH.getSelection(taille);
+                setChanged();
+                notifyObservers();
+            }
         }
+    }
+
+    public void validerSelection() {
+        taille = -1;
+    }
+
+    public Case[] getSelectionBateau() {
+        return selectionBateau;
     }
 
     public int[][] getPlayerPlateau(){

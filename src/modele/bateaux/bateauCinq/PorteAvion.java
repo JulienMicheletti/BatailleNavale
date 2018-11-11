@@ -1,5 +1,6 @@
 package modele.bateaux.bateauCinq;
 
+import modele.GameManager;
 import modele.bateaux.Case;
 
 public class PorteAvion implements BateauCinq {
@@ -10,11 +11,11 @@ public class PorteAvion implements BateauCinq {
     public Case cases[];
     public final int taille = 5;
 
-    public PorteAvion(int x, int y, int orientation, Case[] cases){
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
-        this.cases = cases;
+    public PorteAvion(){
+        this.x = 0;
+        this.y = 0;
+        this.orientation = GameManager.HORIZONTAL;
+        this.cases = new Case[taille];
     }
 
     public void setX(int x) {
@@ -35,6 +36,11 @@ public class PorteAvion implements BateauCinq {
 
     public int getTaille() {
         return taille;
+    }
+
+    @Override
+    public boolean setCoord(int x, int y) {
+return false;
     }
 
     public Case[] getCases() {

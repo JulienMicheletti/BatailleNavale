@@ -1,5 +1,6 @@
 package modele.bateaux.bateauQuatre;
 
+import modele.GameManager;
 import modele.bateaux.Case;
 
 public class Destroyer implements BateauQuatre {
@@ -10,11 +11,15 @@ public class Destroyer implements BateauQuatre {
     public final int taille = 4;
     public Case cases[];
 
-    public Destroyer(int x, int y, int orientation, Case cases[]){
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
-        this.cases = cases;
+    public Destroyer(){
+        this.x = 0;
+        this.y = 0;
+        this.orientation = GameManager.HORIZONTAL;
+        this.cases = new Case[taille];
+    }
+
+    public void setCoord(int x, int y){
+
     }
 
     public void setX(int x) {

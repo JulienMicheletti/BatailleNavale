@@ -13,19 +13,19 @@ import modele.bateaux.bateauTrois.TroisMats;
 
 public class XVIemeFactory implements ShipFactory {
 
-    public BateauCinq getBateauCinq(int x, int y, int orientation, Case cases[]) {
-        return new Galeasse(x, y, orientation, cases);
+    public BateauCinq getBateauCinq() {
+        return new Galeasse();
     }
 
-    public BateauDeux getBateauDeux(int x, int y, int orientation, Case cases[]) {
-        return new Voilier(x, y, orientation, cases);
+    public BateauDeux getBateauDeux() {
+        return new Voilier();
     }
 
-    public BateauTrois getBateauTrois(int x, int y, int orientation, Case cases[]) {
-        return new TroisMats(x, y, orientation, cases);
+    public BateauTrois getBateauTrois() {
+        return new TroisMats();
     }
 
-    public BateauQuatre getBateauQuatre(int x, int y, int orientation, Case cases[]) {
-        return new Galion(x, y, orientation, cases);
+    public BateauQuatre getBateauQuatre() {
+        return new Galion();
     }
 }

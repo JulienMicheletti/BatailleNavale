@@ -13,19 +13,19 @@ import modele.bateaux.bateauTrois.Intercepter;
 
 public class XXIIemeFactory implements ShipFactory {
 
-    public BateauCinq getBateauCinq(int x, int y, int orientation, Case[] cases) {
-        return new Commander(x, y, orientation, cases);
+    public BateauCinq getBateauCinq() {
+        return new Commander();
     }
 
-    public BateauDeux getBateauDeux(int x, int y, int orientation, Case[] cases) {
-        return new Pedalo(x, y, orientation, cases);
+    public BateauDeux getBateauDeux() {
+        return new Pedalo();
     }
 
-    public BateauTrois getBateauTrois(int x, int y, int orientation, Case[] cases) {
-        return new Intercepter(x, y, orientation, cases);
+    public BateauTrois getBateauTrois() {
+        return new Intercepter();
     }
 
-    public BateauQuatre getBateauQuatre(int x, int y, int orientation, Case[] cases) {
-        return new Destroyer(x, y, orientation, cases);
+    public BateauQuatre getBateauQuatre() {
+        return new Destroyer();
     }
 }
