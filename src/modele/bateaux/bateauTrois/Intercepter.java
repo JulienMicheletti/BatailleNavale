@@ -16,6 +16,8 @@ public class Intercepter implements BateauTrois {
         this.y = 0;
         this.orientation = GameManager.HORIZONTAL;
         this.cases = new Case[taille];
+        for (int i = 0; i < taille; i++)
+            this.cases[i] = new Case(0, 0);
     }
 
     public void setX(int x) {
@@ -39,8 +41,25 @@ public class Intercepter implements BateauTrois {
     }
 
     @Override
-    public void setCoord(int x, int y) {
-
+    public boolean setCoord(int x, int y) {
+        if (orientation == GameManager.HORIZONTAL){
+            if (x + 1 <= 9 && x - 1 >= 0){
+                this.cases[0].setCoord(x-1, y);
+                this.cases[1].setCoord(x, y);
+                this.cases[2].setCoord(x+1, y);
+                return true;
+            }
+            return false;
+        } else if (orientation == GameManager.VERTICAL){
+            if (y+1 <= 9 && y-1 >= 0){
+                this.cases[0].setCoord(x, y-1);
+                this.cases[1].setCoord(x, y);
+                this.cases[2].setCoord(x, y+1);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     public Case[] getCases() {

@@ -18,6 +18,7 @@ public class PositionController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        gm.validerSelection();
     }
 
     @Override

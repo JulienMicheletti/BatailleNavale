@@ -58,7 +58,14 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public void validerSelection() {
+        taille = 0;
+        setChanged();
+        notifyObservers();
         taille = -1;
+    }
+
+    public int getTaille(){
+        return taille;
     }
 
     public Case[] getSelectionBateau() {

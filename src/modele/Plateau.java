@@ -36,14 +36,11 @@ public class Plateau {
 
     public boolean setSelection(int x, int y, int taille){
         if (taille == GameManager.BATEAUDEUX){
-            bateauDeux.setX(x);
-            bateauDeux.setY(y);
+            return bateauDeux.setCoord(x,y);
         } else if (taille == GameManager.BATEAUTROIS1){
-            bateauTrois.setX(x);
-            bateauTrois.setY(y);
+            return bateauTrois.setCoord(x, y);
         } else if (taille == GameManager.BATEAUQUATRE){
-            bateauQuatre.setX(x);
-            bateauQuatre.setY(y);
+            return bateauQuatre.setCoord(x, y);
         } else if (taille == GameManager.BATEAUCINQ){
             return bateauCinq.setCoord(x, y);
         }
@@ -52,11 +49,11 @@ public class Plateau {
 
     public Case[] getSelection(int taille){
         if (taille == GameManager.BATEAUDEUX){
-
+            return bateauDeux.getCases();
         } else if (taille == GameManager.BATEAUTROIS1){
-
+            return bateauTrois.getCases();
         } else if (taille == GameManager.BATEAUQUATRE){
-
+            return bateauQuatre.getCases();
         } else if (taille == GameManager.BATEAUCINQ){
             return bateauCinq.getCases();
         }

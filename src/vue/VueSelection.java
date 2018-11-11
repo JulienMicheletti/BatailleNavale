@@ -98,14 +98,23 @@ public class VueSelection extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        for (int i = 0; i < boardJoueur.length; i++){
-            for (int j = 0; j < boardJoueur[i].length; j++){
-                boardJoueur[i][j].setBackground(null);
+        if (gameManager.getTaille() >= 2) {
+            for (int i = 0; i < boardJoueur.length; i++) {
+                for (int j = 0; j < boardJoueur[i].length; j++) {
+                    if (!boardJoueur[i][j].getBackground().equals(Color.GREEN))
+                        boardJoueur[i][j].setBackground(null);
+                }
             }
-        }
-        Case[] selection = gameManager.getSelectionBateau();
-        for (Case c : selection){
-            boardJoueur[c.getY()][c.getX()].setBackground(Color.BLUE);
+            Case[] selection = gameManager.getSelectionBateau();
+            for (Case c : selection) {
+                if (!boardJoueur[c.getY()][c.getX()].getBackground().equals(Color.GREEN))
+                    boardJoueur[c.getY()][c.getX()].setBackground(Color.BLUE);
+            }
+        } else if (gameManager.getTaille() == 0){
+            Case[] selection = gameManager.getSelectionBateau();
+            for (Case c : selection) {
+                boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
+            }
         }
     }
 }
