@@ -17,7 +17,12 @@ public class Destroyer implements BateauQuatre {
         this.orientation = GameManager.HORIZONTAL;
         this.cases = new Case[taille];
         for (int i = 0; i < taille; i++)
-            this.cases[i] = new Case(0, 0);
+            this.cases[i] = new Case(-1, -1);
+    }
+
+    public void resetPos(){
+        for (int i = 0; i < taille; i++)
+            this.cases[i] = new Case(-1,-1);
     }
 
     public boolean setCoord(int x, int y){
