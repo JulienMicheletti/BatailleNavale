@@ -10,20 +10,23 @@ public class GameController implements ActionListener{
     private GameManager gameManager;
     private int x;
     private int y;
-    private boolean currentplayer;
+    private boolean current;
 
-    public GameController(GameManager gm, int x, int y, boolean self){
+    public GameController(GameManager gm, int x, int y, boolean current){
         this.gameManager = gm;
         this.x = x;
         this.y = y;
-        this.currentplayer = self;
+        this.current = current;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (this.currentplayer) {
-            System.out.println("Vous avez cliqué sur la case(" + x + ", " + y + ") de votre plateau.");
-        } else {
+        if (/**gameManager.getCurrentPlayer() == true && **/current == true) {
+            System.out.println("P1Vous avez cliqué sur la case(" + x + ", " + y + ") de votre plateau.");
+            gameManager.tirer(x+1, y+1);
+            gameManager.setCurrentPlayer(false);
+        } else if (/**gameManager.getCurrentPlayer() == false &&**/ current == false){
+            gameManager.setCurrentPlayer(true);
             System.out.println("Vous avez cliqué sur la case(" + x + ", " + y + ") du plateau adverse.");
         }
     }

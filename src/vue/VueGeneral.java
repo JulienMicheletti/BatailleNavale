@@ -14,7 +14,7 @@ public class VueGeneral implements Observer {
         f.setPreferredSize(new Dimension(800,800));
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setContentPane(new VueSelection(gm));
+        f.setContentPane(new VuePlateaux(gm));
         f.pack();
         f.setVisible(true);
     }

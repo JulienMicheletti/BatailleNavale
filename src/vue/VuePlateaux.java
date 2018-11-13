@@ -23,32 +23,12 @@ public class VuePlateaux extends JPanel implements Observer {
         this.contentIAdversaire = new JPanel();
         this.contentJoueur = new JPanel();
         this.afficheur = new JPanel();
-        this.selectionBateau = new JPanel();
+       // this.selectionBateau = new JPanel();
         setAffichage();
     }
 
     public void setAffichage(){
-        this.setLayout(new GridLayout(3, 0));
-
-        //Panel for boat selection, will be replaced by another Panel when
-        ButtonGroup bg = new ButtonGroup();
-        JRadioButton br1 = new JRadioButton("Bateau de 2 cases");
-        JRadioButton br2 = new JRadioButton("Bateau de 3 cases");
-        JRadioButton br3 = new JRadioButton("Bateau de 4 cases");
-        bg.add(br1);
-        bg.add(br2);
-        bg.add(br3);
-        br1.setSelected(true);
-        JButton confirmation = new JButton("Confirmer");
-        this.selectionBateau.add(Box.createVerticalStrut(50));
-        this.selectionBateau.add(new JLabel("Coucou, pose tes bateaux fdp"));
-        this.selectionBateau.add(Box.createHorizontalStrut(500));
-        this.selectionBateau.add(br1);
-        this.selectionBateau.add(br2);
-        this.selectionBateau.add(br3);
-        this.selectionBateau.add(Box.createHorizontalStrut(30));
-        this.selectionBateau.add(Box.createVerticalStrut(150));
-        this.selectionBateau.add(confirmation);
+        this.setLayout(new GridLayout(2, 0));
 
         //Board parts for self and CPU
         contentIAdversaire.setLayout(new GridLayout(11, 11));
@@ -73,8 +53,8 @@ public class VuePlateaux extends JPanel implements Observer {
                 boardAdversaire[i][j] = new JButton();
                 boardAdversaire[i][j].setEnabled(false);
                 boardJoueur[i][j] = new JButton();
-                boardAdversaire[i][j].addActionListener(new GameController(gm, j, i,false));
-                boardJoueur[i][j].addActionListener(new GameController(gm, j, i,true));
+                boardAdversaire[i][j].addActionListener(new GameController(gm, j, i, false));
+                boardJoueur[i][j].addActionListener(new GameController(gm, j, i, true));
                 contentIAdversaire.add(boardAdversaire[i][j]);
                 contentJoueur.add(boardJoueur[i][j]);
             }
@@ -82,13 +62,12 @@ public class VuePlateaux extends JPanel implements Observer {
 
         //End of initialisation, show Panels
         this.add(contentIAdversaire);
-        this.add(this.selectionBateau);
         this.add(contentJoueur);
 
     }
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-
+        boardJoueur[gm.getToucheeX()-1][gm.getToucheeY()-1].setBackground(Color.red);
     }
 }
