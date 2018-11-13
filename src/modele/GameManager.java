@@ -75,4 +75,14 @@ public class GameManager extends Observable implements Serializable{
     public int[][] getPlayerPlateau(){
         return playerH.getPlateau();
     }
+
+    public void switchOrientation() {
+        if (this.orientation == GameManager.HORIZONTAL){
+            this.orientation = GameManager.VERTICAL;
+            this.playerH.setOrientation(GameManager.VERTICAL);
+        }else{
+            this.orientation = GameManager.HORIZONTAL;
+            this.playerH.setOrientation(GameManager.HORIZONTAL);
+        }
+    }
 }
