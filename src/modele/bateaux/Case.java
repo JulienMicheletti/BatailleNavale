@@ -4,15 +4,25 @@ public class Case {
 
     private int x;
     private int y;
+    private boolean toucher;
 
     public Case(int x, int y){
         this.x = x;
         this.y = y;
+        toucher = false;
     }
 
     public void setCoord(int x, int y){
         this.x =x;
         this.y =y;
+    }
+
+    public void setToucher(){
+        toucher = false;
+    }
+
+    public boolean getToucher(){
+        return toucher;
     }
 
     public int getX() {

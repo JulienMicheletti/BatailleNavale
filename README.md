@@ -10,3 +10,4 @@ EDIT :
 -ActionListener implements au lieu de extends
 -Classes avec des chiffres dans le nom en chiffre romain
 -Implements au lieu de extends pour les factory
+-Ajout d'une classe case
