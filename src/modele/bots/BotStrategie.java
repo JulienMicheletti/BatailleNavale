@@ -1,4 +1,9 @@
 package modele.bots;
 
-public interface BotStrategie{
+import modele.joueurs.JoueurIA;
+
+public interface BotStrategie {
+
+    public int[] viser(int[][] plateau);
+
 }
