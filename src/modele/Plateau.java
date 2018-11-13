@@ -12,6 +12,7 @@ public class Plateau {
     private ShipFactory shipFactory;
     private BateauQuatre bateauQuatre;
     private BateauTrois bateauTrois;
+    private BateauTrois bateauTroisDeux;
     private BateauCinq bateauCinq;
     private BateauDeux bateauDeux;
 
@@ -23,6 +24,7 @@ public class Plateau {
         this.shipFactory = factory;
         bateauDeux = shipFactory.getBateauDeux();
         bateauTrois = shipFactory.getBateauTrois();
+        bateauTroisDeux = shipFactory.getBateauTrois();
         bateauQuatre = shipFactory.getBateauQuatre();
         bateauCinq = shipFactory.getBateauCinq();
     }
@@ -30,6 +32,7 @@ public class Plateau {
     public void setOrientation(int orientation){
         bateauDeux.setOrientation(orientation);
         bateauTrois.setOrientation(orientation);
+        bateauTroisDeux.setOrientation(orientation);
         bateauQuatre.setOrientation(orientation);
         bateauCinq.setOrientation(orientation);
     }
@@ -39,6 +42,8 @@ public class Plateau {
             return bateauDeux.setCoord(x,y);
         } else if (taille == GameManager.BATEAUTROIS1){
             return bateauTrois.setCoord(x, y);
+        } else if (taille == GameManager.BATEAUTROIS2){
+            return bateauTroisDeux.setCoord(x, y);
         } else if (taille == GameManager.BATEAUQUATRE){
             return bateauQuatre.setCoord(x, y);
         } else if (taille == GameManager.BATEAUCINQ){
@@ -52,6 +57,8 @@ public class Plateau {
             return bateauDeux.getCases();
         } else if (taille == GameManager.BATEAUTROIS1){
             return bateauTrois.getCases();
+        } else if (taille == GameManager.BATEAUTROIS2){
+            return bateauTroisDeux.getCases();
         } else if (taille == GameManager.BATEAUQUATRE){
             return bateauQuatre.getCases();
         } else if (taille == GameManager.BATEAUCINQ){

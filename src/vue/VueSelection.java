@@ -24,18 +24,11 @@ public class VueSelection extends JPanel implements Observer {
         this.gameManager = gm;
         this.board = new JPanel();
         this.options = new JPanel();
-        this.horizontal = new JRadioButton("Horizontal");
-        this.vertical = new JRadioButton("Vertical");
-        this.position = new ButtonGroup();
-        this.position.add(horizontal);
-        this.position.add(vertical);
-        this.horizontal.setSelected(true);
         setAffichage();
     }
 
     public void setAffichage(){
         this.setLayout(new BorderLayout());
-
         board.setLayout(new GridLayout(11, 11));
         options.setLayout(new GridLayout(7, 1));
         for (int i = 0; i < 11; i++){
@@ -57,8 +50,8 @@ public class VueSelection extends JPanel implements Observer {
         }
 
         bateaux[0] = new JButton("Bateau 2");
-        bateaux[1] = new JButton("Bateau 3_1");
-        bateaux[2] = new JButton("Bateau 3_2");
+        bateaux[1] = new JButton("Bateau 3(1)");
+        bateaux[2] = new JButton("Bateau 3(2)");
         bateaux[3] = new JButton("Bateau 4");
         bateaux[4] = new JButton("Bateau 5");
         bateaux[0].addActionListener(e -> {
@@ -81,16 +74,7 @@ public class VueSelection extends JPanel implements Observer {
         options.add(bateaux[2]);
         options.add(bateaux[3]);
         options.add(bateaux[4]);
-
-        horizontal.addActionListener(e ->{
-            gameManager.setOrientation(GameManager.HORIZONTAL);
-        });
-        vertical.addActionListener(e -> {
-            gameManager.setOrientation(GameManager.VERTICAL);
-
-        });
-        options.add(horizontal);
-        options.add(vertical);
+        options.add(new JLabel("Right click to rotate."));
 
         this.add(board, BorderLayout.CENTER);
         this.add(options, BorderLayout.EAST);
@@ -107,8 +91,12 @@ public class VueSelection extends JPanel implements Observer {
             }
             Case[] selection = gameManager.getSelectionBateau();
             for (Case c : selection) {
-                if (!boardJoueur[c.getY()][c.getX()].getBackground().equals(Color.GREEN))
+                if (!boardJoueur[c.getY()][c.getX()].getBackground().equals(Color.GREEN)){
                     boardJoueur[c.getY()][c.getX()].setBackground(Color.BLUE);
+                }else{
+                    boardJoueur[c.getY()][c.getX()].setBackground(Color.RED);
+                }
+
             }
         } else if (gameManager.getTaille() == 0){
             Case[] selection = gameManager.getSelectionBateau();

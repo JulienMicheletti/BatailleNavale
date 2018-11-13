@@ -1,6 +1,8 @@
 package controleur;
 
 import modele.GameManager;
+
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,7 +20,11 @@ public class PositionController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        gm.validerSelection();
+        if (SwingUtilities.isLeftMouseButton(e)) gm.validerSelection();
+        if (SwingUtilities.isRightMouseButton(e)){
+            gm.switchOrientation();
+            gm.setSelection(x, y);
+        }
     }
 
     @Override
