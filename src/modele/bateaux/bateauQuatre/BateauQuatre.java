@@ -3,6 +3,7 @@ package modele.bateaux.bateauQuatre;
 import modele.bateaux.Case;
 
 public interface BateauQuatre {
+    public void resetPos();
     public int getX();
     public int getY();
     public int getOrientation();

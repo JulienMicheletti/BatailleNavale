@@ -30,4 +30,11 @@ public class Case {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Case tocheck = (Case)obj;
+        //System.out.println(this.x+ "=="+tocheck.getX()+"/"+this.y+"=="+tocheck.getY());
+        return (this.x == tocheck.getX() && this.y == tocheck.getY());
+    }
 }

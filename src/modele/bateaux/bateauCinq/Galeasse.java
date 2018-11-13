@@ -16,11 +16,13 @@ public class Galeasse implements BateauCinq {
         this.y = 0;
         this.orientation = GameManager.HORIZONTAL;
         this.cases = new Case[taille];
-        this.cases[0] = new Case(0,0);
-        this.cases[1] = new Case(0,0);
-        this.cases[2] = new Case(0,0);
-        this.cases[3] = new Case(0,0);
-        this.cases[4] = new Case(0,0);
+        for (int i = 0; i < taille; i++)
+            this.cases[i] = new Case(-1,-1);
+    }
+
+    public void resetPos(){
+        for (int i = 0; i < taille; i++)
+            this.cases[i] = new Case(-1,-1);
     }
 
     public void setX(int x) {

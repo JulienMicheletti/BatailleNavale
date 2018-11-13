@@ -11,6 +11,7 @@ import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class GameManager extends Observable implements Serializable{
@@ -36,6 +37,8 @@ public class GameManager extends Observable implements Serializable{
         this.taille = -1;
         epoque = new XXIIemeFactory();
         this.playerH.setFactory(epoque);
+        this.selectionBateau = new Case[1];
+        this.selectionBateau[0] = new Case(-1, -1);
     }
 
     public void setOrientation(int orientation){
@@ -45,6 +48,11 @@ public class GameManager extends Observable implements Serializable{
 
     public void setTaille(int taille){
         this.taille = taille;
+        this.playerH.resetPos(this.taille);
+        this.selectionBateau = new Case[1];
+        this.selectionBateau[0] = new Case(-1, -1);
+        setChanged();
+        notifyObservers();
     }
 
     public void setSelection(int x, int y){
@@ -58,10 +66,12 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public void validerSelection() {
-        taille = 0;
-        setChanged();
-        notifyObservers();
-        taille = -1;
+        if (this.playerH.validerCase(getSelectionBateau(), taille)) {
+            taille = 0;
+            setChanged();
+            notifyObservers();
+            taille = -1;
+        }
     }
 
     public int getTaille(){
@@ -71,6 +81,8 @@ public class GameManager extends Observable implements Serializable{
     public Case[] getSelectionBateau() {
         return selectionBateau;
     }
+
+    public ArrayList<Case> getCaseValider() { return this.playerH.getCaseValider(this.taille); }
 
     public int[][] getPlayerPlateau(){
         return playerH.getPlateau();

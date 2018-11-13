@@ -4,6 +4,8 @@ import modele.Plateau;
 import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 
+import java.util.ArrayList;
+
 public abstract class Acteur {
     private Plateau plateau;
 
@@ -30,4 +32,10 @@ public abstract class Acteur {
     public Case[] getSelection(int taille){
         return this.plateau.getSelection(taille);
     }
+
+    public boolean validerCase(Case[] cases, int taille){ return this.plateau.valisationCase(cases, taille);}
+
+    public ArrayList<Case> getCaseValider(int taille){ return this.plateau.getCaseToCheck(taille); }
+
+    public void resetPos(int taille){ this.plateau.resetPos(taille);}
 }
