@@ -147,6 +147,7 @@ public class GameManager extends Observable implements Serializable{
         this.launchGame = this.playerH.plateauValide();
         setChanged();
         notifyObservers();
+        this.launchGame = false;
     }
 
     public int getTaille(){
@@ -179,5 +180,9 @@ public class GameManager extends Observable implements Serializable{
             this.orientation = GameManager.HORIZONTAL;
             this.playerH.setOrientation(GameManager.HORIZONTAL);
         }
+    }
+
+    public void caseExited(){
+        this.playerH.resetPos(this.taille);
     }
 }

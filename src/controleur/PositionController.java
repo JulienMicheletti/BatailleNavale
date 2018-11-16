@@ -42,5 +42,6 @@ public class PositionController implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+        this.gm.caseExited();
     }
 }
