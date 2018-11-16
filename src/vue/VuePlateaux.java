@@ -68,6 +68,10 @@ public class VuePlateaux extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        boardJoueur[gm.getToucheeX()-1][gm.getToucheeY()-1].setBackground(Color.red);
+        if (gm.isEst_touche()) {
+            boardJoueur[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.red);
+        }else{
+            boardJoueur[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.black);
+        }
     }
 }

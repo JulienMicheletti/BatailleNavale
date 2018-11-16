@@ -31,7 +31,9 @@ public class GameManager extends Observable implements Serializable{
     private Case[] selectionBateau;
     private ArrayList<Case> casesOccIA;
     private ArrayList<Case> casesOccH;
-    private Case caseTouchee;
+    private int caseViseeX;
+    private int caseViseeY;
+    private boolean est_touche;
     private ShipFactory epoque;
 
     public GameManager(){
@@ -48,35 +50,38 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public void tirer(int x, int y) {
-        boolean est_touche = false;
+        est_touche = false;
         if (currentPlayer == true) {
             for (Case c : casesOccIA) {
                 if (c.getX() == x && c.getY() == y) {
-                    caseTouchee = c;
+                    c.setToucher();
                     est_touche = true;
                 }
             }
         } else if (currentPlayer == false) {
             for (Case c : casesOccH) {
                 if (c.getX() == x && c.getY() == y) {
-                    caseTouchee = c;
+                    c.setToucher();
                     est_touche = true;
                 }
             }
         }
-        if (est_touche){
-            caseTouchee.setToucher();
-            setChanged();
-            notifyObservers();
-        }
+        caseViseeX = x;
+        caseViseeY = y;
+        setChanged();
+        notifyObservers();
     }
 
-    public int getToucheeX(){
-        return caseTouchee.getX();
+    public boolean isEst_touche(){
+        return est_touche;
     }
 
-    public int getToucheeY(){
-        return caseTouchee.getY();
+    public int getViseeX(){
+        return caseViseeX;
+    }
+
+    public int getViseeY(){
+        return caseViseeY;
     }
 
     public void setCurrentPlayer(boolean currentPlayer) {
