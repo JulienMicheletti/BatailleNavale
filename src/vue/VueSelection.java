@@ -6,6 +6,7 @@ import modele.bateaux.Case;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Observer;
 
 public class VueSelection extends JPanel implements Observer {
@@ -45,6 +46,7 @@ public class VueSelection extends JPanel implements Observer {
             for (int j = 0; j < boardJoueur.length; j++){
                 boardJoueur[i][j] = new JButton();
                 boardJoueur[i][j].addMouseListener(new PositionController(this.gameManager, j, i));
+                boardJoueur[i][j].setBackground(Color.CYAN);
                 board.add(boardJoueur[i][j]);
             }
         }
@@ -82,26 +84,33 @@ public class VueSelection extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
+        ArrayList<Case> casesValider = gameManager.getCaseValider();
+
+        for (int i = 0; i < boardJoueur.length; i++){
+            for (int j = 0; j < boardJoueur.length; j++){
+                boardJoueur[i][j].setBackground(Color.CYAN);
+            }
+        }
+        for (Case c : casesValider) {
+            if (c.getX() >= 0 && c.getY() >= 0)
+                boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
+        }
         if (gameManager.getTaille() >= 2) {
             for (int i = 0; i < boardJoueur.length; i++) {
                 for (int j = 0; j < boardJoueur[i].length; j++) {
                     if (!boardJoueur[i][j].getBackground().equals(Color.GREEN))
-                        boardJoueur[i][j].setBackground(null);
+                        boardJoueur[i][j].setBackground(Color.CYAN);
                 }
             }
             Case[] selection = gameManager.getSelectionBateau();
             for (Case c : selection) {
-                if (!boardJoueur[c.getY()][c.getX()].getBackground().equals(Color.GREEN)){
-                    boardJoueur[c.getY()][c.getX()].setBackground(Color.BLUE);
-                }else{
-                    boardJoueur[c.getY()][c.getX()].setBackground(Color.RED);
+                if (c.getX() >= 0 && c.getY() >= 0) {
+                    if (boardJoueur[c.getY()][c.getX()].getBackground().equals(Color.GREEN)) {
+                        boardJoueur[c.getY()][c.getX()].setBackground(Color.RED);
+                    } else {
+                        boardJoueur[c.getY()][c.getX()].setBackground(Color.BLUE);
+                    }
                 }
-
-            }
-        } else if (gameManager.getTaille() == 0){
-            Case[] selection = gameManager.getSelectionBateau();
-            for (Case c : selection) {
-                boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
             }
         }
     }

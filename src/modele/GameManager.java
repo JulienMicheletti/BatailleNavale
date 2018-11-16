@@ -99,6 +99,11 @@ public class GameManager extends Observable implements Serializable{
 
     public void setTaille(int taille){
         this.taille = taille;
+        this.playerH.resetPos(this.taille);
+        this.selectionBateau = new Case[1];
+        this.selectionBateau[0] = new Case(-1, -1);
+        setChanged();
+        notifyObservers();
     }
 
     public void setSelection(int x, int y){
@@ -112,10 +117,12 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public void validerSelection() {
-        taille = 0;
-        setChanged();
-        notifyObservers();
-        taille = -1;
+        if (this.playerH.validerCase(getSelectionBateau(), taille)) {
+            taille = 0;
+            setChanged();
+            notifyObservers();
+            taille = -1;
+        }
     }
 
     public int getTaille(){
@@ -125,6 +132,8 @@ public class GameManager extends Observable implements Serializable{
     public Case[] getSelectionBateau() {
         return selectionBateau;
     }
+
+    public ArrayList<Case> getCaseValider() { return this.playerH.getCaseValider(this.taille); }
 
     public int[][] getPlayerPlateau(){
         return playerH.getPlateau();
