@@ -18,6 +18,7 @@ public class Plateau {
     private BateauTrois bateauTroisDeux;
     private BateauCinq bateauCinq;
     private BateauDeux bateauDeux;
+    private boolean[] toConfirm;
 
     public Plateau(){
         this.plateau = new int[10][10]; //List ou double tab de "Cases" ?
@@ -25,6 +26,7 @@ public class Plateau {
 
     public void setShipFactory(ShipFactory factory){
         this.shipFactory = factory;
+        this.toConfirm = new boolean[5];
         bateauDeux = shipFactory.getBateauDeux();
         bateauTrois = shipFactory.getBateauTrois();
         bateauTroisDeux = shipFactory.getBateauTrois();
@@ -42,15 +44,20 @@ public class Plateau {
 
     public boolean setSelection(int x, int y, int taille){
         if (taille == GameManager.BATEAUDEUX){
-            return bateauDeux.setCoord(x,y);
+            toConfirm[0] = bateauDeux.setCoord(x,y);
+            return toConfirm[0];
         } else if (taille == GameManager.BATEAUTROIS1){
-            return bateauTrois.setCoord(x, y);
+            toConfirm[1] = bateauTrois.setCoord(x, y);
+            return toConfirm[1];
         } else if (taille == GameManager.BATEAUTROIS2){
-            return bateauTroisDeux.setCoord(x, y);
+            toConfirm[2] = bateauTroisDeux.setCoord(x, y);
+            return toConfirm[2];
         } else if (taille == GameManager.BATEAUQUATRE){
-            return bateauQuatre.setCoord(x, y);
+            toConfirm[3] = bateauQuatre.setCoord(x, y);
+            return toConfirm[3];
         } else if (taille == GameManager.BATEAUCINQ){
-            return bateauCinq.setCoord(x, y);
+            toConfirm[4] = bateauCinq.setCoord(x, y);
+            return toConfirm[4];
         }
         return false;
     }
@@ -82,14 +89,19 @@ public class Plateau {
     public void resetPos(int taille){
         if (taille == GameManager.BATEAUDEUX){
             bateauDeux.resetPos();
+            toConfirm[0] = false;
         } else if (taille == GameManager.BATEAUTROIS1){
             bateauTrois.resetPos();
+            toConfirm[1] = false;
         } else if (taille == GameManager.BATEAUTROIS2){
             bateauTroisDeux.resetPos();
+            toConfirm[2] = false;
         } else if (taille == GameManager.BATEAUQUATRE){
             bateauQuatre.resetPos();
+            toConfirm[3] = false;
         } else if (taille == GameManager.BATEAUCINQ){
             bateauCinq.resetPos();
+            toConfirm[4] = false;
         }
     }
 
@@ -130,6 +142,15 @@ public class Plateau {
         positionBateau.addAll(Arrays.asList(c5));
 
         return positionBateau;
+    }
+
+    public boolean isValide(){
+        for (int i = 0; i < toConfirm.length; i++){
+            if (!toConfirm[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int[][] getPlateau() {

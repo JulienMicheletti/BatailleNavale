@@ -15,9 +15,7 @@ public class VueSelection extends JPanel implements Observer {
     private JPanel board;
     private JPanel options;
     private JButton bateaux[] = new JButton[5];
-    private JRadioButton horizontal;
-    private JRadioButton vertical;
-    private ButtonGroup position;
+    private JButton valider;
 
     public VueSelection(GameManager gm){
         super();
@@ -25,6 +23,7 @@ public class VueSelection extends JPanel implements Observer {
         this.gameManager = gm;
         this.board = new JPanel();
         this.options = new JPanel();
+        this.valider = new JButton("Valider la position");
         setAffichage();
     }
 
@@ -77,6 +76,11 @@ public class VueSelection extends JPanel implements Observer {
         options.add(bateaux[3]);
         options.add(bateaux[4]);
         options.add(new JLabel("Right click to rotate."));
+
+        this.valider.addActionListener(e -> {
+            this.gameManager.confirmerSelection();
+        });
+        options.add(this.valider);
 
         this.add(board, BorderLayout.CENTER);
         this.add(options, BorderLayout.EAST);

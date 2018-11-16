@@ -29,6 +29,8 @@ public abstract class Acteur {
         return this.plateau.setSelection(x, y, taille);
     }
 
+    public boolean plateauValide(){ return this.plateau.isValide(); }
+
     public Case[] getSelection(int taille){
         return this.plateau.getSelection(taille);
     }

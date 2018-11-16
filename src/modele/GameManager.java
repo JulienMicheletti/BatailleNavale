@@ -34,6 +34,7 @@ public class GameManager extends Observable implements Serializable{
     private int caseViseeX;
     private int caseViseeY;
     private boolean est_touche;
+    private boolean launchGame;
     private ShipFactory epoque;
 
     public GameManager(){
@@ -47,6 +48,7 @@ public class GameManager extends Observable implements Serializable{
         casesOccH = new ArrayList<>();
         casesOccIA = new ArrayList<>();
         casesOccIA.add(new Case(2, 2));
+        this.launchGame = false;
     }
 
     public void tirer(int x, int y) {
@@ -125,8 +127,22 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    public void confirmerSelection(){
+        this.launchGame = this.playerH.plateauValide();
+        setChanged();
+        notifyObservers();
+    }
+
     public int getTaille(){
         return taille;
+    }
+
+    public boolean getLaunchGame(){
+        return launchGame;
+    }
+
+    public ArrayList<Case> getCasesBateauxH(){
+        return this.playerH.getCaseValider(0);
     }
 
     public Case[] getSelectionBateau() {

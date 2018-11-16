@@ -2,8 +2,11 @@ package vue;
 
 import controleur.GameController;
 import modele.GameManager;
+import modele.bateaux.Case;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Observer;
 
 public class VuePlateaux extends JPanel implements Observer {
@@ -58,6 +61,11 @@ public class VuePlateaux extends JPanel implements Observer {
                 contentIAdversaire.add(boardAdversaire[i][j]);
                 contentJoueur.add(boardJoueur[i][j]);
             }
+        }
+
+        ArrayList<Case> postionHuman = this.gm.getCasesBateauxH();
+        for (Case c : postionHuman){
+            boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
         }
 
         //End of initialisation, show Panels

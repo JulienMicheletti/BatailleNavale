@@ -13,11 +13,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class VueGeneral implements Observer {
-
+    private JFrame f;
     private JPanel mainmenu;
+    private GameManager gameManager;
 
     public VueGeneral(GameManager gm){
-        JFrame f=new JFrame();
+        gm.addObserver(this);
+        this.gameManager = gm;
+        this.f=new JFrame();
         f.setTitle("Bataille Navale");
         f.setPreferredSize(new Dimension(600,600));
         this.mainmenu = new JPanel();
@@ -85,5 +88,11 @@ public class VueGeneral implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if (this.gameManager.getLaunchGame()){
+            this.f.setContentPane(new VuePlateaux(this.gameManager));        f.invalidate();
+            this.f.validate();
+            this.f.pack();
+            this.f.setVisible(true);
+        }
     }
 }
