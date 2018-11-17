@@ -89,7 +89,9 @@ public class VueGeneral implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (this.gameManager.getLaunchGame()){
-            this.f.setContentPane(new VuePlateaux(this.gameManager));        f.invalidate();
+            f.setPreferredSize(new Dimension(800, 800));
+            this.f.setContentPane(new VuePlateaux(this.gameManager));
+            f.invalidate();
             this.f.validate();
             this.f.pack();
             this.f.setVisible(true);

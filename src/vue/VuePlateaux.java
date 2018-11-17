@@ -54,8 +54,8 @@ public class VuePlateaux extends JPanel implements Observer {
             contentIAdversaire.add(caseindexA);
             for (int j = 0; j < boardJoueur.length; j++){
                 boardAdversaire[i][j] = new JButton();
-                boardAdversaire[i][j].setEnabled(false);
                 boardJoueur[i][j] = new JButton();
+                boardJoueur[i][j].setEnabled(false);
                 boardAdversaire[i][j].addActionListener(new GameController(gm, j, i, false));
                 boardJoueur[i][j].addActionListener(new GameController(gm, j, i, true));
                 contentIAdversaire.add(boardAdversaire[i][j]);
@@ -76,10 +76,27 @@ public class VuePlateaux extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        if (gm.isEst_touche()) {
-            boardJoueur[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.red);
-        }else{
-            boardJoueur[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.black);
+        boardAdversaire[0][0].setEnabled(true);
+        if (!gm.getCurrentPlayer()) {
+            //IA
+            //System.out.println("Joueur IA" +  gm.getViseeY() + " " + gm.getViseeX());
+            if (gm.isEst_touche()) {
+                System.out.println("TOUCHE" + gm.getViseeY() + " " + gm.getViseeX());
+                boardAdversaire[gm.getViseeY()][gm.getViseeX()].setBackground(Color.red);
+            } else {
+              //  System.out.println("PLOUF");
+                boardAdversaire[gm.getViseeY()][gm.getViseeX()].setBackground(Color.black);
+            }
+        } else {
+            //HUMAIN
+          // System.out.println("Joueur HUMAIN" + gm.getViseeX() + " " + gm.getViseeY());
+            if (gm.isEst_touche()) {
+               // System.out.println("TOUCHE");
+                boardJoueur[gm.getViseeY() - 1][gm.getViseeX() - 1].setBackground(Color.red);
+            } else {
+              //  System.out.println("PLOUF");
+                boardJoueur[gm.getViseeY() - 1][gm.getViseeX() - 1].setBackground(Color.black);
+            }
         }
     }
 }

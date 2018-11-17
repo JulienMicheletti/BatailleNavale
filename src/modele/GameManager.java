@@ -47,34 +47,50 @@ public class GameManager extends Observable implements Serializable{
         this.playerH.setFactory(epoque);
         casesOccH = new ArrayList<>();
         casesOccIA = new ArrayList<>();
-        casesOccIA.add(new Case(2, 2));
+        casesOccIA.add(new Case(2, 3));
         this.launchGame = false;
     }
 
     public void tirer(int x, int y) {
         est_touche = false;
-        if (currentPlayer == true) {
-            for (Case c : casesOccIA) {
-                if (c.getX() == x && c.getY() == y) {
-                    c.setToucher();
-                    est_touche = true;
-                }
-            }
-        } else if (currentPlayer == false) {
-            for (Case c : casesOccH) {
-                if (c.getX() == x && c.getY() == y) {
-                    c.setToucher();
-                    est_touche = true;
-                }
+        currentPlayer = true;
+        for (Case c : casesOccIA) {
+            if (c.getX() == y && c.getY() == x) {
+                c.setToucher();
+                est_touche = true;
             }
         }
-        caseViseeX = x;
-        caseViseeY = y;
+        caseViseeX = y;
+        caseViseeY = x;
+        setChanged();
+        notifyObservers();
+        notifierIA();
+    }
+
+
+    public void notifierIA(){
+        currentPlayer = false;
+        est_touche = false;
+        int coord[];
+        coord = playerIA.viser();
+        for (Case c : getCasesBateauxH()){
+            int x = c.getX();
+            int y = c.getY();
+            x += 1;
+            y +=1;
+           // System.out.println(coord[0] + " " + coord[1] + " " + y + " " + x);
+            if (coord[0] == c.getY() + 1 && coord[1] == c.getX() + 1){
+                c.setToucher();
+                est_touche = true;
+            }
+        }
+        caseViseeX = coord[1];
+        caseViseeY = coord[0];
         setChanged();
         notifyObservers();
     }
 
-    public boolean isEst_touche(){
+        public boolean isEst_touche(){
         return est_touche;
     }
 
