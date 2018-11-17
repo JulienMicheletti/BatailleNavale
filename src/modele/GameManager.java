@@ -74,18 +74,13 @@ public class GameManager extends Observable implements Serializable{
         int coord[];
         coord = playerIA.viser();
         for (Case c : getCasesBateauxH()){
-            int x = c.getX();
-            int y = c.getY();
-            x += 1;
-            y +=1;
-           // System.out.println(coord[0] + " " + coord[1] + " " + y + " " + x);
-            if (coord[0] == c.getY() + 1 && coord[1] == c.getX() + 1){
+            if (coord[1]+1 == c.getY()+1 && coord[0]+1 == c.getX()+1){
                 c.setToucher();
                 est_touche = true;
             }
         }
-        caseViseeX = coord[1];
-        caseViseeY = coord[0];
+        caseViseeY = coord[0]+1;
+        caseViseeX = coord[1]+1;
         setChanged();
         notifyObservers();
     }
@@ -147,7 +142,9 @@ public class GameManager extends Observable implements Serializable{
         this.launchGame = this.playerH.plateauValide();
         setChanged();
         notifyObservers();
+        this.launchGame = false;
     }
+
 
     public int getTaille(){
         return taille;

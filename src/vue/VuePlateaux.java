@@ -67,7 +67,6 @@ public class VuePlateaux extends JPanel implements Observer {
         for (Case c : postionHuman){
             boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
         }
-
         //End of initialisation, show Panels
         this.add(contentIAdversaire);
         this.add(contentJoueur);
@@ -76,27 +75,21 @@ public class VuePlateaux extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        boardAdversaire[0][0].setEnabled(true);
         if (!gm.getCurrentPlayer()) {
             //IA
-            //System.out.println("Joueur IA" +  gm.getViseeY() + " " + gm.getViseeX());
             if (gm.isEst_touche()) {
-                System.out.println("TOUCHE" + gm.getViseeY() + " " + gm.getViseeX());
-                boardAdversaire[gm.getViseeY()][gm.getViseeX()].setBackground(Color.red);
+                boardJoueur[gm.getViseeX()-1][gm.getViseeY()-1].setBackground(Color.red);
             } else {
-              //  System.out.println("PLOUF");
-                boardAdversaire[gm.getViseeY()][gm.getViseeX()].setBackground(Color.black);
+                boardJoueur[gm.getViseeX()-1][gm.getViseeY()-1].setBackground(Color.black);
             }
         } else {
             //HUMAIN
-          // System.out.println("Joueur HUMAIN" + gm.getViseeX() + " " + gm.getViseeY());
             if (gm.isEst_touche()) {
-               // System.out.println("TOUCHE");
-                boardJoueur[gm.getViseeY() - 1][gm.getViseeX() - 1].setBackground(Color.red);
+                boardAdversaire[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.red);
             } else {
-              //  System.out.println("PLOUF");
-                boardJoueur[gm.getViseeY() - 1][gm.getViseeX() - 1].setBackground(Color.black);
+                boardAdversaire[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.black);
             }
+            boardAdversaire[gm.getViseeX()-1][gm.getViseeY()-1].setEnabled(false);
         }
     }
 }
