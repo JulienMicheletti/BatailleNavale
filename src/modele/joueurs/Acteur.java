@@ -7,7 +7,7 @@ import modele.bateaux.ShipFactory;
 import java.util.ArrayList;
 
 public abstract class Acteur {
-    private Plateau plateau;
+    protected Plateau plateau;
 
     public Acteur(){
         this.plateau = new Plateau();
@@ -35,7 +35,7 @@ public abstract class Acteur {
         return this.plateau.getSelection(taille);
     }
 
-    public boolean validerCase(Case[] cases, int taille){ return this.plateau.valisationCase(cases, taille);}
+    public boolean validerCase(Case[] cases, int taille){ return this.plateau.validationCase(cases, taille);}
 
     public ArrayList<Case> getCaseValider(int taille){ return this.plateau.getCaseToCheck(taille); }
 

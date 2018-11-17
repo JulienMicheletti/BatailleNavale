@@ -29,8 +29,6 @@ public class GameManager extends Observable implements Serializable{
     private int orientation;
     private int taille;
     private Case[] selectionBateau;
-    private ArrayList<Case> casesOccIA;
-    private ArrayList<Case> casesOccH;
     private int caseViseeX;
     private int caseViseeY;
     private boolean est_touche;
@@ -38,23 +36,22 @@ public class GameManager extends Observable implements Serializable{
     private ShipFactory epoque;
 
     public GameManager(){
-        this.playerH = new Joueur();
-        this.playerIA = new JoueurIA();
         this.orientation = GameManager.HORIZONTAL;
         this.taille = -1;
         currentPlayer = true;
+        this.playerH = new Joueur();
+        this.playerIA = new JoueurIA();
         epoque = new XXIIemeFactory();
         this.playerH.setFactory(epoque);
-        casesOccH = new ArrayList<>();
-        casesOccIA = new ArrayList<>();
-        casesOccIA.add(new Case(2, 3));
+        this.playerIA.setFactory(epoque);
+        this.playerIA.poserBateaux();
         this.launchGame = false;
     }
 
     public void tirer(int x, int y) {
         est_touche = false;
         currentPlayer = true;
-        for (Case c : casesOccIA) {
+        for (Case c : getCasesBateauxIA()) {
             if (c.getX() == y && c.getY() == x) {
                 c.setToucher();
                 est_touche = true;
@@ -85,7 +82,7 @@ public class GameManager extends Observable implements Serializable{
         notifyObservers();
     }
 
-        public boolean isEst_touche(){
+    public boolean isEst_touche(){
         return est_touche;
     }
 
@@ -156,6 +153,10 @@ public class GameManager extends Observable implements Serializable{
 
     public ArrayList<Case> getCasesBateauxH(){
         return this.playerH.getCaseValider(0);
+    }
+
+    public ArrayList<Case> getCasesBateauxIA(){
+        return this.playerIA.getCaseValider(0);
     }
 
     public Case[] getSelectionBateau() {

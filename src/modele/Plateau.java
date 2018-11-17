@@ -77,9 +77,10 @@ public class Plateau {
         return null;
     }
 
-    public boolean valisationCase(Case[] valider, int taille){
+    public boolean validationCase(Case[] valider, int taille){
         ArrayList<Case> positionBateau = getCaseToCheck(taille);
         for (Case c : valider) {
+            if (c.getY() == -1 || c.getX() == -1) return false;
             if (positionBateau.contains(c))
                 return false;
         }
