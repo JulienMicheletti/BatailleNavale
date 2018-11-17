@@ -177,4 +177,8 @@ public class GameManager extends Observable implements Serializable{
             this.playerH.setOrientation(GameManager.HORIZONTAL);
         }
     }
+
+    public void caseExited(){
+        this.playerH.resetPos(this.taille);
+    }
 }
