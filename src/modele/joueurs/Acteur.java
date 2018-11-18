@@ -39,5 +39,7 @@ public abstract class Acteur {
 
     public ArrayList<Case> getCaseValider(int taille){ return this.plateau.getCaseToCheck(taille); }
 
+    public boolean isOver(){return this.plateau.isOver();}
+
     public void resetPos(int taille){ this.plateau.resetPos(taille);}
 }

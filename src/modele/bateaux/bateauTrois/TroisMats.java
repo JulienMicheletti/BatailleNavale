@@ -20,6 +20,13 @@ public class TroisMats implements BateauTrois {
             this.cases[i]=new Case(-1,-1);
     }
 
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(!c.getToucher()) return false;
+        }
+        return true;
+    }
+
     public void resetPos(){
         for (int i = 0; i < taille; i++)
             this.cases[i] = new Case(-1,-1);

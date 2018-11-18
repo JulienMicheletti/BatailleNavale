@@ -16,10 +16,10 @@ public class VueGeneral extends JPanel implements Observer {
     private JFrame f;
     private GameManager gameManager;
 
-    public VueGeneral(GameManager gm){
+    public VueGeneral(JFrame f,GameManager gm){
         gm.addObserver(this);
+        this.f = f;
         this.gameManager = gm;
-        this.f=new JFrame();
         f.setTitle("Bataille Navale");
         f.setPreferredSize(new Dimension(600,600));
         try {

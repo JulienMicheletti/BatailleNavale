@@ -45,6 +45,13 @@ public class Voilier implements BateauDeux {
         return taille;
     }
 
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(!c.getToucher()) return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean setCoord(int x, int y) {
         if (orientation == GameManager.HORIZONTAL){

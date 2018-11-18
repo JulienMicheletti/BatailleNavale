@@ -10,6 +10,7 @@ public class Zodiac implements BateauDeux {
     public int orientation;
     public Case cases[];
     public final int taille = 2;
+    public int pv = 1;
 
     public Zodiac(){
         this.x = 0;
@@ -43,6 +44,13 @@ public class Zodiac implements BateauDeux {
 
     public int getTaille() {
         return taille;
+    }
+
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(c.getToucher()) return true;
+        }
+        return false;
     }
 
     @Override

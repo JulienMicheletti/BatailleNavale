@@ -157,4 +157,13 @@ public class Plateau {
     public int[][] getPlateau() {
         return plateau;
     }
+
+    public boolean isOver() {
+        if (!this.bateauCinq.isDead()) return false;
+        if (!this.bateauQuatre.isDead()) return false;
+        if (!this.bateauTrois.isDead()) return false;
+        if (!this.bateauTroisDeux.isDead()) return false;
+        if (!this.bateauDeux.isDead()) return false;
+        return true;
+    }
 }

@@ -25,6 +25,13 @@ public class Destroyer implements BateauQuatre {
             this.cases[i] = new Case(-1,-1);
     }
 
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(!c.getToucher()) return false;
+        }
+        return true;
+    }
+
     public boolean setCoord(int x, int y){
         if (orientation == GameManager.HORIZONTAL){
             if (x + 1 <= 9 && x - 2 >= 0){

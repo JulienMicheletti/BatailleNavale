@@ -10,6 +10,7 @@ public class PorteAvion implements BateauCinq {
     public int orientation;
     public Case cases[];
     public final int taille = 5;
+    public int pv = 1;
 
     public PorteAvion(){
         this.x = 0;
@@ -39,6 +40,13 @@ public class PorteAvion implements BateauCinq {
 
     public void setCases(Case cases[]) {
         this.cases = cases;
+    }
+
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(c.getToucher()) return true;
+        }
+        return false;
     }
 
     public int getTaille() {

@@ -41,6 +41,13 @@ public class Commander implements BateauCinq {
         this.cases = cases;
     }
 
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(!c.getToucher()) return false;
+        }
+        return true;
+    }
+
     public int getTaille() {
         return taille;
     }
@@ -85,5 +92,4 @@ public class Commander implements BateauCinq {
     public int getOrientation() {
         return orientation;
     }
-
 }

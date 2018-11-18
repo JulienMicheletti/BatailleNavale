@@ -10,6 +10,7 @@ public class Croiseur implements BateauQuatre {
     public int orientation;
     public final int taille = 4;
     public Case cases[];
+    public int pv = 1;
 
     public Croiseur(){
         this.x = 0;
@@ -43,6 +44,13 @@ public class Croiseur implements BateauQuatre {
 
     public int getTaille() {
         return taille;
+    }
+
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(c.getToucher()) return true;
+        }
+        return false;
     }
 
     @Override

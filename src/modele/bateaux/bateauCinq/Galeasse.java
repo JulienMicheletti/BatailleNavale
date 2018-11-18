@@ -71,6 +71,13 @@ public class Galeasse implements BateauCinq {
         return false;
     }
 
+    public boolean isDead() {
+        for (Case c : this.cases) {
+            if(!c.getToucher()) return false;
+        }
+        return true;
+    }
+
     public Case[] getCases() {
         return cases;
     }

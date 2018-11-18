@@ -18,17 +18,18 @@ public class VuePlateaux extends JPanel implements Observer {
     private JPanel contentIAdversaire;
     private JPanel afficheur;
     private JPanel selectionBateau;
-    private  JFrame frame;
+    private JFrame frame;
+    private boolean shown;
 
     public VuePlateaux(JFrame frame,GameManager gm){
         super();
         this.frame = frame;
         gm.addObserver(this);
+        this.shown = false;
         this.gm = gm;
         this.contentIAdversaire = new JPanel();
         this.contentJoueur = new JPanel();
         this.afficheur = new JPanel();
-        // this.selectionBateau = new JPanel();
         setAffichage();
     }
 
@@ -58,8 +59,8 @@ public class VuePlateaux extends JPanel implements Observer {
                 boardAdversaire[i][j] = new JButton();
                 boardJoueur[i][j] = new JButton();
                 boardJoueur[i][j].setEnabled(false);
-                boardAdversaire[i][j].addActionListener(new GameController(gm, j, i, false));
-                boardJoueur[i][j].addActionListener(new GameController(gm, j, i, true));
+                boardAdversaire[i][j].addActionListener(new GameController(gm, j, i));
+                boardJoueur[i][j].addActionListener(new GameController(gm, j, i));
                 contentIAdversaire.add(boardAdversaire[i][j]);
                 contentJoueur.add(boardJoueur[i][j]);
             }
@@ -77,12 +78,15 @@ public class VuePlateaux extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        if (this.gm.getVictory() == -1){
+        if (this.gm.getVictory() == -1 && !this.shown){
+            this.shown = true;
             int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
+            if (result == JOptionPane.OK_OPTION) this.restart();
             if (result == JOptionPane.CLOSED_OPTION) System.exit(0);
         }
-        if (this.gm.getVictory() == 1){
-            int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
+        if (this.gm.getVictory() == 1 && !this.shown){
+            this.shown = true;
+            int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Victoire !", JOptionPane.DEFAULT_OPTION);
             if (result == JOptionPane.OK_OPTION) this.restart();
             if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
         }
@@ -107,7 +111,7 @@ public class VuePlateaux extends JPanel implements Observer {
     private void restart() {
         frame.remove(this);
         frame.setPreferredSize(new Dimension(600,600));
-        frame.setContentPane(new VueGeneral(gm));
+        frame.setContentPane(new VueGeneral(frame,gm));
         frame.invalidate();
         frame.validate();
         frame.pack();

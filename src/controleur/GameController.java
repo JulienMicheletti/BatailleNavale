@@ -10,13 +10,11 @@ public class GameController implements ActionListener{
     private GameManager gameManager;
     private int x;
     private int y;
-    private boolean current;
 
-    public GameController(GameManager gm, int x, int y, boolean current){
+    public GameController(GameManager gm, int x, int y){
         this.gameManager = gm;
         this.x = x;
         this.y = y;
-        this.current = current;
     }
 
     @Override

@@ -162,19 +162,11 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public boolean isIAVictory(){
-        ArrayList<Case> token = getCasesBateauxH();
-        for (Case c : token ) {
-            if (!c.getToucher()) return false;
-        }
-        return true;
+        return this.playerH.isOver();
     }
 
     public boolean isHVictory(){
-        ArrayList<Case> token = getCasesBateauxIA();
-        for (Case c : token ) {
-            if (!c.getToucher()) return false;
-        }
-        return true;
+        return this.playerIA.isOver();
     }
 
     public Case[] getSelectionBateau() {
@@ -216,5 +208,6 @@ public class GameManager extends Observable implements Serializable{
 
     public void initIA() {
         this.playerIA.poserBateaux();
+        this.victory = 0;
     }
 }
