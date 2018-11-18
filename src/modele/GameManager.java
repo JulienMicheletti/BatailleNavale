@@ -31,6 +31,7 @@ public class GameManager extends Observable implements Serializable{
     private Case[] selectionBateau;
     private int caseViseeX;
     private int caseViseeY;
+    private int victory; // -1 IA victory, 0 none, 1 H victory
     private boolean est_touche;
     private boolean launchGame;
     private ShipFactory epoque;
@@ -61,9 +62,14 @@ public class GameManager extends Observable implements Serializable{
         caseViseeY = x+1;
         setChanged();
         notifyObservers();
+        if(this.isHVictory()) this.victory = 1;
         notifierIA();
+        if(this.isIAVictory()) this.victory = -1;
     }
 
+    public int getVictory(){
+        return this.victory;
+    }
 
     public void notifierIA(){
         currentPlayer = false;
@@ -157,6 +163,22 @@ public class GameManager extends Observable implements Serializable{
 
     public ArrayList<Case> getCasesBateauxIA(){
         return this.playerIA.getCaseValider(0);
+    }
+
+    public boolean isIAVictory(){
+        ArrayList<Case> token = getCasesBateauxH();
+        for (Case c : token ) {
+            if (!c.getToucher()) return false;
+        }
+        return true;
+    }
+
+    public boolean isHVictory(){
+        ArrayList<Case> token = getCasesBateauxIA();
+        for (Case c : token ) {
+            if (!c.getToucher()) return false;
+        }
+        return true;
     }
 
     public Case[] getSelectionBateau() {

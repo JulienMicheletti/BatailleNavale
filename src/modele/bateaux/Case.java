@@ -18,7 +18,7 @@ public class Case {
     }
 
     public void setToucher(){
-        toucher = false;
+        toucher = true;
     }
 
     public boolean getToucher(){
@@ -46,5 +46,10 @@ public class Case {
         Case tocheck = (Case)obj;
         //System.out.println(this.x+ "=="+tocheck.getX()+"/"+this.y+"=="+tocheck.getY());
         return (this.x == tocheck.getX() && this.y == tocheck.getY());
+    }
+
+    @Override
+    public String toString() {
+        return "["+ getX()+","+getY() + ":"+getToucher()+"]";
     }
 }

@@ -7,6 +7,7 @@ import modele.bateaux.bateauDeux.BateauDeux;
 import modele.bateaux.bateauQuatre.BateauQuatre;
 import modele.bateaux.bateauTrois.BateauTrois;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -107,7 +108,7 @@ public class Plateau {
     }
 
     public ArrayList<Case> getCaseToCheck(int taille){
-        ArrayList<Case> positionBateau = new ArrayList<Case>(17);
+        ArrayList<Case> positionBateau = new ArrayList<Case>();
         Case[] c2 = bateauDeux.getCases();
         Case[] c31 = bateauTrois.getCases();
         Case[] c32 = bateauTroisDeux.getCases();
@@ -124,7 +125,6 @@ public class Plateau {
             positionBateau.addAll(Arrays.asList(c4));
         if (!(taille == GameManager.BATEAUCINQ))
             positionBateau.addAll(Arrays.asList(c5));
-
         return positionBateau;
     }
 

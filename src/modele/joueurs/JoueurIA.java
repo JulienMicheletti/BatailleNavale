@@ -22,10 +22,6 @@ public class JoueurIA extends Acteur {
         this.poseRandom(GameManager.BATEAUTROIS1);
         this.poseRandom(GameManager.BATEAUQUATRE);
         this.poseRandom(GameManager.BATEAUCINQ);
-        ArrayList<Case> test = this.plateau.getCaseToCheck(0);
-        for (Case c: test){
-            System.out.println(c.getX()+" ET "+c.getY());
-        }
     }
 
     private void poseRandom(int taille){

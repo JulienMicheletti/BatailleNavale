@@ -18,15 +18,17 @@ public class VuePlateaux extends JPanel implements Observer {
     private JPanel contentIAdversaire;
     private JPanel afficheur;
     private JPanel selectionBateau;
+    private  JFrame frame;
 
-    public VuePlateaux(GameManager gm){
+    public VuePlateaux(JFrame frame,GameManager gm){
         super();
+        this.frame = frame;
         gm.addObserver(this);
         this.gm = gm;
         this.contentIAdversaire = new JPanel();
         this.contentJoueur = new JPanel();
         this.afficheur = new JPanel();
-       // this.selectionBateau = new JPanel();
+        // this.selectionBateau = new JPanel();
         setAffichage();
     }
 
@@ -75,7 +77,15 @@ public class VuePlateaux extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        if (!gm.getCurrentPlayer()) {
+        if (this.gm.getVictory() == -1){
+            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.INFORMATION_MESSAGE);
+            //if (result == JOptionPane.OK_OPTION) System.exit(0);
+        }
+        if (this.gm.getVictory() == 1){
+            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.INFORMATION_MESSAGE);
+            //if (result == JOptionPane.OK_OPTION) System.exit(0);
+        }
+        if(!gm.getCurrentPlayer()) {
             //IA
             if (gm.isEst_touche()) {
                 boardJoueur[gm.getViseeX()-1][gm.getViseeY()-1].setBackground(Color.red);
