@@ -29,6 +29,6 @@ public class GameController implements ActionListener{
             gameManager.setCurrentPlayer(true);
             System.out.println("Vous avez cliqué sur la case(" + x + ", " + y + ") du plateau adverse.");
         }**/
-        gameManager.tirer(x+1, y+1);
+        gameManager.tirer(x, y);
     }
 }

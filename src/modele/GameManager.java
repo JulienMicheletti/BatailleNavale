@@ -57,8 +57,8 @@ public class GameManager extends Observable implements Serializable{
                 est_touche = true;
             }
         }
-        caseViseeX = y;
-        caseViseeY = x;
+        caseViseeX = y+1;
+        caseViseeY = x+1;
         setChanged();
         notifyObservers();
         notifierIA();
