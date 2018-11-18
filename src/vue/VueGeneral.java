@@ -12,9 +12,8 @@ import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
 
-public class VueGeneral implements Observer {
+public class VueGeneral extends JPanel implements Observer {
     private JFrame f;
-    private JPanel mainmenu;
     private GameManager gameManager;
 
     public VueGeneral(GameManager gm){
@@ -23,7 +22,6 @@ public class VueGeneral implements Observer {
         this.f=new JFrame();
         f.setTitle("Bataille Navale");
         f.setPreferredSize(new Dimension(600,600));
-        this.mainmenu = new JPanel();
         try {
             InputStream is = new BufferedInputStream(new FileInputStream("src/res/BN.jpg"));
             Image image = ImageIO.read(is);
@@ -50,20 +48,20 @@ public class VueGeneral implements Observer {
             label.add(loadbutton);
             label.add(onlinebutton);
             label.add(exitbutton);
-            mainmenu.add(label);
+            this.add(label);
 
         } catch (Exception e) {
             System.out.println("Image not found");
         }
 
-        f.add(mainmenu);
+        f.add(this);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.pack();
         f.setVisible(true);
     }
 
     public void newGame(JFrame f, GameManager gm){
-        f.remove(this.mainmenu);
+        f.remove(this);
         f.setPreferredSize(new Dimension(800,800));
         f.setContentPane(new VueSelection(gm));
         f.invalidate();

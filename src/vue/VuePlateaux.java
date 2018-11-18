@@ -78,12 +78,13 @@ public class VuePlateaux extends JPanel implements Observer {
     @Override
     public void update(java.util.Observable o, Object arg) {
         if (this.gm.getVictory() == -1){
-            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.INFORMATION_MESSAGE);
-            //if (result == JOptionPane.OK_OPTION) System.exit(0);
+            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
+            if (result == JOptionPane.OK_OPTION) System.exit(0);
         }
         if (this.gm.getVictory() == 1){
-            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.INFORMATION_MESSAGE);
-            //if (result == JOptionPane.OK_OPTION) System.exit(0);
+            int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
+            if (result == JOptionPane.OK_OPTION) this.restart();
+            if (result == JOptionPane.CANCEL_OPTION) System.exit(1);
         }
         if(!gm.getCurrentPlayer()) {
             //IA
@@ -101,5 +102,15 @@ public class VuePlateaux extends JPanel implements Observer {
             }
             boardAdversaire[gm.getViseeX()-1][gm.getViseeY()-1].setEnabled(false);
         }
+    }
+
+    private void restart() {
+        frame.remove(this);
+        frame.setPreferredSize(new Dimension(600,600));
+        frame.setContentPane(new VueGeneral(gm));
+        frame.invalidate();
+        frame.validate();
+        frame.pack();
+        frame.setVisible(true);
     }
 }
