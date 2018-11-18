@@ -2,11 +2,8 @@ package modele;
 
 import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
-import modele.bateaux.bateauCinq.BateauCinq;
-import modele.bateaux.bateauDeux.BateauDeux;
-import modele.bateaux.bateauQuatre.BateauQuatre;
-import modele.bateaux.bateauTrois.BateauTrois;
-import modele.bateaux.epoques.XXIIemeFactory;
+import modele.bateaux.epoques.XVIemeFactory;
+import modele.bateaux.epoques.XXemeFactory;
 import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
 
@@ -42,10 +39,9 @@ public class GameManager extends Observable implements Serializable{
         currentPlayer = true;
         this.playerH = new Joueur();
         this.playerIA = new JoueurIA();
-        epoque = new XXIIemeFactory();
+        this.epoque = new XVIemeFactory();
         this.playerH.setFactory(epoque);
         this.playerIA.setFactory(epoque);
-        this.playerIA.poserBateaux();
         this.launchGame = false;
     }
 
@@ -203,5 +199,22 @@ public class GameManager extends Observable implements Serializable{
 
     public void caseExited(){
         this.playerH.resetPos(this.taille);
+    }
+
+    public void setFactory(int selectedIndex) {
+        if (selectedIndex == 0){
+            this.epoque = new XVIemeFactory();
+            this.playerH.setFactory(epoque);
+            this.playerIA.setFactory(epoque);
+        }
+        if (selectedIndex == 1){
+            this.epoque = new XXemeFactory();
+            this.playerH.setFactory(epoque);
+            this.playerIA.setFactory(epoque);
+        }
+    }
+
+    public void initIA() {
+        this.playerIA.poserBateaux();
     }
 }

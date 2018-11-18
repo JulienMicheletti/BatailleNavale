@@ -28,6 +28,13 @@ public class VueGeneral extends JPanel implements Observer {
             JLabel label = new JLabel(new ImageIcon(image));
             label.setLayout(new FlowLayout());
 
+
+            String[] choices = {"XVI Siecle", "XX Siecle"};
+            JComboBox<String> cb = new JComboBox<String>(choices);
+            cb.setToolTipText("XVI : Bataille navale normale \n XX : Règles du sujet");
+            cb.addActionListener(e -> this.gameManager.setFactory(cb.getSelectedIndex()));
+            label.add(cb);
+
             JButton newbutton = new JButton("Nouvelle partie");
             newbutton.addActionListener(e -> {
                 this.newGame(f,gm);
@@ -62,6 +69,7 @@ public class VueGeneral extends JPanel implements Observer {
 
     public void newGame(JFrame f, GameManager gm){
         f.remove(this);
+        gm.initIA();
         f.setPreferredSize(new Dimension(800,800));
         f.setContentPane(new VueSelection(gm));
         f.invalidate();

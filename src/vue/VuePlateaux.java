@@ -79,12 +79,12 @@ public class VuePlateaux extends JPanel implements Observer {
     public void update(java.util.Observable o, Object arg) {
         if (this.gm.getVictory() == -1){
             int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
-            if (result == JOptionPane.OK_OPTION) System.exit(0);
+            if (result == JOptionPane.CLOSED_OPTION) System.exit(0);
         }
         if (this.gm.getVictory() == 1){
             int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
             if (result == JOptionPane.OK_OPTION) this.restart();
-            if (result == JOptionPane.CANCEL_OPTION) System.exit(1);
+            if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
         }
         if(!gm.getCurrentPlayer()) {
             //IA

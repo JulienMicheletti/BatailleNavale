@@ -6,6 +6,8 @@ import modele.bateaux.Case;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Observer;
 
@@ -75,7 +77,7 @@ public class VueSelection extends JPanel implements Observer {
         options.add(bateaux[2]);
         options.add(bateaux[3]);
         options.add(bateaux[4]);
-        options.add(new JLabel("Right click to rotate."));
+        options.add(new JLabel("Clic droit : rotation."));
 
         this.valider.addActionListener(e -> {
             this.gameManager.confirmerSelection();
