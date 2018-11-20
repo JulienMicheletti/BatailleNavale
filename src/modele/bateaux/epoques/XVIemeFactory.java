@@ -13,6 +13,10 @@ import modele.bateaux.bateauTrois.TroisMats;
 
 public class XVIemeFactory implements ShipFactory {
 
+    public boolean isMunition(){
+        return false;
+    }
+
     public BateauCinq getBateauCinq() {
         return new Galeasse();
     }

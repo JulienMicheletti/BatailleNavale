@@ -10,6 +10,7 @@ public class Commander implements BateauCinq {
     public int orientation;
     public Case cases[];
     public final int taille = 5;
+    private int munition;
 
     public Commander(){
         this.x = 0;
@@ -23,6 +24,15 @@ public class Commander implements BateauCinq {
     public void resetPos(){
         for (int i = 0; i < taille; i++)
             this.cases[i] = new Case(-1,-1);
+    }
+
+
+    public int getMunition() {
+        return munition;
+    }
+
+    public void setMunition(int munition) {
+        this.munition = munition;
     }
 
     public void setX(int x) {

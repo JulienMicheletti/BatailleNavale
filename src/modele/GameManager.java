@@ -3,6 +3,7 @@ package modele;
 import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 import modele.bateaux.epoques.XVIemeFactory;
+import modele.bateaux.epoques.XXIIemeFactory;
 import modele.bateaux.epoques.XXemeFactory;
 import modele.bots.BotChasseur;
 import modele.bots.BotFullRandom;
@@ -208,6 +209,11 @@ public class GameManager extends Observable implements Serializable{
             this.playerH.setFactory(epoque);
             this.playerIA.setFactory(epoque);
         }
+        if (selectedIndex == 2){
+            this.epoque = new XXIIemeFactory();
+            this.playerH.setFactory(epoque);
+            this.playerIA.setFactory(epoque);
+        }
     }
 
     public void initIA() {
@@ -224,5 +230,9 @@ public class GameManager extends Observable implements Serializable{
             System.out.println("COUCOU");
             this.playerIA.setDifficulty(new BotChasseur());
         }
+    }
+
+    public boolean isMunitionGame(){
+        return this.epoque.isMunition();
     }
 }

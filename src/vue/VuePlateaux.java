@@ -34,8 +34,7 @@ public class VuePlateaux extends JPanel implements Observer {
     }
 
     public void setAffichage(){
-        this.setLayout(new GridLayout(2, 0));
-
+        //this.setLayout(new GridLayout(2, 0));
         //Board parts for self and CPU
         contentIAdversaire.setLayout(new GridLayout(11, 11));
         contentJoueur.setLayout(new GridLayout(11, 11));
@@ -71,9 +70,39 @@ public class VuePlateaux extends JPanel implements Observer {
             boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
         }
         //End of initialisation, show Panels
-        this.add(contentIAdversaire);
-        this.add(contentJoueur);
+        JPanel adv = new JPanel();
+        adv.setLayout(new BoxLayout(adv,BoxLayout.Y_AXIS));
+        JLabel jlab1 = new JLabel("Plateau adverse : ");
+        jlab1.setVerticalAlignment(JLabel.CENTER);
+        jlab1.setHorizontalAlignment(JLabel.CENTER);
+        adv.add(jlab1);
+        adv.add(this.contentIAdversaire);
 
+        JPanel self = new JPanel();
+        self.setLayout(new BoxLayout(self,BoxLayout.Y_AXIS));
+        JLabel jlab2 = new JLabel("Votre plateau : ");
+        jlab2.setVerticalAlignment(JLabel.CENTER);
+        jlab2.setHorizontalAlignment(JLabel.CENTER);
+        self.add(jlab2);
+        self.add(this.contentJoueur);
+        this.add(adv, BorderLayout.CENTER);
+        this.add(self,BorderLayout.CENTER);
+
+        //Check if munition game
+        if (this.gm.isMunitionGame()){
+            JRadioButton first = new JRadioButton("Tir -|- (3 max)");
+            JRadioButton second = new JRadioButton("Tir X (2 max)");
+            JRadioButton third = new JRadioButton("Tir simple");
+            ButtonGroup bg = new ButtonGroup();
+            bg.add(first);
+            bg.add(second);
+            bg.add(third);
+            third.setSelected(true);
+            this.add(Box.createHorizontalStrut(150));
+            this.add(first,BorderLayout.SOUTH);
+            this.add(second,BorderLayout.SOUTH);
+            this.add(third,BorderLayout.SOUTH);
+        }
     }
 
     @Override

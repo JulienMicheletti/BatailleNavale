@@ -13,6 +13,10 @@ import modele.bateaux.bateauTrois.Furtif;
 
 public class XXemeFactory implements ShipFactory {
 
+    public boolean isMunition(){
+        return false;
+    }
+
     @Override
     public BateauCinq getBateauCinq() {
         return new PorteAvion();

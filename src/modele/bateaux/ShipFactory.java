@@ -6,6 +6,7 @@ import modele.bateaux.bateauQuatre.BateauQuatre;
 import modele.bateaux.bateauTrois.BateauTrois;
 
 public interface ShipFactory {
+    public boolean isMunition();
     public BateauCinq getBateauCinq();
     public BateauDeux getBateauDeux();
     public BateauTrois getBateauTrois();

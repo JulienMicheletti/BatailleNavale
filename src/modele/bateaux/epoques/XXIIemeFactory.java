@@ -13,6 +13,10 @@ import modele.bateaux.bateauTrois.Intercepter;
 
 public class XXIIemeFactory implements ShipFactory {
 
+    public boolean isMunition(){
+        return true;
+    }
+
     public BateauCinq getBateauCinq() {
         return new Commander();
     }

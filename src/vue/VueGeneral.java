@@ -29,9 +29,9 @@ public class VueGeneral extends JPanel implements Observer {
             label.setLayout(new FlowLayout());
 
 
-            String[] choices = {"XVI Siecle", "XX Siecle"};
+            String[] choices = {"XVI Siecle", "XX Siecle", "XXII Siecle"};
             JComboBox<String> cb = new JComboBox(choices);
-            cb.setToolTipText("XVI : Bataille navale normale \n XX : Règles du sujet");
+            cb.setToolTipText("XVI : Bataille navale normale \n XX : Bateaux ont 1 pv \n XXII : Munitions");
             cb.addActionListener(e -> this.gameManager.setFactory(cb.getSelectedIndex()));
             label.add(cb);
 
@@ -100,7 +100,7 @@ public class VueGeneral extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (this.gameManager.getLaunchGame()){
-            f.setPreferredSize(new Dimension(800, 800));
+            f.setPreferredSize(new Dimension(600, 650));
             this.f.setContentPane(new VuePlateaux(this.f,this.gameManager));
             f.invalidate();
             this.f.validate();
