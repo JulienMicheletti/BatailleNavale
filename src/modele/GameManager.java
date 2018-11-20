@@ -227,7 +227,6 @@ public class GameManager extends Observable implements Serializable{
             this.playerIA.setDifficulty(new BotFullRandom());
         }
         if (selectedIndex == 1) {
-            System.out.println("COUCOU");
             this.playerIA.setDifficulty(new BotChasseur());
         }
     }
