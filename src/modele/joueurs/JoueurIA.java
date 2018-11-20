@@ -2,6 +2,7 @@ package modele.joueurs;
 
 import modele.GameManager;
 import modele.bateaux.Case;
+import modele.bots.BotChasseur;
 import modele.bots.BotFullRandom;
 import modele.bots.BotStrategie;
 
@@ -10,8 +11,8 @@ import java.util.ArrayList;
 
 public class JoueurIA extends Acteur {
 
-    private int[][] plateauAdverse = new int[10][10];
-    private BotStrategie bs = new BotFullRandom();
+    protected int[][] plateauAdverse = new int[10][10];
+    private BotStrategie bs = new BotChasseur();
 
     public JoueurIA(){
     }
@@ -46,4 +47,11 @@ public class JoueurIA extends Acteur {
         return this.bs.viser(this.plateauAdverse);
     }
 
+    public void notifierToucher() {
+        this.bs.notifierToucher();
+    }
+
+    public void setDifficulty(BotStrategie difficulty) {
+        this.bs = difficulty;
+    }
 }

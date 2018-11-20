@@ -4,6 +4,9 @@ import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 import modele.bateaux.epoques.XVIemeFactory;
 import modele.bateaux.epoques.XXemeFactory;
+import modele.bots.BotChasseur;
+import modele.bots.BotFullRandom;
+import modele.bots.BotStrategie;
 import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
 
@@ -76,6 +79,7 @@ public class GameManager extends Observable implements Serializable{
             if (coord[1]+1 == c.getY()+1 && coord[0]+1 == c.getX()+1){
                 c.setToucher();
                 est_touche = true;
+                this.playerIA.notifierToucher();
             }
         }
         caseViseeY = coord[0]+1;
@@ -209,5 +213,16 @@ public class GameManager extends Observable implements Serializable{
     public void initIA() {
         this.playerIA.poserBateaux();
         this.victory = 0;
+        this.setDifficulty(0);
+    }
+
+    public void setDifficulty(int selectedIndex) {
+        if (selectedIndex == 0) {
+            this.playerIA.setDifficulty(new BotFullRandom());
+        }
+        if (selectedIndex == 1) {
+            System.out.println("COUCOU");
+            this.playerIA.setDifficulty(new BotChasseur());
+        }
     }
 }

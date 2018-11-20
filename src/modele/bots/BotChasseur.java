@@ -1,46 +1,81 @@
 package modele.bots;
 
+import modele.bateaux.Case;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BotChasseur implements BotStrategie {
 
     private boolean chasseur = false;
     private final Random rng = new Random();
-    private int lastXpossible = 0;
-    private int lastYpossible = 0;
-    private int lastXconfirme = 0;
-    private int lastYconfirme = 0;
+    private int lastX = 0;
+    private int lastY = 0;
+    private ArrayList<Case> interest = new ArrayList<>();
+    private int size = 0;
 
     @Override
     public int[] viser(int[][] plateau) {
 
-        if (!chasseur) {
-            //Viser au random ant qu'on a pas trouvé une case a bateau
-            int x = 0;
-            int y = 0;
+        if (size == 0) size = plateau.length;
+        if (interest.isEmpty()) {
+            return this.tirerAuHasard(plateau);
+        }else{ //mode chasseur
+            Case c = null;
+            boolean vide = false;
             do {
-                x = rng.nextInt(10);
-                y = rng.nextInt(10);
-            } while (plateau[x][y] != 0);
+                if (interest.isEmpty()) vide = true;
+                c = this.interest.remove(0);
+            } while (plateau[c.getX()][c.getY()] != 0 || vide);
+            if (vide) return this.tirerAuHasard(plateau);
+            int x = c.getX();
+            int y = c.getY();
             int[] res = new int[2];
             res[0] = x;
             res[1] = y;
             plateau[x][y] = 1;
-            lastXpossible = x;
-            lastYpossible = y;
+            lastX = x;
+            lastY = y;
+            System.out.println(x +" ET "+ y);
             return res;
-        }else{ //mode chasseur
-            
         }
+    }
 
-        return null;
+    public int[] tirerAuHasard(int[][] plateau){
+        //Viser au random ant qu'on a pas trouvé une case a bateau
+        int x = 0;
+        int y = 0;
+        do {
+            x = rng.nextInt(10);
+            y = rng.nextInt(10);
+        } while (plateau[x][y] != 0);
+        int[] res = new int[2];
+        res[0] = x;
+        res[1] = y;
+        plateau[x][y] = 1;
+        lastX = x;
+        lastY = y;
+        return res;
     }
 
     @Override
     public void notifierToucher() {
-        lastXconfirme = lastXpossible;
-        lastYconfirme = lastYpossible;
-        this.chasseur = true;
+        if (this.lastX-1 >= 0){
+            Case c1 = new Case(this.lastX-1,this.lastY);
+            this.interest.add(c1);
+        }
+        if (this.lastX+1 < this.size){
+            Case c2 = new Case(this.lastX+1,this.lastY);
+            this.interest.add(c2);
+        }
+        if (this.lastY-1 >= 0){
+            Case c3 = new Case(this.lastX,this.lastY-1);
+            this.interest.add(c3);
+        }
+        if (this.lastY+1 < this.size){
+            Case c4 = new Case(this.lastX,this.lastY+1);
+            this.interest.add(c4);
+        }
     }
 
     @Override

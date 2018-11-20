@@ -30,10 +30,15 @@ public class VueGeneral extends JPanel implements Observer {
 
 
             String[] choices = {"XVI Siecle", "XX Siecle"};
-            JComboBox<String> cb = new JComboBox<String>(choices);
+            JComboBox<String> cb = new JComboBox(choices);
             cb.setToolTipText("XVI : Bataille navale normale \n XX : Règles du sujet");
             cb.addActionListener(e -> this.gameManager.setFactory(cb.getSelectedIndex()));
             label.add(cb);
+
+            String[] difficulty = {"Facile", "Normal"};
+            JComboBox<String> cbdiff = new JComboBox(difficulty);
+            cbdiff.addActionListener(e -> this.gameManager.setDifficulty(cbdiff.getSelectedIndex()));
+            label.add(cbdiff);
 
             JButton newbutton = new JButton("Nouvelle partie");
             newbutton.addActionListener(e -> {
