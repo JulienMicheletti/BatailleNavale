@@ -1,17 +1,16 @@
 package rmi.serveur;
 
+import com.sun.org.apache.regexp.internal.RE;
 import modele.bateaux.Case;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface ServerInterface extends Remote {
 
-    public int[][] setSelection(int x, int y, int taille);
-
-    public int[][] validerSelection();
-
-    public void setOrientation(int orientation);
-
-    public void valider();
+    int[][] setSelection(int x, int y, int taille) throws RemoteException;
+    int[][] validerSelection() throws RemoteException;
+    void setOrientation(int orientation) throws RemoteException;
+    void valider() throws RemoteException;
 }

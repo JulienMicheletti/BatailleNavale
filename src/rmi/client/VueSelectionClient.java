@@ -32,6 +32,9 @@ public class VueSelectionClient extends JPanel implements Observer {
     }
 
     public void setAffichage(){
+        JFrame f = new JFrame();
+        f.setTitle("Bataille Navale");
+        f.setPreferredSize(new Dimension(600,600));
         this.setLayout(new BorderLayout());
         board.setLayout(new GridLayout(11, 11));
         options.setLayout(new GridLayout(7, 1));
@@ -88,6 +91,11 @@ public class VueSelectionClient extends JPanel implements Observer {
 
         this.add(board, BorderLayout.CENTER);
         this.add(options, BorderLayout.EAST);
+
+        f.add(this);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setVisible(true);
     }
 
     @Override

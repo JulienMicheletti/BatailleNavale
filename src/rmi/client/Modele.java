@@ -3,24 +3,30 @@ package rmi.client;
 import modele.bateaux.Case;
 import rmi.serveur.ServerInterface;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Observable;
 
 public class Modele extends Observable {
     private int taille;
-    ServerInterface serveurInterface;
+    private ServerInterface serveurInterface;
     public static int HORIZONTAL = 10;
     public static int VERTICAL = 11;
     private int orientation;
     private int selectionBateau[][];
 
 
-    public Modele(){
+    public Modele(ServerInterface serverInterface){
+        this.serveurInterface = serverInterface;
         orientation = VERTICAL;
     }
 
     public void setSelection(int x, int y){
-        selectionBateau = serveurInterface.setSelection(x, y, taille);
+        try {
+            selectionBateau = serveurInterface.setSelection(x, y, taille);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         setChanged();
         notifyObservers();
     }
@@ -35,7 +41,11 @@ public class Modele extends Observable {
         }else{
             orientation = HORIZONTAL;
         }
-        serveurInterface.setOrientation(orientation);
+        try {
+            serveurInterface.setOrientation(orientation);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setTaille(int taille){

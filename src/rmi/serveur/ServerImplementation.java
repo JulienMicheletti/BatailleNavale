@@ -4,7 +4,10 @@ package rmi.serveur;
 import modele.GameManager;
 import modele.bateaux.Case;
 
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
@@ -66,5 +69,17 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     @Override
     public void valider() {
 
+    }
+
+    public static void main(String[] args){
+        try {
+            ServerImplementation serverImplementation = new ServerImplementation(new GameManager());
+            Registry registry = LocateRegistry.getRegistry(9001);
+            registry.bind("bataille_navale", serverImplementation);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (AlreadyBoundException e) {
+            e.printStackTrace();
+        }
     }
 }
