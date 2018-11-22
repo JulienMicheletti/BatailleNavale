@@ -10,6 +10,7 @@ public class Intercepter implements BateauTrois {
     public int orientation;
     public Case cases[];
     public final int taille = 3;
+    private int munition;
 
     public Intercepter(){
         this.x = 0;
@@ -72,6 +73,15 @@ public class Intercepter implements BateauTrois {
             return false;
         }
         return false;
+    }
+
+
+    public int getMunition() {
+        return munition;
+    }
+
+    public void setMunition(int munition) {
+        this.munition = munition;
     }
 
     public Case[] getCases() {

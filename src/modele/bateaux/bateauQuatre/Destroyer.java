@@ -10,6 +10,7 @@ public class Destroyer implements BateauQuatre {
     public int orientation;
     public final int taille = 4;
     public Case cases[];
+    private int munition = 3;
 
     public Destroyer(){
         this.x = 0;
@@ -89,5 +90,13 @@ public class Destroyer implements BateauQuatre {
 
     public int getOrientation() {
         return orientation;
+    }
+
+    public int getMunition() {
+        return munition;
+    }
+
+    public void setMunition(int munition) {
+        this.munition = munition;
     }
 }
