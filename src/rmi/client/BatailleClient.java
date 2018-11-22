@@ -1,6 +1,6 @@
 package rmi.client;
 
-import rmi.serveur.ServeurInterface;
+import rmi.serveur.ServerInterface;
 import vue.VuePlateaux;
 import vue.VueSelectionClient;
 
@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 
 public class BatailleClient{
     public static void main(String[] argv){
-        ServeurInterface serveurInterface;
+        ServerInterface serveurInterface;
         Modele modele = new Modele();
         VueSelectionClient vueSelectionClient = new VueSelectionClient(modele);
 

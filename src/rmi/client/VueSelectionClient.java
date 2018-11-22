@@ -1,5 +1,6 @@
 package vue;
 
+import controleur.PositionClientController;
 import controleur.PositionController;
 import modele.GameManager;
 import modele.bateaux.Case;
@@ -47,8 +48,7 @@ public class VueSelectionClient extends JPanel implements Observer {
             board.add(caseindexJ);
             for (int j = 0; j < boardJoueur.length; j++){
                 boardJoueur[i][j] = new JButton();
-                boardJoueur[i][j].addMouseListener(e -> {
-                    modele.setSelection(modele, i, j);
+                boardJoueur[i][j].addMouseListener(new PositionClientController(this.modele, j, i));
                 boardJoueur[i][j].setBackground(Color.CYAN);
                 board.add(boardJoueur[i][j]);
             }
@@ -60,19 +60,19 @@ public class VueSelectionClient extends JPanel implements Observer {
         bateaux[3] = new JButton("Bateau 4");
         bateaux[4] = new JButton("Bateau 5");
         bateaux[0].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUDEUX);
+            modele.setTaille(GameManager.BATEAUDEUX);
         });
         bateaux[1].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUTROIS1);
+            modele.setTaille(GameManager.BATEAUTROIS1);
         });
         bateaux[2].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUTROIS2);
+            modele.setTaille(GameManager.BATEAUTROIS2);
         });
         bateaux[3].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUQUATRE);
+            modele.setTaille(GameManager.BATEAUQUATRE);
         });
         bateaux[4].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUCINQ);
+            modele.setTaille(GameManager.BATEAUCINQ);
         });
         options.add(bateaux[0]);
         options.add(bateaux[1]);
@@ -81,9 +81,9 @@ public class VueSelectionClient extends JPanel implements Observer {
         options.add(bateaux[4]);
         options.add(new JLabel("Clic droit : rotation."));
 
-        this.valider.addActionListener(e -> {
-            this.gameManager.confirmerSelection();
-        });
+     /*   this.valider.addActionListener(e -> {
+            this.modele.confirmerSelection();
+        });*/
         options.add(this.valider);
 
         this.add(board, BorderLayout.CENTER);
@@ -92,7 +92,7 @@ public class VueSelectionClient extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        ArrayList<Case> casesValider = gameManager.getCaseValider();
+        ArrayList<Case> casesValider = modele.getCaseValider();
 
         for (int i = 0; i < boardJoueur.length; i++){
             for (int j = 0; j < boardJoueur.length; j++){
@@ -103,14 +103,14 @@ public class VueSelectionClient extends JPanel implements Observer {
             if (c.getX() >= 0 && c.getY() >= 0)
                 boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
         }
-        if (gameManager.getTaille() >= 2) {
+        if (modele.getTaille() >= 2) {
             for (int i = 0; i < boardJoueur.length; i++) {
                 for (int j = 0; j < boardJoueur[i].length; j++) {
                     if (!boardJoueur[i][j].getBackground().equals(Color.GREEN))
                         boardJoueur[i][j].setBackground(Color.CYAN);
                 }
             }
-            Case[] selection = gameManager.getSelectionBateau();
+            Case[] selection = modele.getSelectionBateau();
             for (Case c : selection) {
                 if (c.getX() >= 0 && c.getY() >= 0) {
                     if (boardJoueur[c.getY()][c.getX()].getBackground().equals(Color.GREEN)) {
