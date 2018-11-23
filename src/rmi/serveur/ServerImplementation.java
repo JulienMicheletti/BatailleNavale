@@ -38,10 +38,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         for (Case c : cases){
             int casex=c.getX();
             int casey=c.getY();
-            if (plateau[casey][casex] == 2)
-                plateau[casey][casex] = 3;
-            else
-                plateau[casey][casex] = 1;
+            if (casex >= 0 && casey >= 0) {
+                if (plateau[casey][casex] == 2)
+                    plateau[casey][casex] = 3;
+                else
+                    plateau[casey][casex] = 1;
+            }
         }
         return plateau;
     }
@@ -74,7 +76,7 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     public static void main(String[] args){
         try {
             ServerImplementation serverImplementation = new ServerImplementation(new GameManager());
-            Registry registry = LocateRegistry.getRegistry(9001);
+            Registry registry = LocateRegistry.createRegistry(8081);
             registry.bind("bataille_navale", serverImplementation);
         } catch (RemoteException e) {
             e.printStackTrace();

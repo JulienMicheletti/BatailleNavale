@@ -115,14 +115,13 @@ public class VueSelectionClient extends JPanel implements Observer {
             int selection[][] = modele.getSelectionBateau();
             for (int i = 0; i < selection.length; i++){
                 for (int j = 0; j < selection[i].length; j++){
-                    if (selection[i][j] >= 0) {
-                        if (boardJoueur[i][j].getBackground().equals(Color.GREEN)) {
-                            boardJoueur[i][j].setBackground(Color.RED);
-                        } else {
-                            boardJoueur[i][j].setBackground(Color.BLUE);
-                        }
+                    if (selection[i][j] == 2)
+                        boardJoueur[i][j].getBackground().equals(Color.GREEN);
+                    else if (selection[i][j] == 3)
+                        boardJoueur[i][j].setBackground(Color.RED);
+                    else if (selection[i][j] == 1)
+                        boardJoueur[i][j].setBackground(Color.BLUE);
                     }
-                }
                 }
             }
         }
