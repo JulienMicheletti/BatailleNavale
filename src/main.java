@@ -1,4 +1,6 @@
 import modele.GameManager;
+import rmi.client.Modele;
+import rmi.client.VueSelectionClient;
 import vue.VueGeneral;
 import vue.VuePlateaux;
 

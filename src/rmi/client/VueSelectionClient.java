@@ -1,4 +1,4 @@
-package vue;
+package rmi.client;
 
 import controleur.PositionClientController;
 import controleur.PositionController;
@@ -92,16 +92,10 @@ public class VueSelectionClient extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        ArrayList<Case> casesValider = modele.getCaseValider();
-
         for (int i = 0; i < boardJoueur.length; i++){
             for (int j = 0; j < boardJoueur.length; j++){
                 boardJoueur[i][j].setBackground(Color.CYAN);
             }
-        }
-        for (Case c : casesValider) {
-            if (c.getX() >= 0 && c.getY() >= 0)
-                boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
         }
         if (modele.getTaille() >= 2) {
             for (int i = 0; i < boardJoueur.length; i++) {
@@ -110,16 +104,18 @@ public class VueSelectionClient extends JPanel implements Observer {
                         boardJoueur[i][j].setBackground(Color.CYAN);
                 }
             }
-            Case[] selection = modele.getSelectionBateau();
-            for (Case c : selection) {
-                if (c.getX() >= 0 && c.getY() >= 0) {
-                    if (boardJoueur[c.getY()][c.getX()].getBackground().equals(Color.GREEN)) {
-                        boardJoueur[c.getY()][c.getX()].setBackground(Color.RED);
-                    } else {
-                        boardJoueur[c.getY()][c.getX()].setBackground(Color.BLUE);
+            int selection[][] = modele.getSelectionBateau();
+            for (int i = 0; i < selection.length; i++){
+                for (int j = 0; j < selection[i].length; j++){
+                    if (selection[i][j] >= 0) {
+                        if (boardJoueur[i][j].getBackground().equals(Color.GREEN)) {
+                            boardJoueur[i][j].setBackground(Color.RED);
+                        } else {
+                            boardJoueur[i][j].setBackground(Color.BLUE);
+                        }
                     }
+                }
                 }
             }
         }
     }
-}

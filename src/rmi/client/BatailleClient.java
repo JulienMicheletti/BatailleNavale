@@ -2,7 +2,6 @@ package rmi.client;
 
 import rmi.serveur.ServerInterface;
 import vue.VuePlateaux;
-import vue.VueSelectionClient;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;

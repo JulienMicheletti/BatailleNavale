@@ -13,9 +13,5 @@ public interface ServerInterface extends Remote {
 
     public void setOrientation(int orientation);
 
-    public ArrayList<Case> getCaseValider(int taille);
-
-    public Case[] getSelectionBateau();
-
     public void valider();
 }

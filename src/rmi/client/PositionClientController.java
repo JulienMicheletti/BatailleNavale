@@ -21,11 +21,6 @@ public class PositionClientController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (SwingUtilities.isLeftMouseButton(e)) modele.validerSelection();
-        if (SwingUtilities.isRightMouseButton(e)){
-            modele.switchOrientation();
-            modele.setSelection(x, y);
-        }
     }
 
     @Override

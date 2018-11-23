@@ -12,23 +12,22 @@ public class Modele extends Observable {
     public static int HORIZONTAL = 10;
     public static int VERTICAL = 11;
     private int orientation;
+    private int selectionBateau[][];
+
 
     public Modele(){
         orientation = VERTICAL;
     }
 
     public void setSelection(int x, int y){
-        serveurInterface.setSelection(x, y, taille);
-    }
-    public void validerSelection(){
-        serveurInterface.validerSelection();
+        selectionBateau = serveurInterface.setSelection(x, y, taille);
+        setChanged();
+        notifyObservers();
     }
 
-
-    public Case[] getSelectionBateau() {
-        return serveurInterface.getSelectionBateau();
+    public int[][] getSelectionBateau(){
+        return selectionBateau;
     }
-    public ArrayList<Case> getCaseValider() { return serveurInterface.getCaseValider(this.taille); }
 
     public void switchOrientation(){
         if (orientation == HORIZONTAL){
