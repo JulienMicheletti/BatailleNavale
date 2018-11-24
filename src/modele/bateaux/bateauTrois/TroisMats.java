@@ -27,6 +27,16 @@ public class TroisMats implements BateauTrois {
         return true;
     }
 
+    @Override
+    public int getMunition() {
+        return 101;
+    }
+
+    @Override
+    public void setMunition(int i) {
+
+    }
+
     public void resetPos(){
         for (int i = 0; i < taille; i++)
             this.cases[i] = new Case(-1,-1);

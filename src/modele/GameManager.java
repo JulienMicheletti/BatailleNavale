@@ -36,6 +36,7 @@ public class GameManager extends Observable implements Serializable{
     private boolean est_touche;
     private boolean launchGame;
     private ShipFactory epoque;
+    private int munition;
 
     public GameManager(){
         this.orientation = GameManager.HORIZONTAL;
@@ -47,9 +48,10 @@ public class GameManager extends Observable implements Serializable{
         this.playerH.setFactory(epoque);
         this.playerIA.setFactory(epoque);
         this.launchGame = false;
+        this.munition = 0;
     }
 
-    public void tirer(int x, int y) {
+    public void tirer(int x, int y, boolean collateral) {
         est_touche = false;
         currentPlayer = true;
         for (Case c : getCasesBateauxIA()) {
@@ -62,9 +64,25 @@ public class GameManager extends Observable implements Serializable{
         caseViseeY = x+1;
         setChanged();
         notifyObservers();
-        if(this.isHVictory()) this.victory = 1;
-        notifierIA();
-        if(this.isIAVictory()) this.victory = -1;
+        if (!collateral) {
+            if (this.munition == 1 && this.getXMunition() != 0){
+                this.playerH.removeMunition(1);
+                if (x != 0 && y != 0) this.tirer(x-1, y-1, true);
+                if (x != 9 && y != 9) this.tirer(x+1, y+1, true);
+                if (x != 0 && y != 9) this.tirer(x-1, y+1, true);
+                if (x != 9 && y != 0) this.tirer(x+1, y-1, true);
+            }
+            if (this.munition == 2 && this.getCrossMunition() != 0){
+                this.playerH.removeMunition(2);
+                if (y != 0) this.tirer(x, y-1, true);
+                if (y != 9) this.tirer(x, y+1, true);
+                if (x != 0) this.tirer(x-1, y, true);
+                if (x != 9) this.tirer(x+1, y, true);
+            }
+            if (this.isHVictory()) this.victory = 1;
+            notifierIA();
+            if (this.isIAVictory()) this.victory = -1;
+        }
     }
 
     public int getVictory(){
@@ -219,7 +237,6 @@ public class GameManager extends Observable implements Serializable{
     public void initIA() {
         this.playerIA.poserBateaux();
         this.victory = 0;
-        this.setDifficulty(0);
     }
 
     public void setDifficulty(int selectedIndex) {
@@ -234,4 +251,15 @@ public class GameManager extends Observable implements Serializable{
     public boolean isMunitionGame(){
         return this.epoque.isMunition();
     }
+
+    public void setMunition(int munition) {
+        this.munition = munition;
+    }
+
+    public int getMunition() {
+        return munition;
+    }
+
+    public int getCrossMunition(){return this.playerH.getCrossMunition();}
+    public int getXMunition(){return this.playerH.getXMunition();}
 }

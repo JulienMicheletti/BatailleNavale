@@ -15,6 +15,7 @@ public class Commander implements BateauCinq {
     public Commander(){
         this.x = 0;
         this.y = 0;
+        this.munition = 3;
         this.orientation = GameManager.HORIZONTAL;
         this.cases = new Case[taille];
         for (int i = 0; i < taille; i++)

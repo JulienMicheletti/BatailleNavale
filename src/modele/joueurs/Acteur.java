@@ -41,5 +41,13 @@ public abstract class Acteur {
 
     public boolean isOver(){return this.plateau.isOver();}
 
+    public void removeMunition(int ammoType){
+        this.plateau.removeMunition(ammoType);
+    }
+
     public void resetPos(int taille){ this.plateau.resetPos(taille);}
+
+    public int getCrossMunition() {return this.plateau.getCrossMunition();}
+
+    public int getXMunition() {return this.plateau.getXMunition(); }
 }

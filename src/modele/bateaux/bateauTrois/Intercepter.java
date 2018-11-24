@@ -17,6 +17,7 @@ public class Intercepter implements BateauTrois {
         this.y = 0;
         this.orientation = GameManager.HORIZONTAL;
         this.cases = new Case[taille];
+        this.munition = 101;
         for (int i = 0; i < taille; i++)
             this.cases[i] = new Case(-1, -1);
     }

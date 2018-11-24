@@ -53,6 +53,16 @@ public class Galion implements BateauQuatre {
     }
 
     @Override
+    public int getMunition() {
+        return 101;
+    }
+
+    @Override
+    public void setMunition(int i) {
+
+    }
+
+    @Override
     public boolean setCoord(int x, int y) {
         if (orientation == GameManager.HORIZONTAL){
             if (x + 1 <= 9 && x - 2 >= 0){

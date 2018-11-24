@@ -1,11 +1,7 @@
 package rmi.serveur;
 
-import com.sun.org.apache.regexp.internal.RE;
-import modele.bateaux.Case;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 public interface ServerInterface extends Remote {
 

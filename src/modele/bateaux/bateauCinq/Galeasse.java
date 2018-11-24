@@ -78,6 +78,16 @@ public class Galeasse implements BateauCinq {
         return true;
     }
 
+    @Override
+    public int getMunition() {
+        return 101;
+    }
+
+    @Override
+    public void setMunition(int i) {
+
+    }
+
     public Case[] getCases() {
         return cases;
     }

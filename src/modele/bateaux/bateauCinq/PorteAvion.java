@@ -49,6 +49,16 @@ public class PorteAvion implements BateauCinq {
         return false;
     }
 
+    @Override
+    public int getMunition() {
+        return 101;
+    }
+
+    @Override
+    public void setMunition(int i) {
+
+    }
+
     public int getTaille() {
         return taille;
     }

@@ -10,11 +10,12 @@ public class Destroyer implements BateauQuatre {
     public int orientation;
     public final int taille = 4;
     public Case cases[];
-    private int munition = 3;
+    private int munition;
 
     public Destroyer(){
         this.x = 0;
         this.y = 0;
+        this.munition = 3;
         this.orientation = GameManager.HORIZONTAL;
         this.cases = new Case[taille];
         for (int i = 0; i < taille; i++)

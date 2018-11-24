@@ -15,4 +15,6 @@ public interface BateauCinq{
     public void setOrientation(int orientation);
     public void setCases(Case cases[]);
     public boolean isDead();
+    public int getMunition();
+    public void setMunition(int i);
 }

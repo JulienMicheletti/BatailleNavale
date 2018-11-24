@@ -20,6 +20,9 @@ public class VuePlateaux extends JPanel implements Observer {
     private JPanel selectionBateau;
     private JFrame frame;
     private boolean shown;
+    private JRadioButton second;
+    private JRadioButton first;
+    private JRadioButton third;
 
     public VuePlateaux(JFrame frame,GameManager gm){
         super();
@@ -90,9 +93,12 @@ public class VuePlateaux extends JPanel implements Observer {
 
         //Check if munition game
         if (this.gm.isMunitionGame()){
-            JRadioButton first = new JRadioButton("Tir -|- (3 max)");
-            JRadioButton second = new JRadioButton("Tir X (2 max)");
-            JRadioButton third = new JRadioButton("Tir simple");
+            this.first = new JRadioButton("Tir + (3 restant)");
+            this.first.addActionListener(e -> gm.setMunition(2));
+            this.second = new JRadioButton("Tir X (3 restant)");
+            this.second.addActionListener(e -> gm.setMunition(1));
+            this.third = new JRadioButton("Tir simple (illimité)");
+            this.third.addActionListener(e -> gm.setMunition(0));
             ButtonGroup bg = new ButtonGroup();
             bg.add(first);
             bg.add(second);
@@ -107,6 +113,18 @@ public class VuePlateaux extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
+        if (this.gm.isMunitionGame()){
+            this.first.setText("Tir + ("+this.gm.getCrossMunition()+" restant)");
+            if (this.gm.getCrossMunition() == 0){
+                this.first.setEnabled(false);
+                this.third.setSelected(true);
+            }
+            this.second.setText("Tir X ("+this.gm.getXMunition()+" restant)");
+            if (this.gm.getXMunition() == 0){
+                this.second.setEnabled(false);
+                this.third.setSelected(true);
+            }
+        }
         if (this.gm.getVictory() == -1 && !this.shown){
             this.shown = true;
             int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);

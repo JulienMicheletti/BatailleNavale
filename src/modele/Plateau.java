@@ -166,4 +166,15 @@ public class Plateau {
         if (!this.bateauDeux.isDead()) return false;
         return true;
     }
+
+    public void removeMunition(int ammoType) {
+        if (ammoType == 1) this.bateauQuatre.setMunition(this.bateauQuatre.getMunition()-1);
+        if (ammoType == 2) this.bateauCinq.setMunition(this.bateauCinq.getMunition()-1);
+    }
+
+    public int getXMunition() {return this.bateauQuatre.getMunition();
+    }
+
+    public int getCrossMunition() {return this.bateauCinq.getMunition();
+    }
 }
