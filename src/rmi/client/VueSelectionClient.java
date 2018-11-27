@@ -1,6 +1,5 @@
 package rmi.client;
 
-import controleur.PositionClientController;
 import controleur.PositionController;
 import modele.GameManager;
 import modele.bateaux.Case;
@@ -100,29 +99,18 @@ public class VueSelectionClient extends JPanel implements Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        for (int i = 0; i < boardJoueur.length; i++){
-            for (int j = 0; j < boardJoueur.length; j++){
-                boardJoueur[i][j].setBackground(Color.CYAN);
-            }
-        }
-        if (modele.getTaille() >= 2) {
-            for (int i = 0; i < boardJoueur.length; i++) {
-                for (int j = 0; j < boardJoueur[i].length; j++) {
-                    if (!boardJoueur[i][j].getBackground().equals(Color.GREEN))
-                        boardJoueur[i][j].setBackground(Color.CYAN);
-                }
-            }
-            int selection[][] = modele.getSelectionBateau();
-            for (int i = 0; i < selection.length; i++){
-                for (int j = 0; j < selection[i].length; j++){
-                    if (selection[i][j] == 2)
-                        boardJoueur[i][j].getBackground().equals(Color.GREEN);
-                    else if (selection[i][j] == 3)
-                        boardJoueur[i][j].setBackground(Color.RED);
-                    else if (selection[i][j] == 1)
-                        boardJoueur[i][j].setBackground(Color.BLUE);
-                    }
-                }
+        int selection[][] = modele.getSelectionBateau();
+        for (int i = 0; i < selection.length; i++) {
+            for (int j = 0; j < selection[i].length; j++) {
+                if (selection[i][j] == 0){
+                    boardJoueur[i][j].setBackground(Color.CYAN);
+                }else if (selection[i][j] == 2) {
+                    boardJoueur[i][j].setBackground(Color.GREEN);
+                } else if (selection[i][j] == 1)
+                    boardJoueur[i][j].setBackground(Color.BLUE);
+                else if (selection[i][j] == 3)
+                    boardJoueur[i][j].setBackground(Color.RED);
             }
         }
     }
+}

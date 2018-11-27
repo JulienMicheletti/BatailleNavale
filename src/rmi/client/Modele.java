@@ -36,16 +36,24 @@ public class Modele extends Observable {
     }
 
     public void switchOrientation(){
-        if (orientation == HORIZONTAL){
-            orientation = VERTICAL;
-        }else{
-            orientation = HORIZONTAL;
-        }
         try {
-            serveurInterface.setOrientation(orientation);
+            serveurInterface.switchOrientation();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public void validerSelection(){
+        try {
+            if (serveurInterface.isValide()) {
+                selectionBateau = serveurInterface.validerSelection();
+                setTaille(-1);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        setChanged();
+        notifyObservers();
     }
 
     public void setTaille(int taille){
