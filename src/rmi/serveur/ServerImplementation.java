@@ -58,8 +58,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         }
         this.gameManager.validerSelection();
         ArrayList<Case> bateaux = this.gameManager.getCasesBateauxH();
-        for (Case c : bateaux)
-            plateau[c.getY()][c.getX()] = 2;
+        for (Case c : bateaux) {
+            if (c.getX() >= 0 && c.getY() >= 0) {
+                plateau[c.getY()][c.getX()] = 2;
+                System.out.println(plateau[c.getY()][c.getX()]);
+            }
+        }
         return plateau;
     }
 

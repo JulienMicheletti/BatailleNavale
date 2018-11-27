@@ -48,6 +48,17 @@ public class Modele extends Observable {
         }
     }
 
+    public void validerSelection(){
+        try {
+            selectionBateau = serveurInterface.validerSelection();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        setTaille(-1);
+        setChanged();
+        notifyObservers();
+    }
+
     public void setTaille(int taille){
         this.taille = taille;
     }

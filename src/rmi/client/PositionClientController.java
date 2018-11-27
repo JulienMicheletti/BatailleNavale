@@ -1,4 +1,4 @@
-package controleur;
+package rmi.client;
 
 import modele.GameManager;
 import rmi.client.Modele;
@@ -21,6 +21,7 @@ public class PositionClientController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        modele.validerSelection();
     }
 
     @Override
