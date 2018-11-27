@@ -49,6 +49,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     }
 
     @Override
+    public boolean isValide(){
+        this.gameManager.validerSelection();
+        return gameManager.getTaille() == -1;
+    }
+
+    @Override
     public int[][] validerSelection() {
         int[][] plateau = new int[10][10];
         for (int i = 0; i < plateau.length; i++){
@@ -56,7 +62,6 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
                 plateau[i][j] = 0;
             }
         }
-        this.gameManager.validerSelection();
         ArrayList<Case> bateaux = this.gameManager.getCasesBateauxH();
         for (Case c : bateaux) {
             if (c.getX() >= 0 && c.getY() >= 0) {

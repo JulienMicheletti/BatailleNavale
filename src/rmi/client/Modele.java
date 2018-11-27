@@ -45,11 +45,13 @@ public class Modele extends Observable {
 
     public void validerSelection(){
         try {
-            selectionBateau = serveurInterface.validerSelection();
+            if (serveurInterface.isValide()) {
+                selectionBateau = serveurInterface.validerSelection();
+                setTaille(-1);
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        setTaille(-1);
         setChanged();
         notifyObservers();
     }
