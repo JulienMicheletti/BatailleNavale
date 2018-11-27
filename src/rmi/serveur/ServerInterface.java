@@ -9,4 +9,5 @@ public interface ServerInterface extends Remote {
     int[][] validerSelection() throws RemoteException;
     void setOrientation(int orientation) throws RemoteException;
     void valider() throws RemoteException;
+    void tirer(int x, int y) throws RemoteException;
 }

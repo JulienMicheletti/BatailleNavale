@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class ServerImplementation extends UnicastRemoteObject implements ServerInterface {
     private GameManager gameManager;
+    private int victory;
 
     protected ServerImplementation(GameManager gm) throws RemoteException {
         this.gameManager = gm;
@@ -61,6 +62,23 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         for (Case c : bateaux)
             plateau[c.getY()][c.getX()] = 2;
         return plateau;
+    }
+
+    @Override
+    public void tirer(int x, int y) {
+        this.gameManager.setEst_touche(false);
+        this.gameManager.setCurrentPlayer(true);
+        for (Case c : this.gameManager.getCasesBateauxIA()) {
+            if (c.getX() == y && c.getY() == x) {
+                c.setToucher();
+                this.gameManager.setEst_touche(true);
+            }
+        }
+        this.gameManager.setCaseViseeX(x+1);
+        this.gameManager.setCaseViseeY(y+1);
+        if (this.gameManager.isHVictory()) this.victory = 1;
+        this.gameManager.notifierIA();
+        if (this.gameManager.isIAVictory()) this.victory = -1;
     }
 
     @Override

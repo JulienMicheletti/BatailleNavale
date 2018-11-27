@@ -261,5 +261,26 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public int getCrossMunition(){return this.playerH.getCrossMunition();}
+
     public int getXMunition(){return this.playerH.getXMunition();}
+
+    public int getCaseViseeX() {
+        return caseViseeX;
+    }
+
+    public void setCaseViseeX(int caseViseeX) {
+        this.caseViseeX = caseViseeX;
+    }
+
+    public int getCaseViseeY() {
+        return caseViseeY;
+    }
+
+    public void setCaseViseeY(int caseViseeY) {
+        this.caseViseeY = caseViseeY;
+    }
+
+    public void setEst_touche(boolean est_touche) {
+        this.est_touche = est_touche;
+    }
 }
