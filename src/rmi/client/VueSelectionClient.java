@@ -107,9 +107,9 @@ public class VueSelectionClient extends JPanel implements Observer {
                 }else if (selection[i][j] == 2) {
                     boardJoueur[i][j].setBackground(Color.GREEN);
                 } else if (selection[i][j] == 1)
-                    boardJoueur[i][j].setBackground(Color.RED);
-                else if (selection[i][j] == 3)
                     boardJoueur[i][j].setBackground(Color.BLUE);
+                else if (selection[i][j] == 3)
+                    boardJoueur[i][j].setBackground(Color.RED);
             }
         }
     }

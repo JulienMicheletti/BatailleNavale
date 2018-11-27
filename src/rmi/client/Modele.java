@@ -36,13 +36,8 @@ public class Modele extends Observable {
     }
 
     public void switchOrientation(){
-        if (orientation == HORIZONTAL){
-            orientation = VERTICAL;
-        }else{
-            orientation = HORIZONTAL;
-        }
         try {
-            serveurInterface.setOrientation(orientation);
+            serveurInterface.switchOrientation();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

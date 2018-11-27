@@ -28,7 +28,7 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         }
         this.gameManager.setTaille(taille);
         this.gameManager.setSelection(x, y);
-        ArrayList<Case> bateaux = this.gameManager.getCasesBateauxH();
+        ArrayList<Case> bateaux = this.gameManager.getCaseValider();
         for (Case c : bateaux){
             if (c.getX() >= 0 && c.getY() >= 0){
                 plateau[c.getY()][c.getX()] = 2;
@@ -68,8 +68,8 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     }
 
     @Override
-    public void setOrientation(int orientation) {
-        this.gameManager.setOrientation(orientation);
+    public void switchOrientation() {
+        this.gameManager.switchOrientation();
     }
 
     @Override
