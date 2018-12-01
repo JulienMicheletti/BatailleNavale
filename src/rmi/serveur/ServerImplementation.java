@@ -79,12 +79,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         this.gameManager.setCurrentPlayer(true);
         for (Case c : this.gameManager.getCasesBateauxIA()) {
             if (c.getX() == y && c.getY() == x) {
-                c.setToucher();
+                c.setToucher(true);
                 this.gameManager.setEst_touche(true);
             }
         }
-        this.gameManager.setCaseViseeX(x+1);
-        this.gameManager.setCaseViseeY(y+1);
+      /*  this.gameManager.setCaseViseeX(x+1);
+        this.gameManager.setCaseViseeY(y+1);*/
         if (this.gameManager.isHVictory()) this.victory = 1;
         this.gameManager.notifierIA();
         if (this.gameManager.isIAVictory()) this.victory = -1;

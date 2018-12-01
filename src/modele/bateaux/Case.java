@@ -17,8 +17,8 @@ public class Case {
         this.y =y;
     }
 
-    public void setToucher(){
-        toucher = true;
+    public void setToucher(boolean toucher){
+        this.toucher = toucher;
     }
 
     public boolean getToucher(){

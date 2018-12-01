@@ -30,8 +30,8 @@ public class GameManager extends Observable implements Serializable{
     private int orientation;
     private int taille;
     private Case[] selectionBateau;
-    private int caseViseeX;
-    private int caseViseeY;
+    private Case caseViseeJ1;
+    private Case caseViseeJ2;
     private int victory; // -1 IA victory, 0 none, 1 H victory
     private boolean est_touche;
     private boolean launchGame;
@@ -42,6 +42,8 @@ public class GameManager extends Observable implements Serializable{
         this.orientation = GameManager.HORIZONTAL;
         this.taille = -1;
         currentPlayer = true;
+        caseViseeJ1 = new Case(0, 0);
+        caseViseeJ2 = new Case(0, 0);
         this.playerH = new Joueur();
         this.playerIA = new JoueurIA();
         this.epoque = new XVIemeFactory();
@@ -52,16 +54,15 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public void tirer(int x, int y, boolean collateral) {
-        est_touche = false;
+        caseViseeJ1.setToucher(false);
         currentPlayer = true;
         for (Case c : getCasesBateauxIA()) {
             if (c.getX() == y && c.getY() == x) {
-                c.setToucher();
-                est_touche = true;
+                caseViseeJ1.setToucher(true);
             }
         }
-        caseViseeX = y+1;
-        caseViseeY = x+1;
+        caseViseeJ1.setX(y+1);
+        caseViseeJ1.setY(x+1);
         setChanged();
         notifyObservers();
         if (!collateral) {
@@ -91,34 +92,44 @@ public class GameManager extends Observable implements Serializable{
 
     public void notifierIA(){
         currentPlayer = false;
-        est_touche = false;
+        caseViseeJ2.setToucher(false);
         int coord[];
         coord = playerIA.viser();
         for (Case c : getCasesBateauxH()){
             if (coord[1]+1 == c.getY()+1 && coord[0]+1 == c.getX()+1){
-                c.setToucher();
-                est_touche = true;
+                caseViseeJ2.setToucher(true);
                 this.playerIA.notifierToucher();
             }
         }
-        caseViseeY = coord[0]+1;
-        caseViseeX = coord[1]+1;
+        caseViseeJ2.setY(coord[0]+1);
+        caseViseeJ2.setX(coord[1]+1);
         setChanged();
         notifyObservers();
     }
 
-    public boolean isEst_touche(){
-        return est_touche;
+    public boolean isJ1Est_touche(){
+        return caseViseeJ1.getToucher();
     }
 
-    public int getViseeX(){
-        return caseViseeX;
+    public boolean isJ2Est_touche(){
+        return caseViseeJ2.getToucher();
     }
 
-    public int getViseeY(){
-        return caseViseeY;
+    public int getJ1ViseeX(){
+        return caseViseeJ1.getX();
     }
 
+    public int getJ1ViseeY(){
+        return caseViseeJ1.getY();
+    }
+
+    public int getJ2ViseeX(){
+        return caseViseeJ2.getX();
+    }
+
+    public int getJ2ViseeY(){
+        return caseViseeJ2.getY();
+    }
     public void setCurrentPlayer(boolean currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
@@ -267,21 +278,6 @@ public class GameManager extends Observable implements Serializable{
 
     public int getXMunition(){return this.playerH.getXMunition();}
 
-    public int getCaseViseeX() {
-        return caseViseeX;
-    }
-
-    public void setCaseViseeX(int caseViseeX) {
-        this.caseViseeX = caseViseeX;
-    }
-
-    public int getCaseViseeY() {
-        return caseViseeY;
-    }
-
-    public void setCaseViseeY(int caseViseeY) {
-        this.caseViseeY = caseViseeY;
-    }
 
     public void setEst_touche(boolean est_touche) {
         this.est_touche = est_touche;

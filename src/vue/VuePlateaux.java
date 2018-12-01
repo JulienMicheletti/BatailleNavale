@@ -139,19 +139,19 @@ public class VuePlateaux extends JPanel implements Observer {
         }
         if(!gm.getCurrentPlayer()) {
             //IA
-            if (gm.isEst_touche()) {
-                boardJoueur[gm.getViseeX()-1][gm.getViseeY()-1].setBackground(Color.red);
+            if (gm.isJ2Est_touche()) {
+                boardJoueur[gm.getJ2ViseeX()-1][gm.getJ2ViseeY()-1].setBackground(Color.red);
             } else {
-                boardJoueur[gm.getViseeX()-1][gm.getViseeY()-1].setBackground(Color.black);
+                boardJoueur[gm.getJ2ViseeX()-1][gm.getJ2ViseeY()-1].setBackground(Color.black);
             }
         } else {
             //HUMAIN
-            if (gm.isEst_touche()) {
-                boardAdversaire[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.red);
+            if (gm.isJ1Est_touche()) {
+                boardAdversaire[gm.getJ1ViseeX() - 1][gm.getJ1ViseeY() - 1].setBackground(Color.red);
             } else {
-                boardAdversaire[gm.getViseeX() - 1][gm.getViseeY() - 1].setBackground(Color.black);
+                boardAdversaire[gm.getJ1ViseeX() - 1][gm.getJ1ViseeY() - 1].setBackground(Color.black);
             }
-            boardAdversaire[gm.getViseeX()-1][gm.getViseeY()-1].setEnabled(false);
+            boardAdversaire[gm.getJ1ViseeX()-1][gm.getJ1ViseeY()-1].setEnabled(false);
         }
     }
 
