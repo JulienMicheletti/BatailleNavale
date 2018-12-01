@@ -3,6 +3,7 @@ package rmi.serveur;
 
 import modele.GameManager;
 import modele.bateaux.Case;
+import rmi.client.CaseClient;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -67,7 +68,6 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         for (Case c : bateaux) {
             if (c.getX() >= 0 && c.getY() >= 0) {
                 plateau[c.getY()][c.getX()] = 2;
-                System.out.println(plateau[c.getY()][c.getX()]);
             }
         }
         return plateau;
@@ -96,8 +96,22 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     }
 
     @Override
-    public void valider() {
+    public boolean valider() {
+        this.gameManager.confirmerSelection();
+        if (this.gameManager.getLaunchGame()){
+            this.gameManager.resetLaunch();
+            return true;
+        }
+        return false;
+    }
 
+    @Override
+    public ArrayList<CaseClient> getCasesJoueur() throws RemoteException {
+        ArrayList<Case> cases = this.gameManager.getCasesBateauxH();
+        ArrayList<CaseClient> casesJ = new ArrayList<CaseClient>(cases.size());
+        for (Case c : cases)
+            casesJ.add(new CaseClient(c.getX(),c.getY()));
+        return casesJ;
     }
 
     public static void main(String[] args){

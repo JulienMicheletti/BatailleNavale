@@ -2,6 +2,7 @@ package rmi.client;
 
 import rmi.serveur.ServerImplementation;
 import rmi.serveur.ServerInterface;
+import vue.VueGeneral;
 import vue.VuePlateaux;
 
 import java.net.MalformedURLException;
@@ -21,7 +22,7 @@ public class BatailleClient{
                 System.out.println(s);
             ServerInterface serverInterface = (ServerInterface)registry.lookup("bataille_navale");
             Modele modele = new Modele(serverInterface);
-            VueSelectionClient vueSelectionClient = new VueSelectionClient(modele);
+            new VueGeneralClient(modele);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {

@@ -100,6 +100,7 @@ public class VueGeneral extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (this.gameManager.getLaunchGame()){
+            this.gameManager.resetLaunch();
             f.setPreferredSize(new Dimension(600, 650));
             this.f.setContentPane(new VuePlateaux(this.f,this.gameManager));
             f.invalidate();

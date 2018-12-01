@@ -164,9 +164,12 @@ public class GameManager extends Observable implements Serializable{
         this.launchGame = this.playerH.plateauValide();
         setChanged();
         notifyObservers();
-        this.launchGame = false;
     }
 
+
+    public void resetLaunch(){
+        launchGame = false;
+    }
 
     public int getTaille(){
         return taille;

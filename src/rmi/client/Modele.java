@@ -14,6 +14,7 @@ public class Modele extends Observable {
     public static int VERTICAL = 11;
     private int orientation;
     private int selectionBateau[][];
+    private boolean lancerJeu;
 
 
     public Modele(ServerInterface serverInterface){
@@ -54,6 +55,31 @@ public class Modele extends Observable {
         }
         setChanged();
         notifyObservers();
+    }
+
+    public void confirmerSelection(){
+        try {
+            lancerJeu = serveurInterface.valider();
+            setChanged();
+            notifyObservers();
+            lancerJeu = false;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<CaseClient> getCasesJ(){
+        ArrayList<CaseClient> cJ = new ArrayList<>();
+        try {
+            cJ = serveurInterface.getCasesJoueur();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return cJ;
+    }
+
+    public boolean getLancerJeu(){
+        return lancerJeu;
     }
 
     public void setTaille(int taille){

@@ -1,7 +1,11 @@
 package rmi.serveur;
 
+import modele.bateaux.Case;
+import rmi.client.CaseClient;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface ServerInterface extends Remote {
 
@@ -9,6 +13,7 @@ public interface ServerInterface extends Remote {
     int[][] validerSelection() throws RemoteException;
     void switchOrientation() throws RemoteException;
     boolean isValide() throws RemoteException;
-    void valider() throws RemoteException;
+    boolean valider() throws RemoteException;
+    ArrayList<CaseClient> getCasesJoueur() throws RemoteException;
     void tirer(int x, int y) throws RemoteException;
 }
