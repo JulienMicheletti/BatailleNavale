@@ -178,8 +178,7 @@ public class GameManager extends Observable implements Serializable{
 
     public void confirmerSelection(){
         this.launchGame = this.playerH.plateauValide();
-        if (this.launchGame)
-            initIA();
+        if (this.launchGame) initIA();
         setChanged();
         notifyObservers();
     }
@@ -256,7 +255,9 @@ public class GameManager extends Observable implements Serializable{
     }
 
     public void initIA() {
+        this.playerIA.setFactory(epoque);
         this.playerIA.poserBateaux();
+        this.playerIA.resetPlateau();
         this.victory = 0;
     }
 

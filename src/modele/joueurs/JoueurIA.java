@@ -8,6 +8,7 @@ import modele.bots.BotStrategie;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class JoueurIA extends Acteur {
 
@@ -15,6 +16,11 @@ public class JoueurIA extends Acteur {
     private BotStrategie bs = new BotChasseur();
 
     public JoueurIA(){
+    }
+
+    public void resetPlateau(){
+        for (int[] row: plateauAdverse)
+            Arrays.fill(row, 0);
     }
 
     public void poserBateaux() {

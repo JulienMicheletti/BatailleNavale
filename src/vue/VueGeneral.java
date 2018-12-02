@@ -76,6 +76,7 @@ public class VueGeneral extends JPanel implements Observer {
         f.remove(this);
     //    gm.initIA();
         f.setPreferredSize(new Dimension(800,800));
+        gm.resetLaunch();
         f.setContentPane(new VueSelection(gm));
         f.invalidate();
         f.validate();
