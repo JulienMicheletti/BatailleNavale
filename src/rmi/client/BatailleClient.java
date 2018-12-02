@@ -6,6 +6,7 @@ import vue.VueGeneral;
 import vue.VuePlateaux;
 
 import java.net.MalformedURLException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -21,14 +22,16 @@ public class BatailleClient{
             for (String s : e)
                 System.out.println(s);
             ServerInterface serverInterface = (ServerInterface)registry.lookup("bataille_navale");
-            Modele modele = new Modele(serverInterface);
-            new VueGeneralClient(modele);
+            if (serverInterface.askConnect()) {
+                ClientInterface clientInterface = new ClientImplementation(serverInterface);
+                serverInterface.connexion(clientInterface);
+            } else {
+                System.err.println("Apparemment une partie est déjà en cours ...");
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
-        ServerInterface serveurInterface;
-
     }
 }

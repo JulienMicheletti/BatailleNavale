@@ -26,10 +26,14 @@ public class GameManager extends Observable implements Serializable{
     public static int VERTICAL = 11;
     public boolean currentPlayer;
     private Joueur playerH;
+    private Joueur playerH2;
     private JoueurIA playerIA;
     private int orientation;
+    private int orientationJ2;
     private int taille;
+    private int tailleJ2;
     private Case[] selectionBateau;
+    private Case[] selectionBateauJ2;
     private Case caseViseeJ1;
     private Case[] caseColatJ1;
     private Case caseViseeJ2;
@@ -38,10 +42,13 @@ public class GameManager extends Observable implements Serializable{
     private boolean launchGame;
     private ShipFactory epoque;
     private int munition;
+    private boolean IAgame;
 
     public GameManager(){
         this.orientation = GameManager.HORIZONTAL;
+        this.orientationJ2 = GameManager.HORIZONTAL;
         this.taille = -1;
+        this.tailleJ2 = -1;
         currentPlayer = true;
         caseViseeJ1 = new Case(-1, -1);
         caseViseeJ2 = new Case(-1, -1);
@@ -49,12 +56,15 @@ public class GameManager extends Observable implements Serializable{
         for (int i = 0; i < caseColatJ1.length; i++)
             caseColatJ1[i] = new Case(-1, -1);
         this.playerH = new Joueur();
+        this.playerH2 = new Joueur();
         this.playerIA = new JoueurIA();
         this.epoque = new XVIemeFactory();
         this.playerH.setFactory(epoque);
         this.playerIA.setFactory(epoque);
+        this.playerH2.setFactory(epoque);
         this.launchGame = false;
         this.munition = 0;
+        this.IAgame = false;
     }
 
     public void tirer_spectial(int x, int y, int case_id){
@@ -97,8 +107,10 @@ public class GameManager extends Observable implements Serializable{
         caseViseeJ1.setY(y);
         munition_special(x, y);
         if (this.isHVictory()) this.victory = 1;
-        notifierIA();
-        if (this.isIAVictory()) this.victory = -1;
+        if (IAgame) {
+            notifierIA();
+            if (this.isIAVictory()) this.victory = -1;
+        }
         setChanged();
         notifyObservers();
     }
@@ -134,17 +146,13 @@ public class GameManager extends Observable implements Serializable{
         return caseColatJ1;
     }
 
-    public void setCurrentPlayer(boolean currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public boolean getCurrentPlayer(){
-        return currentPlayer;
-    }
-
     public void setOrientation(int orientation){
         this.orientation = orientation;
         this.playerH.setOrientation(orientation);
+    }
+
+    public void setOrientationJ2(int orientation){
+        this.playerH2.setOrientation(orientation);
     }
 
     public void setTaille(int taille){
@@ -156,12 +164,27 @@ public class GameManager extends Observable implements Serializable{
         notifyObservers();
     }
 
+    public void setTailleJ2(int taille){
+        this.tailleJ2 = taille;
+        this.playerH2.resetPos(taille);
+        this.selectionBateauJ2 = new Case[1];
+        this.selectionBateauJ2[0] = new Case(-1, -1);
+    }
+
     public void setSelection(int x, int y){
         if (taille != -1) {
             if (this.playerH.setSelection(x, y, this.taille)) {
                 this.selectionBateau = this.playerH.getSelection(taille);
                 setChanged();
                 notifyObservers();
+            }
+        }
+    }
+
+    public void setSelectionJ2(int x, int y){
+        if (tailleJ2 != -1){
+            if (this.playerH2.setSelection(x, y, this.tailleJ2)) {
+                this.selectionBateauJ2 = this.playerH2.getSelection(tailleJ2);
             }
         }
     }
@@ -175,6 +198,12 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    public void validerSelectionJ2(){
+        if (this.playerH2.validerCase(getSelectionBateauJ2(), tailleJ2)){
+            tailleJ2 = -1;
+        }
+    }
+
     public void confirmerSelection(){
         this.launchGame = this.playerH.plateauValide();
         if (this.launchGame)
@@ -183,6 +212,9 @@ public class GameManager extends Observable implements Serializable{
         notifyObservers();
     }
 
+    public void confirmerSelectionJ2(){
+        this.launchGame = this.playerH2.plateauValide();
+    }
 
     public void resetLaunch(){
         launchGame = false;
@@ -192,6 +224,8 @@ public class GameManager extends Observable implements Serializable{
         return taille;
     }
 
+    public int getTailleJ2(){ return tailleJ2; }
+
     public boolean getLaunchGame(){
         return launchGame;
     }
@@ -199,6 +233,8 @@ public class GameManager extends Observable implements Serializable{
     public ArrayList<Case> getCasesBateauxH(){
         return this.playerH.getCaseValider(0);
     }
+
+    public ArrayList<Case> getCasesBateauxJ2(){ return this.playerH2.getCaseValider(0); }
 
     public ArrayList<Case> getCasesBateauxIA(){
         return this.playerIA.getCaseValider(0);
@@ -212,11 +248,17 @@ public class GameManager extends Observable implements Serializable{
         return this.playerIA.isOver();
     }
 
+    public boolean isH2Victory() { return this.playerH.isOver(); }
+
     public Case[] getSelectionBateau() {
         return selectionBateau;
     }
 
+    public Case[] getSelectionBateauJ2(){return selectionBateauJ2;}
+
     public ArrayList<Case> getCaseValider() { return this.playerH.getCaseValider(this.taille); }
+
+    public ArrayList<Case> getCaseValiderJ2() { return this.playerH2.getCaseValider(this.tailleJ2); }
 
     public int[][] getPlayerPlateau(){
         return playerH.getPlateau();
@@ -229,6 +271,16 @@ public class GameManager extends Observable implements Serializable{
         }else{
             this.orientation = GameManager.HORIZONTAL;
             this.playerH.setOrientation(GameManager.HORIZONTAL);
+        }
+    }
+
+    public void switchOrientationJ2(){
+        if (this.orientationJ2 == GameManager.HORIZONTAL) {
+            this.orientationJ2 = GameManager.VERTICAL;
+            this.playerH2.setOrientation(orientationJ2);
+        } else {
+            this.orientationJ2 = GameManager.HORIZONTAL;
+            this.playerH2.setOrientation(orientationJ2);
         }
     }
 

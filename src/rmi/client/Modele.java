@@ -8,24 +8,50 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 public class Modele extends Observable {
+    private int ID;
     private int taille;
+    private boolean lancerSelection;
     private ServerInterface serveurInterface;
     public static int HORIZONTAL = 10;
     public static int VERTICAL = 11;
     private int orientation;
     private int selectionBateau[][];
     private boolean lancerJeu;
+    private boolean waitingJeu;
     private int[][] plateauJ1;
     private int[][] plateauJ2;
 
     public Modele(ServerInterface serverInterface){
         this.serveurInterface = serverInterface;
+        this.ID = 0;
         orientation = VERTICAL;
+        lancerSelection = false;
+        waitingJeu = false;
+        plateauJ1 = new int[10][10];
+        plateauJ2 = new int[10][10];
+    }
+
+    public void lancerSelection(){
+        lancerSelection = true;
+        setChanged();
+        notifyObservers();
+        lancerSelection = false;
+    }
+
+    public void lancerJeu(){
+        lancerJeu = true;
+        setChanged();
+        notifyObservers();
+        lancerJeu = false;
+    }
+
+    public void setID(int id){
+        this.ID = id;
     }
 
     public void setSelection(int x, int y){
         try {
-            selectionBateau = serveurInterface.setSelection(x, y, taille);
+            selectionBateau = serveurInterface.setSelection(x, y, taille, ID);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -39,7 +65,7 @@ public class Modele extends Observable {
 
     public void switchOrientation(){
         try {
-            serveurInterface.switchOrientation();
+            serveurInterface.switchOrientation(ID);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -47,8 +73,8 @@ public class Modele extends Observable {
 
     public void validerSelection(){
         try {
-            if (serveurInterface.isValide()) {
-                selectionBateau = serveurInterface.validerSelection();
+            if (serveurInterface.isValide(ID)) {
+                selectionBateau = serveurInterface.validerSelection(ID);
                 setTaille(-1);
             }
         } catch (RemoteException e) {
@@ -60,10 +86,10 @@ public class Modele extends Observable {
 
     public void confirmerSelection(){
         try {
-            lancerJeu = serveurInterface.valider();
+            waitingJeu = serveurInterface.valider(ID);
             setChanged();
             notifyObservers();
-            lancerJeu = false;
+            waitingJeu = false;
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -72,7 +98,7 @@ public class Modele extends Observable {
     public ArrayList<CaseClient> getCasesJ(){
         ArrayList<CaseClient> cJ = new ArrayList<>();
         try {
-            cJ = serveurInterface.getCasesJoueur();
+            cJ = serveurInterface.getCasesJoueur(ID);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -95,6 +121,8 @@ public class Modele extends Observable {
         return lancerJeu;
     }
 
+    public boolean getWaitingJeu(){ return waitingJeu; }
+
     public void setTaille(int taille){
         this.taille = taille;
     }
@@ -110,4 +138,15 @@ public class Modele extends Observable {
     public int[][] getPlateauJ2(){
         return plateauJ2;
     }
+
+    public int getPlayerConnected(){
+        try {
+            return serveurInterface.getPlayerConnected();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean getLancerSelection(){ return lancerSelection; }
 }
