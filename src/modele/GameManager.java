@@ -7,7 +7,6 @@ import modele.bateaux.epoques.XXIIemeFactory;
 import modele.bateaux.epoques.XXemeFactory;
 import modele.bots.BotChasseur;
 import modele.bots.BotFullRandom;
-import modele.bots.BotStrategie;
 import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
 
@@ -57,7 +56,7 @@ public class GameManager extends Observable implements Serializable{
         this.munition = 0;
     }
 
-    public void tirer_spectial(int x, int y, int case_id){
+    public void tirer_special(int x, int y, int case_id){
         caseColatJ1[case_id].setToucher(false);
         for (Case c : getCasesBateauxIA()){
             if (c.getX() == y && c.getY() == x){
@@ -71,28 +70,29 @@ public class GameManager extends Observable implements Serializable{
     public void munition_special(int x, int y){
         if (this.munition == 1 && this.getXMunition() != 0){
             this.playerH.removeMunition(1);
-            if (x != 0 && y != 0) this.tirer_spectial(x-1, y-1, 0);
-            if (x != 9 && y != 9) this.tirer_spectial(x+1, y+1, 1);
-            if (x != 0 && y != 9) this.tirer_spectial(x-1, y+1, 2);
-            if (x != 9 && y != 0) this.tirer_spectial(x+1, y-1, 3);
+            if (x != 0 && y != 0) this.tirer_special(x-1, y-1, 0);
+            if (x != 9 && y != 9) this.tirer_special(x+1, y+1, 1);
+            if (x != 0 && y != 9) this.tirer_special(x-1, y+1, 2);
+            if (x != 9 && y != 0) this.tirer_special(x+1, y-1, 3);
         }
         if (this.munition == 2 && this.getCrossMunition() != 0){
             this.playerH.removeMunition(2);
-            if (y != 0) this.tirer_spectial(x, y-1, 0);
-            if (y != 9) this.tirer_spectial(x, y+1, 1);
-            if (x != 0) this.tirer_spectial(x-1, y, 2);
-            if (x != 9) this.tirer_spectial(x+1, y, 3);
+            if (y != 0) this.tirer_special(x, y-1, 0);
+            if (y != 9) this.tirer_special(x, y+1, 1);
+            if (x != 0) this.tirer_special(x-1, y, 2);
+            if (x != 9) this.tirer_special(x+1, y, 3);
         }
     }
 
     public void tirer(int x, int y) {
         caseViseeJ1.setToucher(false);
         currentPlayer = true;
-        for (Case c : getCasesBateauxIA()) {
-            if (c.getX() == x && c.getY() == y) {
-                caseViseeJ1.setToucher(true);
+            for (Case c : getCasesBateauxIA()) {
+                if (c.getX() == x && c.getY() == y) {
+                    c.setToucher(true);
+                    caseViseeJ1.setToucher(true);
+                }
             }
-        }
         caseViseeJ1.setX(x);
         caseViseeJ1.setY(y);
         munition_special(x, y);
@@ -114,6 +114,7 @@ public class GameManager extends Observable implements Serializable{
         coord = playerIA.viser();
         for (Case c : getCasesBateauxH()){
             if (coord[1] == c.getY() && coord[0] == c.getX()){
+                c.setToucher(true);
                 caseViseeJ2.setToucher(true);
                 this.playerIA.notifierToucher();
             }
