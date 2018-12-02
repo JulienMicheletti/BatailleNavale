@@ -125,19 +125,6 @@ public class VuePlateaux extends JPanel implements Observer {
                 this.third.setSelected(true);
             }
         }
-        if (this.gm.getVictory() == -1 && !this.shown){
-            this.shown = true;
-            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
-            if (result == JOptionPane.OK_OPTION) this.restart();
-            if (result == JOptionPane.CLOSED_OPTION) System.exit(0);
-        }
-        if (this.gm.getVictory() == 1 && !this.shown){
-            this.shown = true;
-            int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Victoire !", JOptionPane.DEFAULT_OPTION);
-            if (result == JOptionPane.OK_OPTION) this.restart();
-            if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
-        }
-
         //IA
         Case caseJ2 = gm.getCaseViseeJ2();
         if (caseJ2.getX() >= 0 && caseJ2.getY() >= 0) {
@@ -166,6 +153,18 @@ public class VuePlateaux extends JPanel implements Observer {
                     boardAdversaire[c.getY()][c.getX()].setBackground(Color.black);
                 boardAdversaire[c.getY()][c.getX()].setEnabled(false);
             }
+        }
+        if (this.gm.getVictory() == -1 && !this.shown){
+            this.shown = true;
+            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
+            if (result == JOptionPane.OK_OPTION) this.restart();
+            if (result == JOptionPane.CLOSED_OPTION) System.exit(0);
+        }
+        if (this.gm.getVictory() == 1 && !this.shown){
+            this.shown = true;
+            int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Victoire !", JOptionPane.DEFAULT_OPTION);
+            if (result == JOptionPane.OK_OPTION) this.restart();
+            if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
         }
     }
 

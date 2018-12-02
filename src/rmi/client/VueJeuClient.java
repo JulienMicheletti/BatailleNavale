@@ -12,6 +12,7 @@ public class VueJeuClient extends JPanel implements Observer {
     private JButton[][] boardAdversaire;
     private JPanel contentJoueur;
     private JPanel contentAdversaire;
+    private boolean shown;
 
     public VueJeuClient(Modele mod){
         this.modele = mod;
@@ -69,7 +70,6 @@ public class VueJeuClient extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         int[][] plateauJ1 = modele.getPlateauJ1();
         int[][] plateauJ2 = modele.getPlateauJ2();
-
         for (int i = 0; i < plateauJ1.length; i++){
             for (int j = 0; j < plateauJ1[i].length; j++){
                 if (plateauJ2[i][j] == 1)
@@ -81,6 +81,18 @@ public class VueJeuClient extends JPanel implements Observer {
                 else if (plateauJ1[i][j] == 2)
                     boardAdversaire[i][j].setBackground(Color.BLACK);
             }
+        }
+        if (this.modele.getVictory() == -1 && !this.shown){
+            this.shown = true;
+            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
+            if (result == JOptionPane.OK_OPTION) System.exit(0);;
+            if (result == JOptionPane.CLOSED_OPTION) System.exit(0);
+        }
+        if (this.modele.getVictory() == 1 && !this.shown){
+            this.shown = true;
+            int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Victoire !", JOptionPane.DEFAULT_OPTION);
+            if (result == JOptionPane.OK_OPTION) System.exit(1);
+            if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
         }
     }
 }

@@ -188,6 +188,11 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     }
 
     @Override
+    public int getVictory() throws RemoteException {
+        return this.gameManager.getVictory();
+    }
+
+    @Override
     public void switchOrientation(int player) {
         if (player == 1)
             this.gameManager.switchOrientation();
