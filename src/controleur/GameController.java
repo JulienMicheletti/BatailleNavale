@@ -19,6 +19,6 @@ public class GameController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        gameManager.tirer(x, y,false);
+        gameManager.tirer(x, y);
     }
 }

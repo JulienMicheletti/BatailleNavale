@@ -54,6 +54,7 @@ public class VueJeuClient extends JPanel implements Observer {
                 boardAdversaire[i][j].setPreferredSize(tailleCase);
                 boardJoueur[i][j].setEnabled(false);
                 contentJoueur.add(boardJoueur[i][j]);
+                boardAdversaire[i][j].addActionListener(new GameClientListener(modele, j, i));
                 contentAdversaire.add(boardAdversaire[i][j]);
             }
         }
@@ -66,6 +67,20 @@ public class VueJeuClient extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        int[][] plateauJ1 = modele.getPlateauJ1();
+        int[][] plateauJ2 = modele.getPlateauJ2();
 
+        for (int i = 0; i < plateauJ1.length; i++){
+            for (int j = 0; j < plateauJ1[i].length; j++){
+                if (plateauJ2[i][j] == 1)
+                    boardJoueur[i][j].setBackground(Color.red);
+                else if (plateauJ2[i][j] == 2)
+                    boardJoueur[i][j].setBackground(Color.black);
+                if (plateauJ1[i][j] == 1)
+                    boardAdversaire[i][j].setBackground(Color.red);
+                else if (plateauJ1[i][j] == 2)
+                    boardAdversaire[i][j].setBackground(Color.BLACK);
+            }
+        }
     }
 }

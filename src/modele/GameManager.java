@@ -31,6 +31,7 @@ public class GameManager extends Observable implements Serializable{
     private int taille;
     private Case[] selectionBateau;
     private Case caseViseeJ1;
+    private Case[] caseColatJ1;
     private Case caseViseeJ2;
     private int victory; // -1 IA victory, 0 none, 1 H victory
     private boolean est_touche;
@@ -42,8 +43,11 @@ public class GameManager extends Observable implements Serializable{
         this.orientation = GameManager.HORIZONTAL;
         this.taille = -1;
         currentPlayer = true;
-        caseViseeJ1 = new Case(0, 0);
-        caseViseeJ2 = new Case(0, 0);
+        caseViseeJ1 = new Case(-1, -1);
+        caseViseeJ2 = new Case(-1, -1);
+        caseColatJ1 = new Case[4];
+        for (int i = 0; i < caseColatJ1.length; i++)
+            caseColatJ1[i] = new Case(-1, -1);
         this.playerH = new Joueur();
         this.playerIA = new JoueurIA();
         this.epoque = new XVIemeFactory();
@@ -53,37 +57,50 @@ public class GameManager extends Observable implements Serializable{
         this.munition = 0;
     }
 
-    public void tirer(int x, int y, boolean collateral) {
+    public void tirer_spectial(int x, int y, int case_id){
+        caseColatJ1[case_id].setToucher(false);
+        for (Case c : getCasesBateauxIA()){
+            if (c.getX() == y && c.getY() == x){
+                caseColatJ1[case_id].setToucher(true);
+            }
+        }
+        caseColatJ1[case_id].setX(x);
+        caseColatJ1[case_id].setY(y);
+    }
+
+    public void munition_special(int x, int y){
+        if (this.munition == 1 && this.getXMunition() != 0){
+            this.playerH.removeMunition(1);
+            if (x != 0 && y != 0) this.tirer_spectial(x-1, y-1, 0);
+            if (x != 9 && y != 9) this.tirer_spectial(x+1, y+1, 1);
+            if (x != 0 && y != 9) this.tirer_spectial(x-1, y+1, 2);
+            if (x != 9 && y != 0) this.tirer_spectial(x+1, y-1, 3);
+        }
+        if (this.munition == 2 && this.getCrossMunition() != 0){
+            this.playerH.removeMunition(2);
+            if (y != 0) this.tirer_spectial(x, y-1, 0);
+            if (y != 9) this.tirer_spectial(x, y+1, 1);
+            if (x != 0) this.tirer_spectial(x-1, y, 2);
+            if (x != 9) this.tirer_spectial(x+1, y, 3);
+        }
+    }
+
+    public void tirer(int x, int y) {
         caseViseeJ1.setToucher(false);
         currentPlayer = true;
         for (Case c : getCasesBateauxIA()) {
-            if (c.getX() == y && c.getY() == x) {
+            if (c.getX() == x && c.getY() == y) {
                 caseViseeJ1.setToucher(true);
             }
         }
-        caseViseeJ1.setX(y+1);
-        caseViseeJ1.setY(x+1);
+        caseViseeJ1.setX(x);
+        caseViseeJ1.setY(y);
+        munition_special(x, y);
+        if (this.isHVictory()) this.victory = 1;
+        notifierIA();
+        if (this.isIAVictory()) this.victory = -1;
         setChanged();
         notifyObservers();
-        if (!collateral) {
-            if (this.munition == 1 && this.getXMunition() != 0){
-                this.playerH.removeMunition(1);
-                if (x != 0 && y != 0) this.tirer(x-1, y-1, true);
-                if (x != 9 && y != 9) this.tirer(x+1, y+1, true);
-                if (x != 0 && y != 9) this.tirer(x-1, y+1, true);
-                if (x != 9 && y != 0) this.tirer(x+1, y-1, true);
-            }
-            if (this.munition == 2 && this.getCrossMunition() != 0){
-                this.playerH.removeMunition(2);
-                if (y != 0) this.tirer(x, y-1, true);
-                if (y != 9) this.tirer(x, y+1, true);
-                if (x != 0) this.tirer(x-1, y, true);
-                if (x != 9) this.tirer(x+1, y, true);
-            }
-            if (this.isHVictory()) this.victory = 1;
-            notifierIA();
-            if (this.isIAVictory()) this.victory = -1;
-        }
     }
 
     public int getVictory(){
@@ -96,40 +113,27 @@ public class GameManager extends Observable implements Serializable{
         int coord[];
         coord = playerIA.viser();
         for (Case c : getCasesBateauxH()){
-            if (coord[1]+1 == c.getY()+1 && coord[0]+1 == c.getX()+1){
+            if (coord[1] == c.getY() && coord[0] == c.getX()){
                 caseViseeJ2.setToucher(true);
                 this.playerIA.notifierToucher();
             }
         }
-        caseViseeJ2.setY(coord[0]+1);
-        caseViseeJ2.setX(coord[1]+1);
-        setChanged();
-        notifyObservers();
+        caseViseeJ2.setX(coord[0]);
+        caseViseeJ2.setY(coord[1]);
     }
 
-    public boolean isJ1Est_touche(){
-        return caseViseeJ1.getToucher();
+    public Case getCaseViseeJ1(){
+        return caseViseeJ1;
     }
 
-    public boolean isJ2Est_touche(){
-        return caseViseeJ2.getToucher();
+    public Case getCaseViseeJ2(){
+        return caseViseeJ2;
     }
 
-    public int getJ1ViseeX(){
-        return caseViseeJ1.getX();
+    public Case[] getCaseColatJ1() {
+        return caseColatJ1;
     }
 
-    public int getJ1ViseeY(){
-        return caseViseeJ1.getY();
-    }
-
-    public int getJ2ViseeX(){
-        return caseViseeJ2.getX();
-    }
-
-    public int getJ2ViseeY(){
-        return caseViseeJ2.getY();
-    }
     public void setCurrentPlayer(boolean currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
@@ -173,6 +177,8 @@ public class GameManager extends Observable implements Serializable{
 
     public void confirmerSelection(){
         this.launchGame = this.playerH.plateauValide();
+        if (this.launchGame)
+            initIA();
         setChanged();
         notifyObservers();
     }

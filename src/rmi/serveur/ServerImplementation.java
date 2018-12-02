@@ -75,19 +75,38 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
 
     @Override
     public void tirer(int x, int y) {
-        this.gameManager.setEst_touche(false);
-        this.gameManager.setCurrentPlayer(true);
-        for (Case c : this.gameManager.getCasesBateauxIA()) {
-            if (c.getX() == y && c.getY() == x) {
-                c.setToucher(true);
-                this.gameManager.setEst_touche(true);
+        this.gameManager.tirer(x, y);
+    }
+
+    @Override
+    public int[][] getPlateauJ1() throws RemoteException {
+        int[][] plateau =  new int[10][10];
+        for (int i = 0; i < plateau.length; i++){
+            for (int j = 0; j < plateau[i].length; j++)
+                plateau[i][j] = 0;
+        }
+        Case caseVise = gameManager.getCaseViseeJ1();
+        if (caseVise.getToucher())
+            plateau[caseVise.getY()][caseVise.getX()] = 1; //ROUGE
+        else
+            plateau[caseVise.getY()][caseVise.getX()] = 2; //NOIR
+        return plateau;
+    }
+
+    @Override
+    public int[][] getPlateauJ2() throws RemoteException {
+        int[][] plateau =  new int[10][10];
+        for (int i = 0; i < plateau.length; i++){
+            for (int j = 0; j < plateau[i].length; j++){
+                plateau[i][j] = 0;
             }
         }
-      /*  this.gameManager.setCaseViseeX(x+1);
-        this.gameManager.setCaseViseeY(y+1);*/
-        if (this.gameManager.isHVictory()) this.victory = 1;
-        this.gameManager.notifierIA();
-        if (this.gameManager.isIAVictory()) this.victory = -1;
+        Case caseVise = gameManager.getCaseViseeJ2();
+        if (caseVise.getToucher())
+            plateau[caseVise.getY()][caseVise.getX()] = 1;
+        else
+            plateau[caseVise.getY()][caseVise.getX()] = 2;
+        return plateau;
     }
 
     @Override
@@ -113,6 +132,8 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             casesJ.add(new CaseClient(c.getX(),c.getY()));
         return casesJ;
     }
+
+
 
     public static void main(String[] args){
         try {

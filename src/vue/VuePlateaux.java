@@ -137,21 +137,35 @@ public class VuePlateaux extends JPanel implements Observer {
             if (result == JOptionPane.OK_OPTION) this.restart();
             if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
         }
-        if(!gm.getCurrentPlayer()) {
-            //IA
-            if (gm.isJ2Est_touche()) {
-                boardJoueur[gm.getJ2ViseeX()-1][gm.getJ2ViseeY()-1].setBackground(Color.red);
+
+        //IA
+        Case caseJ2 = gm.getCaseViseeJ2();
+        if (caseJ2.getX() >= 0 && caseJ2.getY() >= 0) {
+            if (caseJ2.getToucher()) {
+                boardJoueur[caseJ2.getY()][caseJ2.getX()].setBackground(Color.red);
             } else {
-                boardJoueur[gm.getJ2ViseeX()-1][gm.getJ2ViseeY()-1].setBackground(Color.black);
+                boardJoueur[caseJ2.getY()][caseJ2.getX()].setBackground(Color.black);
             }
-        } else {
-            //HUMAIN
-            if (gm.isJ1Est_touche()) {
-                boardAdversaire[gm.getJ1ViseeX() - 1][gm.getJ1ViseeY() - 1].setBackground(Color.red);
+        }
+
+        //HUMAIN
+        Case caseJ1 = gm.getCaseViseeJ1();
+        if (caseJ1.getX() >= 0 && caseJ1.getY() >= 0) {
+            if (caseJ1.getToucher()) {
+                boardAdversaire[caseJ1.getY()][caseJ1.getX()].setBackground(Color.red);
             } else {
-                boardAdversaire[gm.getJ1ViseeX() - 1][gm.getJ1ViseeY() - 1].setBackground(Color.black);
+                boardAdversaire[caseJ1.getY()][caseJ1.getX()].setBackground(Color.black);
             }
-            boardAdversaire[gm.getJ1ViseeX()-1][gm.getJ1ViseeY()-1].setEnabled(false);
+            boardAdversaire[caseJ1.getY()][caseJ1.getX()].setEnabled(false);
+        }
+        for (Case c : gm.getCaseColatJ1()){
+            if (c.getX() >= 0 && c.getY() >= 0) {
+                if (c.getToucher())
+                    boardAdversaire[c.getY()][c.getX()].setBackground(Color.red);
+                else
+                    boardAdversaire[c.getY()][c.getX()].setBackground(Color.black);
+                boardAdversaire[c.getY()][c.getX()].setEnabled(false);
+            }
         }
     }
 

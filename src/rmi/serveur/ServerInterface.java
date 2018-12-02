@@ -1,6 +1,5 @@
 package rmi.serveur;
 
-import modele.bateaux.Case;
 import rmi.client.CaseClient;
 
 import java.rmi.Remote;
@@ -16,4 +15,6 @@ public interface ServerInterface extends Remote {
     boolean valider() throws RemoteException;
     ArrayList<CaseClient> getCasesJoueur() throws RemoteException;
     void tirer(int x, int y) throws RemoteException;
+    int[][] getPlateauJ1() throws RemoteException;
+    int[][] getPlateauJ2() throws RemoteException;
 }

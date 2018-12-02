@@ -15,7 +15,8 @@ public class Modele extends Observable {
     private int orientation;
     private int selectionBateau[][];
     private boolean lancerJeu;
-
+    private int[][] plateauJ1;
+    private int[][] plateauJ2;
 
     public Modele(ServerInterface serverInterface){
         this.serveurInterface = serverInterface;
@@ -78,6 +79,18 @@ public class Modele extends Observable {
         return cJ;
     }
 
+    public void tirer(int x, int y){
+        try {
+            this.serveurInterface.tirer(x, y);
+            plateauJ1 = serveurInterface.getPlateauJ1();
+            plateauJ2 = serveurInterface.getPlateauJ2();
+            setChanged();
+            notifyObservers();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean getLancerJeu(){
         return lancerJeu;
     }
@@ -90,5 +103,11 @@ public class Modele extends Observable {
         return taille;
     }
 
+    public int[][] getPlateauJ1(){
+        return plateauJ1;
+    }
 
+    public int[][] getPlateauJ2(){
+        return plateauJ2;
+    }
 }

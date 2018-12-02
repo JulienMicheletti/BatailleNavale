@@ -74,7 +74,7 @@ public class VueGeneral extends JPanel implements Observer {
 
     public void newGame(JFrame f, GameManager gm){
         f.remove(this);
-        gm.initIA();
+    //    gm.initIA();
         f.setPreferredSize(new Dimension(800,800));
         f.setContentPane(new VueSelection(gm));
         f.invalidate();
