@@ -17,4 +17,5 @@ public interface ServerInterface extends Remote {
     void tirer(int x, int y) throws RemoteException;
     int[][] getPlateauJ1() throws RemoteException;
     int[][] getPlateauJ2() throws RemoteException;
+    int getVictory() throws RemoteException;;
 }

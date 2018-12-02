@@ -22,12 +22,15 @@ public class BotChasseur implements BotStrategie {
             return this.tirerAuHasard(plateau);
         }else{ //mode chasseur
             Case c = null;
-            boolean vide = false;
-            do {
-                if (interest.isEmpty()) vide = true;
+
+            boolean trouve = false;
+            while (!interest.isEmpty() && !trouve){
                 c = this.interest.remove(0);
-            } while (plateau[c.getX()][c.getY()] != 0 || vide);
-            if (vide) return this.tirerAuHasard(plateau);
+                System.out.println(c);
+                if (plateau[c.getX()][c.getY()] == 0) trouve = true; // Cas si on trouve une case d'interet eligible a un tir
+                if (plateau[c.getX()][c.getY()] != 0 && this.interest.isEmpty() ) return this.tirerAuHasard(plateau);;
+            }
+
             int x = c.getX();
             int y = c.getY();
             int[] res = new int[2];

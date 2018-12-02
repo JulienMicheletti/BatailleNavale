@@ -17,6 +17,7 @@ public class Modele extends Observable {
     private boolean lancerJeu;
     private int[][] plateauJ1;
     private int[][] plateauJ2;
+    private int victory;
 
     public Modele(ServerInterface serverInterface){
         this.serveurInterface = serverInterface;
@@ -84,6 +85,7 @@ public class Modele extends Observable {
             this.serveurInterface.tirer(x, y);
             plateauJ1 = serveurInterface.getPlateauJ1();
             plateauJ2 = serveurInterface.getPlateauJ2();
+            victory = this.serveurInterface.getVictory();
             setChanged();
             notifyObservers();
         } catch (RemoteException e) {
@@ -101,6 +103,10 @@ public class Modele extends Observable {
 
     public int getTaille(){
         return taille;
+    }
+
+    public int getVictory() {
+        return victory;
     }
 
     public int[][] getPlateauJ1(){
