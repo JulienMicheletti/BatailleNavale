@@ -23,10 +23,11 @@ public interface ServerInterface extends Remote {
     //
     ArrayList<CaseClient> getCasesJoueur(int player) throws RemoteException;
     //
-    void tirer(int x, int y) throws RemoteException;
+    void tirer(int x, int y, int player) throws RemoteException;
     int[][] getPlateauJ1() throws RemoteException;
     int[][] getPlateauJ2() throws RemoteException;
     boolean askConnect() throws RemoteException;
     int getPlayerConnected() throws RemoteException;
     int getVictory() throws RemoteException;;
+    void askLancerJeu() throws RemoteException;
 }

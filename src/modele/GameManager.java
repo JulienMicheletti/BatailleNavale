@@ -42,6 +42,7 @@ public class GameManager extends Observable implements Serializable{
     private ShipFactory epoque;
     private int munition;
     private boolean IAgame;
+    private int turn; //1 = J1, 2 = J2
 
     public GameManager(){
         this.orientation = GameManager.HORIZONTAL;
@@ -64,6 +65,7 @@ public class GameManager extends Observable implements Serializable{
         this.launchGame = false;
         this.munition = 0;
         this.IAgame = false;
+        turn = 1;
     }
 
     public void tirer_special(int x, int y, int case_id){
@@ -97,12 +99,17 @@ public class GameManager extends Observable implements Serializable{
     public void tirer(int x, int y) {
         caseViseeJ1.setToucher(false);
         currentPlayer = true;
-            for (Case c : getCasesBateauxIA()) {
+        ArrayList<Case> adversaire;
+        if (IAgame)
+            adversaire = getCasesBateauxIA();
+        else
+            adversaire = getCasesBateauxJ2();
+        for (Case c : adversaire) {
                 if (c.getX() == x && c.getY() == y) {
                     c.setToucher(true);
                     caseViseeJ1.setToucher(true);
                 }
-            }
+        }
         caseViseeJ1.setX(x);
         caseViseeJ1.setY(y);
         munition_special(x, y);
@@ -110,9 +117,26 @@ public class GameManager extends Observable implements Serializable{
         if (IAgame) {
             notifierIA();
             if (this.isIAVictory()) this.victory = -1;
+        } else {
+            turn = 2;
         }
         setChanged();
         notifyObservers();
+    }
+
+    public void tirerJ2(int x, int y){
+        caseViseeJ2.setToucher(false);
+        for (Case c : getCasesBateauxH()){
+            if (c.getX() == x && c.getY() == y){
+                c.setToucher(true);
+                caseViseeJ2.setToucher(true);
+            }
+        }
+        caseViseeJ2.setX(x);
+        caseViseeJ2.setY(y);
+        if (this.isH2Victory())
+            this.victory = 2;
+        turn = 1;
     }
 
     public int getVictory(){
@@ -338,8 +362,13 @@ public class GameManager extends Observable implements Serializable{
 
     public int getXMunition(){return this.playerH.getXMunition();}
 
+    public int getTurn(){ return this.turn; }
 
     public void setEst_touche(boolean est_touche) {
         this.est_touche = est_touche;
+    }
+
+    public void setIAGame(){
+        IAgame = true;
     }
 }

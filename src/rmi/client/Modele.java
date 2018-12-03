@@ -88,9 +88,12 @@ public class Modele extends Observable {
     public void confirmerSelection(){
         try {
             waitingJeu = serveurInterface.valider(ID);
-            setChanged();
-            notifyObservers();
+            if (waitingJeu) {
+                setChanged();
+                notifyObservers();
+            }
             waitingJeu = false;
+            serveurInterface.askLancerJeu();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -106,14 +109,22 @@ public class Modele extends Observable {
         return cJ;
     }
 
-    public void tirer(int x, int y){
-        try {
-            this.serveurInterface.tirer(x, y);
+    public void notifyShot() throws RemoteException{
+        if (ID == 1) {
             plateauJ1 = serveurInterface.getPlateauJ1();
             plateauJ2 = serveurInterface.getPlateauJ2();
-            victory = this.serveurInterface.getVictory();
-            setChanged();
-            notifyObservers();
+        } else {
+            plateauJ1 = serveurInterface.getPlateauJ2();
+            plateauJ2 = serveurInterface.getPlateauJ1();
+        }
+        victory = this.serveurInterface.getVictory();
+        setChanged();
+        notifyObservers();
+    }
+
+    public void tirer(int x, int y){
+        try {
+            this.serveurInterface.tirer(x, y, ID);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

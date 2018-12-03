@@ -84,7 +84,7 @@ public class VueJeuClient extends JPanel implements Observer {
         }
         if (this.modele.getVictory() == -1 && !this.shown){
             this.shown = true;
-            int result = JOptionPane.showConfirmDialog(this, "L'ordinateur vous a battu !", "Défaite !", JOptionPane.DEFAULT_OPTION);
+            int result = JOptionPane.showConfirmDialog(this, "Vous avez perdu ...", "Défaite !", JOptionPane.DEFAULT_OPTION);
             if (result == JOptionPane.OK_OPTION) System.exit(0);;
             if (result == JOptionPane.CLOSED_OPTION) System.exit(0);
         }

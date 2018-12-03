@@ -16,6 +16,11 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
     }
 
     @Override
+    public void notifyShot() throws RemoteException{
+        modele.notifyShot();
+    }
+
+    @Override
     public void notifyConnected() throws RemoteException{
         modele.lancerSelection();
     }
@@ -24,6 +29,5 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
     public void notifyJeu() throws RemoteException {
         modele.lancerJeu();
     }
-
 
 }
