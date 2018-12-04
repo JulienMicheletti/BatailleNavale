@@ -7,4 +7,5 @@ public interface ClientInterface extends Remote {
 
     void notifyConnected() throws RemoteException;
     void notifyJeu() throws RemoteException;
+    void notifyShot() throws RemoteException;
 }

@@ -152,8 +152,13 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     }
 
     @Override
-    public void tirer(int x, int y) {
-        this.gameManager.tirer(x, y);
+    public void tirer(int x, int y, int player) throws RemoteException{
+        if (player == 1 && gameManager.getTurn() == 1)
+            this.gameManager.tirer(x, y);
+        else if (player == 2 && gameManager.getTurn() == 2)
+            this.gameManager.tirerJ2(x, y);
+        client1.notifyShot();
+        client2.notifyShot();
     }
 
     @Override
@@ -164,10 +169,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
                 plateau[i][j] = 0;
         }
         Case caseVise = gameManager.getCaseViseeJ1();
-        if (caseVise.getToucher())
-            plateau[caseVise.getY()][caseVise.getX()] = 1; //ROUGE
-        else
-            plateau[caseVise.getY()][caseVise.getX()] = 2; //NOIR
+        if (caseVise.getX() >= 0 && caseVise.getY() >= 0) {
+            if (caseVise.getToucher())
+                plateau[caseVise.getY()][caseVise.getX()] = 1; //ROUGE
+            else
+                plateau[caseVise.getY()][caseVise.getX()] = 2; //NOIR
+        }
         return plateau;
     }
 
@@ -180,10 +187,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             }
         }
         Case caseVise = gameManager.getCaseViseeJ2();
-        if (caseVise.getToucher())
-            plateau[caseVise.getY()][caseVise.getX()] = 1;
-        else
-            plateau[caseVise.getY()][caseVise.getX()] = 2;
+        if (caseVise.getX() >= 0 && caseVise.getY() >= 0) {
+            if (caseVise.getToucher())
+                plateau[caseVise.getY()][caseVise.getX()] = 1;
+            else
+                plateau[caseVise.getY()][caseVise.getX()] = 2;
+        }
         return plateau;
     }
 
@@ -219,10 +228,17 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             }
         }
         if (rdyToPlay == 2){
+            valide=false;
+        }
+        return valide;
+    }
+
+    @Override
+    public void askLancerJeu() throws RemoteException {
+        if (rdyToPlay == 2){
             client1.notifyJeu();
             client2.notifyJeu();
         }
-        return valide;
     }
 
     @Override
