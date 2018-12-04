@@ -11,6 +11,8 @@ public interface ServerInterface extends Remote {
 
     void connexion(ClientInterface client) throws RemoteException;
     //
+    void validerEpoque() throws RemoteException;
+    //
     int[][] setSelection(int x, int y, int taille, int player) throws RemoteException;
     //
     int[][] validerSelection(int player) throws RemoteException;
@@ -22,6 +24,8 @@ public interface ServerInterface extends Remote {
     boolean valider(int player) throws RemoteException;
     //
     ArrayList<CaseClient> getCasesJoueur(int player) throws RemoteException;
+    //
+    void setFactory(int facto) throws RemoteException;
     //
     void tirer(int x, int y, int player) throws RemoteException;
     int[][] getPlateauJ1() throws RemoteException;

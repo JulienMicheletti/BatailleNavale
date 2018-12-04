@@ -51,6 +51,17 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     }
 
     @Override
+    public void validerEpoque() throws RemoteException {
+        client1.notifySelection();
+        client2.notifySelection();
+    }
+
+    @Override
+    public void setFactory(int facto) throws RemoteException {
+        gameManager.setFactory(facto);
+    }
+
+    @Override
     public int[][] setSelection(int x, int y, int taille, int player) throws RemoteException {
         if (player == 1)
             return setSelection(x, y, taille);

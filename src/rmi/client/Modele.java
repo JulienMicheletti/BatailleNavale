@@ -18,6 +18,7 @@ public class Modele extends Observable {
     private int selectionBateau[][];
     private boolean lancerJeu;
     private boolean waitingJeu;
+    private boolean choixEpoque;
     private int[][] plateauJ1;
     private int[][] plateauJ2;
     private int victory;
@@ -28,8 +29,16 @@ public class Modele extends Observable {
         orientation = VERTICAL;
         lancerSelection = false;
         waitingJeu = false;
+        choixEpoque = false;
         plateauJ1 = new int[10][10];
         plateauJ2 = new int[10][10];
+    }
+
+    public void lancerChoixEpoque(){
+        choixEpoque = true;
+        setChanged();
+        notifyObservers();
+        choixEpoque = false;
     }
 
     public void lancerSelection(){
@@ -44,6 +53,22 @@ public class Modele extends Observable {
         setChanged();
         notifyObservers();
         lancerJeu = false;
+    }
+
+    public void validerEpoque(){
+        try {
+            serveurInterface.validerEpoque();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setFactory(int index){
+        try {
+            serveurInterface.setFactory(index);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setID(int id){
@@ -166,4 +191,8 @@ public class Modele extends Observable {
     }
 
     public boolean getLancerSelection(){ return lancerSelection; }
+
+    public boolean getChoixEpoque(){ return choixEpoque; }
+
+    public int getID(){ return ID; }
 }

@@ -21,8 +21,13 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
     }
 
     @Override
-    public void notifyConnected() throws RemoteException{
+    public void notifySelection() throws RemoteException {
         modele.lancerSelection();
+    }
+
+    @Override
+    public void notifyConnected() throws RemoteException{
+        modele.lancerChoixEpoque();
     }
 
     @Override
