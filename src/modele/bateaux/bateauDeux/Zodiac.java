@@ -3,7 +3,9 @@ package modele.bateaux.bateauDeux;
 import modele.GameManager;
 import modele.bateaux.Case;
 
-public class Zodiac implements BateauDeux {
+import java.io.Serializable;
+
+public class Zodiac implements BateauDeux, Serializable {
 
     public int x;
     public int y;

@@ -3,7 +3,9 @@ package modele.bateaux.bateauCinq;
 import modele.GameManager;
 import modele.bateaux.Case;
 
-public class Commander implements BateauCinq {
+import java.io.Serializable;
+
+public class Commander implements BateauCinq, Serializable {
 
     public int x;
     public int y;

@@ -4,9 +4,10 @@ import modele.Plateau;
 import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Acteur {
+public abstract class Acteur implements Serializable {
     protected Plateau plateau;
 
     public Acteur(){

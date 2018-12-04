@@ -4,8 +4,9 @@ package controleur;
 import modele.GameManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
-public class GameController implements ActionListener{
+public class GameController implements ActionListener, Serializable{
 
     private GameManager gameManager;
     private int x;

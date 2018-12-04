@@ -1,4 +1,6 @@
 package modele.joueurs;
 
-public class Joueur extends Acteur{
+import java.io.Serializable;
+
+public class Joueur extends Acteur implements Serializable{
 }

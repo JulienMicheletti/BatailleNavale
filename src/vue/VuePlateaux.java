@@ -1,15 +1,20 @@
 package vue;
 
 import controleur.GameController;
+import controleur.SaveController;
 import modele.GameManager;
 import modele.bateaux.Case;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observer;
 
-public class VuePlateaux extends JPanel implements Observer {
+public class VuePlateaux extends JPanel implements Observer, Serializable {
 
     protected JButton boardJoueur[][] = new JButton[10][10];
     protected JButton boardAdversaire[][] = new JButton[10][10];
@@ -22,6 +27,7 @@ public class VuePlateaux extends JPanel implements Observer {
     private boolean shown;
     private JRadioButton second;
     private JRadioButton first;
+    private JButton save;
     private JRadioButton third;
 
     public VuePlateaux(JFrame frame,GameManager gm){
@@ -30,12 +36,16 @@ public class VuePlateaux extends JPanel implements Observer {
         gm.addObserver(this);
         this.shown = false;
         this.gm = gm;
+        this.save = new JButton("sauvegarder");
         this.contentIAdversaire = new JPanel();
         this.contentJoueur = new JPanel();
         this.afficheur = new JPanel();
         setAffichage();
     }
 
+    public void add(){
+        gm.addObserver(this);
+    }
     public void setAffichage(){
         //this.setLayout(new GridLayout(2, 0));
         //Board parts for self and CPU
@@ -68,19 +78,21 @@ public class VuePlateaux extends JPanel implements Observer {
             }
         }
 
+        save.addActionListener(new SaveController(this));
         ArrayList<Case> postionHuman = this.gm.getCasesBateauxH();
         for (Case c : postionHuman){
             boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
         }
         //End of initialisation, show Panels
         JPanel adv = new JPanel();
+        save.setVerticalAlignment(JLabel.EAST);
         adv.setLayout(new BoxLayout(adv,BoxLayout.Y_AXIS));
         JLabel jlab1 = new JLabel("Plateau adverse : ");
         jlab1.setVerticalAlignment(JLabel.CENTER);
         jlab1.setHorizontalAlignment(JLabel.CENTER);
+        adv.add(save);
         adv.add(jlab1);
         adv.add(this.contentIAdversaire);
-
         JPanel self = new JPanel();
         self.setLayout(new BoxLayout(self,BoxLayout.Y_AXIS));
         JLabel jlab2 = new JLabel("Votre plateau : ");
@@ -90,6 +102,7 @@ public class VuePlateaux extends JPanel implements Observer {
         self.add(this.contentJoueur);
         this.add(adv, BorderLayout.CENTER);
         this.add(self,BorderLayout.CENTER);
+
 
         //Check if munition game
         if (this.gm.isMunitionGame()){
@@ -167,6 +180,7 @@ public class VuePlateaux extends JPanel implements Observer {
             if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
         }
     }
+
 
     private void restart() {
         frame.remove(this);

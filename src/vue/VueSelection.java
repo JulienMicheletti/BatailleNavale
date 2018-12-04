@@ -8,10 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observer;
 
-public class VueSelection extends JPanel implements Observer {
+public class VueSelection extends JPanel implements Observer, Serializable {
     private GameManager gameManager;
     protected JButton boardJoueur[][] = new JButton[10][10];
     private JPanel board;

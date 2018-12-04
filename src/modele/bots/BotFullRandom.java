@@ -1,8 +1,9 @@
 package modele.bots;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class BotFullRandom implements BotStrategie {
+public class BotFullRandom implements BotStrategie, Serializable {
 
     private final Random rng = new Random();
 

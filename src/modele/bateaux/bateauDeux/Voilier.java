@@ -3,7 +3,9 @@ package modele.bateaux.bateauDeux;
 import modele.GameManager;
 import modele.bateaux.Case;
 
-public class Voilier implements BateauDeux {
+import java.io.Serializable;
+
+public class Voilier implements BateauDeux, Serializable {
 
     public int x;
     public int y;

@@ -7,11 +7,12 @@ import modele.bateaux.bateauDeux.BateauDeux;
 import modele.bateaux.bateauQuatre.BateauQuatre;
 import modele.bateaux.bateauTrois.BateauTrois;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Plateau {
+public class Plateau implements Serializable{
     private int[][] plateau;
     private ShipFactory shipFactory;
     private BateauQuatre bateauQuatre;

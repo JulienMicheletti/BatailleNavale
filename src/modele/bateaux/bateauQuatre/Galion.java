@@ -3,7 +3,9 @@ package modele.bateaux.bateauQuatre;
 import modele.GameManager;
 import modele.bateaux.Case;
 
-public class Galion implements BateauQuatre {
+import java.io.Serializable;
+
+public class Galion implements BateauQuatre, Serializable {
 
     public int x;
     public int y;

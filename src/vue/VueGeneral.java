@@ -6,22 +6,20 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class VueGeneral extends JPanel implements Observer {
+public class VueGeneral extends JPanel implements Observer, Serializable {
     private JFrame f;
     private GameManager gameManager;
 
-    public VueGeneral(JFrame f,GameManager gm){
+    public VueGeneral(JFrame f, GameManager gm) {
         gm.addObserver(this);
         this.f = f;
         this.gameManager = gm;
         f.setTitle("Bataille Navale");
-        f.setPreferredSize(new Dimension(600,600));
+        f.setPreferredSize(new Dimension(600, 600));
         try {
             InputStream is = new BufferedInputStream(new FileInputStream("src/res/BN.jpg"));
             Image image = ImageIO.read(is);
@@ -42,7 +40,7 @@ public class VueGeneral extends JPanel implements Observer {
 
             JButton newbutton = new JButton("Nouvelle partie");
             newbutton.addActionListener(e -> {
-                this.newGame(f,gm);
+                this.newGame(f, gm);
             });
             JButton loadbutton = new JButton("Charger partie");
             loadbutton.addActionListener(e -> {
@@ -72,10 +70,10 @@ public class VueGeneral extends JPanel implements Observer {
         f.setVisible(true);
     }
 
-    public void newGame(JFrame f, GameManager gm){
+    public void newGame(JFrame f, GameManager gm) {
         f.remove(this);
-    //    gm.initIA();
-        f.setPreferredSize(new Dimension(800,800));
+        //    gm.initIA();
+        f.setPreferredSize(new Dimension(800, 800));
         gm.resetLaunch();
         f.setContentPane(new VueSelection(gm));
         f.invalidate();
@@ -84,26 +82,49 @@ public class VueGeneral extends JPanel implements Observer {
         f.setVisible(true);
     }
 
-    public void loadGame(){
+    public void loadGame() {
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Save file", "txt");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Save file", "ser");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            //TODO Loading logic
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            ObjectInputStream ois = null;
+            try {
+                final FileInputStream fichier = new FileInputStream(chooser.getSelectedFile().getName());
+                ois = new ObjectInputStream(fichier);
+                VuePlateaux vp = (VuePlateaux) ois.readObject();
+                vp.add();
+                JFrame f = new JFrame();
+                f.setContentPane(vp);
+                f.pack();
+                f.setVisible(true);
+            } catch (final java.io.IOException e) {
+                e.printStackTrace();
+            } catch (final ClassNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (ois != null) {
+                        ois.close();
+                    }
+                } catch (final IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
     }
 
-    public void onlineGame(){
+    public void onlineGame() {
         //TODO Online logic
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if (this.gameManager.getLaunchGame()){
+        if (this.gameManager.getLaunchGame()) {
             this.gameManager.resetLaunch();
             f.setPreferredSize(new Dimension(600, 650));
-            this.f.setContentPane(new VuePlateaux(this.f,this.gameManager));
+            VuePlateaux vp = new VuePlateaux(this.f, this.gameManager);
+            this.f.setContentPane(vp);
             f.invalidate();
             this.f.validate();
             this.f.pack();

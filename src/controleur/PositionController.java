@@ -5,8 +5,9 @@ import modele.GameManager;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 
-public class PositionController implements MouseListener {
+public class PositionController implements MouseListener, Serializable {
 
     private GameManager gm;
     private int x;

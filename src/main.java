@@ -5,11 +5,14 @@ import vue.VueGeneral;
 import vue.VuePlateaux;
 
 import javax.swing.*;
+import java.io.*;
 
 public class main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         GameManager gm = new GameManager();
         JFrame f = new JFrame();
-        f.setContentPane(new VueGeneral(f,gm));
+        f.setContentPane(new VueGeneral(f, gm));
+
+
     }
 }

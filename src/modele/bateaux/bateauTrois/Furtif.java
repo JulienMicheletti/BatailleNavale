@@ -3,7 +3,9 @@ package modele.bateaux.bateauTrois;
 import modele.GameManager;
 import modele.bateaux.Case;
 
-public class Furtif implements BateauTrois {
+import java.io.Serializable;
+
+public class Furtif implements BateauTrois, Serializable {
 
     public int x;
     public int y;

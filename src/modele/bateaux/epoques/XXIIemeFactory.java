@@ -11,7 +11,9 @@ import modele.bateaux.bateauQuatre.Destroyer;
 import modele.bateaux.bateauTrois.BateauTrois;
 import modele.bateaux.bateauTrois.Intercepter;
 
-public class XXIIemeFactory implements ShipFactory {
+import java.io.Serializable;
+
+public class XXIIemeFactory implements ShipFactory, Serializable {
 
     public boolean isMunition(){
         return true;

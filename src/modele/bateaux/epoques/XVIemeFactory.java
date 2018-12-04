@@ -11,7 +11,9 @@ import modele.bateaux.bateauQuatre.Galion;
 import modele.bateaux.bateauTrois.BateauTrois;
 import modele.bateaux.bateauTrois.TroisMats;
 
-public class XVIemeFactory implements ShipFactory {
+import java.io.Serializable;
+
+public class XVIemeFactory implements ShipFactory, Serializable {
 
     public boolean isMunition(){
         return false;

@@ -11,7 +11,9 @@ import modele.bateaux.bateauQuatre.Croiseur;
 import modele.bateaux.bateauTrois.BateauTrois;
 import modele.bateaux.bateauTrois.Furtif;
 
-public class XXemeFactory implements ShipFactory {
+import java.io.Serializable;
+
+public class XXemeFactory implements ShipFactory, Serializable {
 
     public boolean isMunition(){
         return false;

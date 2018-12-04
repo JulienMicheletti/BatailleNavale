@@ -1,6 +1,8 @@
 package modele.bateaux;
 
-public class Case {
+import java.io.Serializable;
+
+public class Case implements Serializable {
 
     private int x;
     private int y;

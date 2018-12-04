@@ -2,10 +2,11 @@ package modele.bots;
 
 import modele.bateaux.Case;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BotChasseur implements BotStrategie {
+public class BotChasseur implements BotStrategie, Serializable{
 
     private boolean chasseur = false;
     private final Random rng = new Random();

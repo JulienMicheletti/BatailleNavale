@@ -6,11 +6,12 @@ import modele.bots.BotChasseur;
 import modele.bots.BotFullRandom;
 import modele.bots.BotStrategie;
 
+import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class JoueurIA extends Acteur {
+public class JoueurIA extends Acteur implements Serializable {
 
     protected int[][] plateauAdverse = new int[10][10];
     private BotStrategie bs = new BotChasseur();
