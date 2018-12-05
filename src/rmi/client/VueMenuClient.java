@@ -49,6 +49,7 @@ public class VueMenuClient extends JPanel implements Observer {
             }
         }
         if (modele.getWaitingJeu()){
+            this.waitingBoard.remove(this.validerEpoque);
             this.waitingBoard.remove(this.comboBox);
             this.waiting.setText("Attente de la pose des bateaux du J2 ...");
             this.remove(waitingBoard);

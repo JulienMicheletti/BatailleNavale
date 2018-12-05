@@ -163,6 +163,10 @@ public class Modele extends Observable {
         }
     }
 
+    public void leavingGame(){
+        System.out.println("rip :(");
+    }
+
     public boolean getLancerJeu(){
         return lancerJeu;
     }

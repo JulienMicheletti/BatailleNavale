@@ -80,6 +80,10 @@ public class VueJeuClient extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         int[][] plateauJ1 = modele.getPlateauJ1();
         int[][] plateauJ2 = modele.getPlateauJ2();
+        if (modele.myTurn())
+            this.information.setText("A votre tour de jouer");
+        else
+            this.information.setText("A l'adversaire de jouer");
         for (int i = 0; i < plateauJ1.length; i++){
             for (int j = 0; j < plateauJ1[i].length; j++){
                 if (plateauJ2[i][j] == 1) {
