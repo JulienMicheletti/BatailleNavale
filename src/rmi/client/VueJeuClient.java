@@ -10,9 +10,10 @@ public class VueJeuClient extends JPanel implements Observer {
     private Modele modele;
     private JButton[][] boardJoueur;
     private JButton[][] boardAdversaire;
+    private JPanel gameLayout;
     private JPanel contentJoueur;
     private JPanel contentAdversaire;
-    private boolean shown;
+    private JLabel information;
 
     public VueJeuClient(Modele mod){
         this.modele = mod;
@@ -21,11 +22,19 @@ public class VueJeuClient extends JPanel implements Observer {
         this.boardAdversaire = new JButton[10][10];
         this.contentAdversaire = new JPanel();
         this.contentJoueur = new JPanel();
+        this.gameLayout = new JPanel();
+        this.information = new JLabel("Informations", SwingConstants.CENTER);
         setAffichage();
     }
 
     public void setAffichage(){
-        this.setLayout(new GridLayout(2, 1));
+        this.setLayout(new BorderLayout());
+        if (modele.myTurn())
+            this.information.setText("A votre tour de jouer");
+        else
+            this.information.setText("A l'adversaire de jouer");
+        this.add(information, BorderLayout.NORTH);
+        this.gameLayout.setLayout(new GridLayout(2, 1));
         this.contentJoueur.setLayout(new GridLayout(11, 11));
         this.contentAdversaire.setLayout(new GridLayout(11, 11));
         Dimension tailleCase = new Dimension(30, 30);
@@ -62,8 +71,9 @@ public class VueJeuClient extends JPanel implements Observer {
         ArrayList<CaseClient> cJ = modele.getCasesJ();
         for (CaseClient c : cJ)
             boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
-        this.add(contentAdversaire);
-        this.add(contentJoueur);
+        this.gameLayout.add(contentAdversaire);
+        this.gameLayout.add(contentJoueur);
+        this.add(gameLayout, BorderLayout.CENTER);
     }
 
     @Override
@@ -72,27 +82,32 @@ public class VueJeuClient extends JPanel implements Observer {
         int[][] plateauJ2 = modele.getPlateauJ2();
         for (int i = 0; i < plateauJ1.length; i++){
             for (int j = 0; j < plateauJ1[i].length; j++){
-                if (plateauJ2[i][j] == 1)
+                if (plateauJ2[i][j] == 1) {
                     boardJoueur[i][j].setBackground(Color.red);
-                else if (plateauJ2[i][j] == 2)
+                    boardJoueur[i][j].setEnabled(false);
+                } else if (plateauJ2[i][j] == 2) {
                     boardJoueur[i][j].setBackground(Color.black);
-                if (plateauJ1[i][j] == 1)
+                    boardJoueur[i][j].setEnabled(false);
+                }
+                if (plateauJ1[i][j] == 1) {
                     boardAdversaire[i][j].setBackground(Color.red);
-                else if (plateauJ1[i][j] == 2)
+                    boardAdversaire[i][j].setEnabled(false);
+                } else if (plateauJ1[i][j] == 2) {
                     boardAdversaire[i][j].setBackground(Color.BLACK);
+                    boardAdversaire[i][j].setEnabled(false);
+                }
             }
         }
-        if (this.modele.getVictory() == -1 && !this.shown){
-            this.shown = true;
-            int result = JOptionPane.showConfirmDialog(this, "Vous avez perdu ...", "Défaite !", JOptionPane.DEFAULT_OPTION);
-            if (result == JOptionPane.OK_OPTION) System.exit(0);;
-            if (result == JOptionPane.CLOSED_OPTION) System.exit(0);
-        }
-        if (this.modele.getVictory() == 1 && !this.shown){
-            this.shown = true;
-            int result = JOptionPane.showConfirmDialog(this, "Vous avez vaincu !", "Victoire !", JOptionPane.DEFAULT_OPTION);
-            if (result == JOptionPane.OK_OPTION) System.exit(1);
-            if (result == JOptionPane.CLOSED_OPTION) System.exit(1);
+        if (this.modele.getVictory() > 0){
+              for (JButton[] tab : boardAdversaire){
+                  for (JButton button : tab)
+                      button.setEnabled(false);
+              }
+            if (this.modele.getVictory() == this.modele.getID()){
+                this.information.setText("Vous avez gagné la partie !");
+            }  else {
+                this.information.setText("Vous avez perdu la partie ...");
+            }
         }
     }
 }

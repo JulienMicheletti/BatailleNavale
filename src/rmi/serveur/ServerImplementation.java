@@ -170,6 +170,13 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             this.gameManager.tirerJ2(x, y);
         client1.notifyShot();
         client2.notifyShot();
+        if (gameManager.isJ1Winner()){
+            client1.notifyVictoryJ1();
+            client2.notifyVictoryJ1();
+        } else if (gameManager.isJ2Winner()){
+            client1.notifyVictoryJ2();
+            client2.notifyVictoryJ2();
+        }
     }
 
     @Override
@@ -277,6 +284,10 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         return casesJ2;
     }
 
+    @Override
+    public int getTurn() throws RemoteException {
+        return gameManager.getTurn();
+    }
 
     public static void main(String[] args){
         try {

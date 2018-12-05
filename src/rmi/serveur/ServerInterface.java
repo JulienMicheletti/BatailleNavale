@@ -27,6 +27,8 @@ public interface ServerInterface extends Remote {
     //
     void setFactory(int facto) throws RemoteException;
     //
+    int getTurn() throws RemoteException;
+    //
     void tirer(int x, int y, int player) throws RemoteException;
     int[][] getPlateauJ1() throws RemoteException;
     int[][] getPlateauJ2() throws RemoteException;

@@ -9,4 +9,6 @@ public interface ClientInterface extends Remote {
     void notifySelection() throws RemoteException;
     void notifyJeu() throws RemoteException;
     void notifyShot() throws RemoteException;
+    void notifyVictoryJ1() throws RemoteException;
+    void notifyVictoryJ2() throws RemoteException;
 }

@@ -134,8 +134,6 @@ public class GameManager extends Observable implements Serializable{
         }
         caseViseeJ2.setX(x);
         caseViseeJ2.setY(y);
-        if (this.isH2Victory())
-            this.victory = 2;
         turn = 1;
     }
 
@@ -272,8 +270,6 @@ public class GameManager extends Observable implements Serializable{
         return this.playerIA.isOver();
     }
 
-    public boolean isH2Victory() { return this.playerH.isOver(); }
-
     public Case[] getSelectionBateau() {
         return selectionBateau;
     }
@@ -370,5 +366,13 @@ public class GameManager extends Observable implements Serializable{
 
     public void setIAGame(){
         IAgame = true;
+    }
+
+    public boolean isJ1Winner(){
+        return this.playerH2.isOver();
+    }
+
+    public boolean isJ2Winner(){
+        return this.playerH.isOver();
     }
 }

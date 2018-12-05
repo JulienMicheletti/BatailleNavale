@@ -32,6 +32,7 @@ public class Modele extends Observable {
         choixEpoque = false;
         plateauJ1 = new int[10][10];
         plateauJ2 = new int[10][10];
+        victory = -1;
     }
 
     public void lancerChoixEpoque(){
@@ -61,6 +62,13 @@ public class Modele extends Observable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public void gameWon(int playerID){
+        victory = playerID;
+        setChanged();
+        notifyObservers();
+        victory = -1;
     }
 
     public void setFactory(int index){
@@ -195,4 +203,15 @@ public class Modele extends Observable {
     public boolean getChoixEpoque(){ return choixEpoque; }
 
     public int getID(){ return ID; }
+
+    public boolean myTurn(){
+        try {
+            if (serveurInterface.getTurn() == getID()){
+                return true;
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
