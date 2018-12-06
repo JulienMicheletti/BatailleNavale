@@ -108,10 +108,10 @@ public class VueJeuClient extends JPanel implements Observer {
         if (modele.isAmmoGame()){
             this.crossAmmo.setText("Tir + : "+modele.getMun(1)+" Restant");
             this.plusAmmo.setText("Tir X : "+modele.getMun(2)+" Restant");
-            if (modele.getMun(2) == 0){
+            if (modele.getMun(1) == 0){
                 this.crossAmmo.setEnabled(false);
                 this.normalAmmo.setSelected(true);
-            } else if (modele.getMun(1) == 0){
+            } else if (modele.getMun(2) == 0){
                 this.plusAmmo.setEnabled(false);
                 this.normalAmmo.setSelected(true);
             }
