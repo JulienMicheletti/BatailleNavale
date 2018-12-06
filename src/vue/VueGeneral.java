@@ -33,7 +33,7 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
             cb.addActionListener(e -> this.gameManager.setFactory(cb.getSelectedIndex()));
             label.add(cb);
 
-            String[] difficulty = {"Facile", "Normal"};
+            String[] difficulty = {"Facile", "Normal","Difficile"};
             JComboBox<String> cbdiff = new JComboBox(difficulty);
             cbdiff.addActionListener(e -> this.gameManager.setDifficulty(cbdiff.getSelectedIndex()));
             label.add(cbdiff);

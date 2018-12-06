@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class JoueurIA extends Acteur implements Serializable {
 
     protected int[][] plateauAdverse = new int[10][10];
-    private BotStrategie bs = new BotChasseur();
+    private BotStrategie bs = new BotFullRandom();
 
     public JoueurIA(){
     }

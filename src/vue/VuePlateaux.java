@@ -33,6 +33,7 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
     public VuePlateaux(JFrame frame,GameManager gm){
         super();
         this.frame = frame;
+        frame.setPreferredSize(new Dimension(650,700));
         gm.addObserver(this);
         this.shown = false;
         this.gm = gm;

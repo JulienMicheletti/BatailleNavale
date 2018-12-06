@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BotChasseur implements BotStrategie, Serializable{
+public class BotChasseurFort implements BotStrategie, Serializable{
 
     private boolean chasseur = false;
     private final Random rng = new Random();
@@ -23,7 +23,6 @@ public class BotChasseur implements BotStrategie, Serializable{
             return this.tirerAuHasard(plateau);
         }else{ //mode chasseur
             Case c = null;
-
             boolean trouve = false;
             while (!interest.isEmpty() && !trouve){
                 c = this.interest.remove(0);
@@ -39,7 +38,6 @@ public class BotChasseur implements BotStrategie, Serializable{
             plateau[x][y] = 1;
             lastX = x;
             lastY = y;
-            System.out.println(x +" ET "+ y);
             return res;
         }
     }
@@ -48,10 +46,12 @@ public class BotChasseur implements BotStrategie, Serializable{
         //Viser au random ant qu'on a pas trouvé une case a bateau
         int x = 0;
         int y = 0;
+        int reste;
         do {
             x = rng.nextInt(10);
             y = rng.nextInt(10);
-        } while (plateau[x][y] != 0);
+            reste = (x+y) %2;
+        } while (plateau[x][y] != 0 || reste != 0 );
         int[] res = new int[2];
         res[0] = x;
         res[1] = y;

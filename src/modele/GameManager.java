@@ -6,6 +6,7 @@ import modele.bateaux.epoques.XVIemeFactory;
 import modele.bateaux.epoques.XXIIemeFactory;
 import modele.bateaux.epoques.XXemeFactory;
 import modele.bots.BotChasseur;
+import modele.bots.BotChasseurFort;
 import modele.bots.BotFullRandom;
 import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
@@ -397,6 +398,9 @@ public class GameManager extends Observable implements Serializable{
         }
         if (selectedIndex == 1) {
             this.playerIA.setDifficulty(new BotChasseur());
+        }
+        if (selectedIndex == 2) {
+            this.playerIA.setDifficulty(new BotChasseurFort());
         }
     }
 
