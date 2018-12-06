@@ -1,7 +1,5 @@
 package rmi.serveur;
 
-
-import com.sun.org.apache.regexp.internal.RE;
 import modele.GameManager;
 import modele.bateaux.Case;
 import rmi.client.CaseClient;
