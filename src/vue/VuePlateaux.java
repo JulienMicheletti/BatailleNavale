@@ -78,7 +78,7 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
             }
         }
 
-        save.addActionListener(new SaveController(this));
+        save.addActionListener(new SaveController(gm));
         ArrayList<Case> postionHuman = this.gm.getCasesBateauxH();
         for (Case c : postionHuman){
             boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
@@ -122,6 +122,32 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
             this.add(second,BorderLayout.SOUTH);
             this.add(third,BorderLayout.SOUTH);
         }
+
+        int[][] tab = gm.getPlayerPlateau();
+        for (int i = 0; i < tab.length; i++){
+            for (int j = 0; j < tab[i].length; j++){
+                if (tab[i][j] == 1){
+                    boardAdversaire[i][j].setBackground(Color.red);
+                    boardAdversaire[i][j].setEnabled(false);
+                }else if (tab[i][j] == 2){
+                    boardAdversaire[i][j].setBackground(Color.black);
+                    boardAdversaire[i][j].setEnabled(false);
+                }
+            }
+        }
+
+        int[][] tabIA = gm.getIAPlateau();
+        for (int i = 0; i < tabIA.length; i++){
+            for (int j = 0; j < tabIA[i].length; j++){
+                if (tabIA[i][j] == 1){
+                    boardJoueur[i][j].setBackground(Color.red);
+                    boardJoueur[i][j].setEnabled(false);
+                }else if (tabIA[i][j] == 2){
+                    boardJoueur[i][j].setBackground(Color.black);
+                    boardJoueur[i][j].setEnabled(false);
+                }
+            }
+        }
     }
 
     @Override
@@ -143,8 +169,10 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
         if (caseJ2.getX() >= 0 && caseJ2.getY() >= 0) {
             if (caseJ2.getToucher()) {
                 boardJoueur[caseJ2.getY()][caseJ2.getX()].setBackground(Color.red);
+                gm.setPlateauIA(caseJ2.getY(), caseJ2.getX(), 1);
             } else {
                 boardJoueur[caseJ2.getY()][caseJ2.getX()].setBackground(Color.black);
+                gm.setPlateauIA(caseJ2.getY(), caseJ2.getX(), 2);
             }
         }
 
@@ -153,17 +181,24 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
         if (caseJ1.getX() >= 0 && caseJ1.getY() >= 0) {
             if (caseJ1.getToucher()) {
                 boardAdversaire[caseJ1.getY()][caseJ1.getX()].setBackground(Color.red);
+                gm.setPlateauHumain(caseJ1.getY(), caseJ1.getX(), 1);
             } else {
                 boardAdversaire[caseJ1.getY()][caseJ1.getX()].setBackground(Color.black);
+                gm.setPlateauHumain(caseJ1.getY(), caseJ1.getX(), 2);
             }
             boardAdversaire[caseJ1.getY()][caseJ1.getX()].setEnabled(false);
         }
         for (Case c : gm.getCaseColatJ1()){
             if (c.getX() >= 0 && c.getY() >= 0) {
-                if (c.getToucher())
+                if (c.getToucher()) {
                     boardAdversaire[c.getY()][c.getX()].setBackground(Color.red);
-                else
+                    gm.setPlateauHumain(c.getY(), c.getX(), 1);
+                }
+                else {
                     boardAdversaire[c.getY()][c.getX()].setBackground(Color.black);
+                    gm.setPlateauHumain(c.getY(), c.getX(), 2);
+                }
+
                 boardAdversaire[c.getY()][c.getX()].setEnabled(false);
             }
         }
