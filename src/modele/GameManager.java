@@ -35,12 +35,14 @@ public class GameManager extends Observable implements Serializable{
     private Case[] selectionBateauJ2;
     private Case caseViseeJ1;
     private Case[] caseColatJ1;
+    private Case[] caseColatJ2;
     private Case caseViseeJ2;
     private int victory; // -1 IA victory, 0 none, 1 H victory
     private boolean est_touche;
     private boolean launchGame;
     private ShipFactory epoque;
     private int munition;
+    private int munitionJ2;
     private boolean IAgame;
     private int turn; //1 = J1, 2 = J2
 
@@ -53,8 +55,11 @@ public class GameManager extends Observable implements Serializable{
         caseViseeJ1 = new Case(-1, -1);
         caseViseeJ2 = new Case(-1, -1);
         caseColatJ1 = new Case[4];
-        for (int i = 0; i < caseColatJ1.length; i++)
+        caseColatJ2 = new Case[4];
+        for (int i = 0; i < caseColatJ1.length; i++) {
             caseColatJ1[i] = new Case(-1, -1);
+            caseColatJ2[i] = new Case(-1, -1);
+        }
         this.playerH = new Joueur();
         this.playerH2 = new Joueur();
         this.playerIA = new JoueurIA();
@@ -64,14 +69,21 @@ public class GameManager extends Observable implements Serializable{
         this.playerH2.setFactory(epoque);
         this.launchGame = false;
         this.munition = 0;
+        this.munitionJ2 = 0;
         this.IAgame = false;
         turn = 1;
     }
 
     public void tirer_special(int x, int y, int case_id){
         caseColatJ1[case_id].setToucher(false);
-        for (Case c : getCasesBateauxIA()){
-            if (c.getX() == y && c.getY() == x){
+        ArrayList<Case> adversaire;
+        if (IAgame)
+            adversaire = getCasesBateauxIA();
+        else
+            adversaire = getCasesBateauxJ2();
+        for (Case c : adversaire){
+            if (c.getX() == x && c.getY() == y){
+                c.setToucher(true);
                 caseColatJ1[case_id].setToucher(true);
             }
         }
@@ -93,6 +105,35 @@ public class GameManager extends Observable implements Serializable{
             if (y != 9) this.tirer_special(x, y+1, 1);
             if (x != 0) this.tirer_special(x-1, y, 2);
             if (x != 9) this.tirer_special(x+1, y, 3);
+        }
+    }
+
+    public void tirer_specialJ2(int x, int y, int case_id){
+        caseColatJ2[case_id].setToucher(false);
+        for(Case c : getCasesBateauxH()){
+            if (c.getX() == x && c.getY() == y){
+                c.setToucher(true);
+                caseColatJ2[case_id].setToucher(true);
+            }
+        }
+        caseColatJ2[case_id].setX(x);
+        caseColatJ2[case_id].setY(y);
+    }
+
+    public void munition_specialJ2(int x, int y){
+        if (this.munitionJ2 == 1 && this.getXMunitionJ2() != 0){
+            this.playerH2.removeMunition(1);
+            if (x != 0 && y != 0) this.tirer_specialJ2(x-1, y-1, 0);
+            if (x != 9 && y != 9) this.tirer_specialJ2(x+1, y+1, 1);
+            if (x != 0 && y != 9) this.tirer_specialJ2(x-1, y+1, 2);
+            if (x != 9 && y != 0) this.tirer_specialJ2(x+1, y-1, 3);
+        }
+        if (this.munitionJ2 == 2 && this.getCrossMunitionJ2() != 0){
+            this.playerH2.removeMunition(2);
+            if (y != 0) this.tirer_specialJ2(x, y-1, 0);
+            if (y != 9) this.tirer_specialJ2(x, y+1, 1);
+            if (x != 0) this.tirer_specialJ2(x-1, y, 2);
+            if (x != 9) this.tirer_specialJ2(x+1, y, 3);
         }
     }
 
@@ -134,6 +175,7 @@ public class GameManager extends Observable implements Serializable{
         }
         caseViseeJ2.setX(x);
         caseViseeJ2.setY(y);
+        munition_specialJ2(x, y);
         turn = 1;
     }
 
@@ -168,6 +210,8 @@ public class GameManager extends Observable implements Serializable{
     public Case[] getCaseColatJ1() {
         return caseColatJ1;
     }
+
+    public Case[] getCaseColatJ2(){ return caseColatJ2; }
 
     public void setOrientation(int orientation){
         this.orientation = orientation;
@@ -312,16 +356,19 @@ public class GameManager extends Observable implements Serializable{
         if (selectedIndex == 0){
             this.epoque = new XVIemeFactory();
             this.playerH.setFactory(epoque);
+            this.playerH2.setFactory(epoque);
             this.playerIA.setFactory(epoque);
         }
         if (selectedIndex == 1){
             this.epoque = new XXemeFactory();
             this.playerH.setFactory(epoque);
+            this.playerH2.setFactory(epoque);
             this.playerIA.setFactory(epoque);
         }
         if (selectedIndex == 2){
             this.epoque = new XXIIemeFactory();
             this.playerH.setFactory(epoque);
+            this.playerH2.setFactory(epoque);
             this.playerIA.setFactory(epoque);
         }
     }
@@ -354,9 +401,17 @@ public class GameManager extends Observable implements Serializable{
         return munition;
     }
 
+    public void setMunitionJ2(int munition) { this.munitionJ2 = munition; }
+
+    public int getMunitionJ2(){ return this.munitionJ2; }
+
     public int getCrossMunition(){return this.playerH.getCrossMunition();}
 
     public int getXMunition(){return this.playerH.getXMunition();}
+
+    public int getCrossMunitionJ2() {return this.playerH2.getCrossMunition(); }
+
+    public int getXMunitionJ2() { return this.playerH2.getXMunition(); }
 
     public int getTurn(){ return this.turn; }
 

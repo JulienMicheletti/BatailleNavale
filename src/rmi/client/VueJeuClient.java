@@ -10,9 +10,13 @@ public class VueJeuClient extends JPanel implements Observer {
     private Modele modele;
     private JButton[][] boardJoueur;
     private JButton[][] boardAdversaire;
+    private JRadioButton crossAmmo;
+    private JRadioButton plusAmmo;
+    private JRadioButton normalAmmo;
     private JPanel gameLayout;
     private JPanel contentJoueur;
     private JPanel contentAdversaire;
+    private JPanel munition;
     private JLabel information;
 
     public VueJeuClient(Modele mod){
@@ -24,6 +28,7 @@ public class VueJeuClient extends JPanel implements Observer {
         this.contentJoueur = new JPanel();
         this.gameLayout = new JPanel();
         this.information = new JLabel("Informations", SwingConstants.CENTER);
+        this.munition = new JPanel();
         setAffichage();
     }
 
@@ -34,7 +39,7 @@ public class VueJeuClient extends JPanel implements Observer {
         else
             this.information.setText("A l'adversaire de jouer");
         this.add(information, BorderLayout.NORTH);
-        this.gameLayout.setLayout(new GridLayout(2, 1));
+        this.gameLayout.setLayout(new GridLayout(1, 2));
         this.contentJoueur.setLayout(new GridLayout(11, 11));
         this.contentAdversaire.setLayout(new GridLayout(11, 11));
         Dimension tailleCase = new Dimension(30, 30);
@@ -71,6 +76,26 @@ public class VueJeuClient extends JPanel implements Observer {
         ArrayList<CaseClient> cJ = modele.getCasesJ();
         for (CaseClient c : cJ)
             boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
+
+        if (modele.isAmmoGame()){
+            this.munition.setLayout(new GridLayout(1 , 3));
+            this.crossAmmo = new JRadioButton("Tir + : 3 Restant");
+            this.crossAmmo.addActionListener(e -> modele.setMun(2));
+            this.plusAmmo = new JRadioButton("Tir X : 3 Restant");
+            this.plusAmmo.addActionListener(e -> modele.setMun(1));
+            this.normalAmmo = new JRadioButton("Tir Normal : Infinie");
+            this.normalAmmo.addActionListener(e -> modele.setMun(0));
+            ButtonGroup bg = new ButtonGroup();
+            bg.add(crossAmmo);
+            bg.add(plusAmmo);
+            bg.add(normalAmmo);
+            normalAmmo.setSelected(true);
+            this.munition.add(crossAmmo);
+            this.munition.add(plusAmmo);
+            this.munition.add(normalAmmo);
+            this.add(munition, BorderLayout.SOUTH);
+        }
+
         this.gameLayout.add(contentAdversaire);
         this.gameLayout.add(contentJoueur);
         this.add(gameLayout, BorderLayout.CENTER);
@@ -80,6 +105,17 @@ public class VueJeuClient extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         int[][] plateauJ1 = modele.getPlateauJ1();
         int[][] plateauJ2 = modele.getPlateauJ2();
+        if (modele.isAmmoGame()){
+            this.crossAmmo.setText("Tir + : "+modele.getMun(1)+" Restant");
+            this.plusAmmo.setText("Tir X : "+modele.getMun(2)+" Restant");
+            if (modele.getMun(2) == 0){
+                this.crossAmmo.setEnabled(false);
+                this.normalAmmo.setSelected(true);
+            } else if (modele.getMun(1) == 0){
+                this.plusAmmo.setEnabled(false);
+                this.normalAmmo.setSelected(true);
+            }
+        }
         if (modele.myTurn())
             this.information.setText("A votre tour de jouer");
         else

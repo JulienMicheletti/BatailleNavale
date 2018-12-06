@@ -14,13 +14,11 @@ public interface ServerInterface extends Remote {
     void validerEpoque() throws RemoteException;
     //
     int[][] setSelection(int x, int y, int taille, int player) throws RemoteException;
-    //
     int[][] validerSelection(int player) throws RemoteException;
     //
     void switchOrientation(int player) throws RemoteException;
     //
     boolean isValide(int player) throws RemoteException;
-    //
     boolean valider(int player) throws RemoteException;
     //
     ArrayList<CaseClient> getCasesJoueur(int player) throws RemoteException;
@@ -28,6 +26,10 @@ public interface ServerInterface extends Remote {
     void setFactory(int facto) throws RemoteException;
     //
     int getTurn() throws RemoteException;
+    //
+    boolean isAmmoGame() throws RemoteException;
+    void setMun(int ammo, int ID) throws RemoteException;
+    int getMun(int type, int ID) throws RemoteException;
     //
     void tirer(int x, int y, int player) throws RemoteException;
     int[][] getPlateauJ1() throws RemoteException;

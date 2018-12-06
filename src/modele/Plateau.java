@@ -173,7 +173,8 @@ public class Plateau implements Serializable{
         if (ammoType == 2) this.bateauCinq.setMunition(this.bateauCinq.getMunition()-1);
     }
 
-    public int getXMunition() {return this.bateauQuatre.getMunition();
+    public int getXMunition() {
+        return this.bateauQuatre.getMunition();
     }
 
     public int getCrossMunition() {return this.bateauCinq.getMunition();

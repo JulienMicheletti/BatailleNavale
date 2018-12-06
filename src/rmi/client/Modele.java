@@ -167,6 +167,23 @@ public class Modele extends Observable {
         System.out.println("rip :(");
     }
 
+    public void setMun(int mun){
+        try {
+            this.serveurInterface.setMun(mun, ID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getMun(int type){
+        try {
+            return serveurInterface.getMun(type, ID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public boolean getLancerJeu(){
         return lancerJeu;
     }
@@ -213,6 +230,15 @@ public class Modele extends Observable {
             if (serveurInterface.getTurn() == getID()){
                 return true;
             }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isAmmoGame(){
+        try {
+            return serveurInterface.isAmmoGame();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

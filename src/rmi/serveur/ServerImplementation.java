@@ -187,11 +187,20 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
                 plateau[i][j] = 0;
         }
         Case caseVise = gameManager.getCaseViseeJ1();
+        Case[] caseColat = gameManager.getCaseColatJ1();
         if (caseVise.getX() >= 0 && caseVise.getY() >= 0) {
             if (caseVise.getToucher())
                 plateau[caseVise.getY()][caseVise.getX()] = 1; //ROUGE
             else
                 plateau[caseVise.getY()][caseVise.getX()] = 2; //NOIR
+        }
+        for (Case c : caseColat){
+            if (c.getX() >= 0 && c.getY() >= 0){
+                if (c.getToucher())
+                    plateau[c.getY()][c.getX()] = 1;
+                else
+                    plateau[c.getY()][c.getX()] = 2;
+            }
         }
         return plateau;
     }
@@ -205,11 +214,20 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             }
         }
         Case caseVise = gameManager.getCaseViseeJ2();
+        Case[] caseColat = gameManager.getCaseColatJ2();
         if (caseVise.getX() >= 0 && caseVise.getY() >= 0) {
             if (caseVise.getToucher())
                 plateau[caseVise.getY()][caseVise.getX()] = 1;
             else
                 plateau[caseVise.getY()][caseVise.getX()] = 2;
+        }
+        for (Case c : caseColat){
+            if (c.getX() >= 0 && c.getY() >= 0){
+                if (c.getToucher())
+                    plateau[c.getY()][c.getX()] = 1;
+                else
+                    plateau[c.getY()][c.getX()] = 2;
+            }
         }
         return plateau;
     }
@@ -287,6 +305,35 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     @Override
     public int getTurn() throws RemoteException {
         return gameManager.getTurn();
+    }
+
+    @Override
+    public boolean isAmmoGame(){
+        return gameManager.isMunitionGame();
+    }
+
+    @Override
+    public void setMun(int ammo, int ID) throws RemoteException {
+        if (ID == 1)
+            this.gameManager.setMunition(ammo);
+        else
+            this.gameManager.setMunitionJ2(ammo);
+    }
+
+    @Override
+    public int getMun(int type,int ID) throws RemoteException {
+        if (type == 2) {
+            if (ID == 1)
+                return gameManager.getXMunition();
+            else if (ID == 2)
+                return gameManager.getXMunitionJ2();
+        } else if (type == 1) {
+            if (ID == 1)
+                return gameManager.getCrossMunition();
+            else if (ID == 2)
+                return gameManager.getCrossMunitionJ2();
+        }
+        return 0;
     }
 
     public static void main(String[] args){

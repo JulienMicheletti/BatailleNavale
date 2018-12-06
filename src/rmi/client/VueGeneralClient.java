@@ -25,7 +25,7 @@ public class VueGeneralClient extends JFrame implements Observer {
 
     public void setAffichage(){
         this.setTitle("Bataille Navale");
-        this.setPreferredSize(new Dimension(800,800));
+        this.setPreferredSize(new Dimension(500,500));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(vueMenuClient);
         this.pack();
@@ -35,6 +35,7 @@ public class VueGeneralClient extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (mod.getLancerSelection()){
+            this.setPreferredSize(new Dimension(800,800));
             this.vueSelectionClient = new VueSelectionClient(this.mod);
             this.setContentPane(vueSelectionClient);
             this.invalidate();
@@ -50,6 +51,7 @@ public class VueGeneralClient extends JFrame implements Observer {
             this.setVisible(true);
         }
         if (mod.getLancerJeu()){
+            this.setPreferredSize(new Dimension(1200,500));
             this.vueJeuClient = new VueJeuClient(this.mod);
             this.setContentPane(vueJeuClient);
             this.invalidate();
