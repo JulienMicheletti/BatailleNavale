@@ -93,9 +93,9 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
             try {
                 final FileInputStream fichier = new FileInputStream(chooser.getSelectedFile().getName());
                 ois = new ObjectInputStream(fichier);
-                VuePlateaux vp = (VuePlateaux) ois.readObject();
-                vp.add();
                 JFrame f = new JFrame();
+                GameManager gm = (GameManager) ois.readObject();
+                VuePlateaux vp = new VuePlateaux(f, gm);
                 f.setContentPane(vp);
                 f.pack();
                 f.setVisible(true);

@@ -10,10 +10,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class SaveController implements ActionListener {
-    VuePlateaux vp;
-
-    public SaveController(VuePlateaux vuePlateaux){
-        this.vp = vuePlateaux;
+    GameManager gm;
+    public SaveController(GameManager gm){
+        this.gm = gm;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -21,7 +20,7 @@ public class SaveController implements ActionListener {
         try {
             final FileOutputStream fichier = new FileOutputStream("save.ser");
             oos = new ObjectOutputStream(fichier);
-            oos.writeObject(vp);
+            oos.writeObject(gm);
             oos.flush();
         } catch (final java.io.IOException ex) {
             ex.printStackTrace();

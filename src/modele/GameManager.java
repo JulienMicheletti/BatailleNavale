@@ -11,6 +11,7 @@ import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -199,6 +200,14 @@ public class GameManager extends Observable implements Serializable{
         caseViseeJ2.setY(coord[1]);
     }
 
+    public void setPlateauHumain(int x, int y, int type){
+        playerH.getPlateau()[x][y] = type;
+    }
+
+    public void setPlateauIA(int x, int y, int type){
+        playerIA.getPlateau()[x][y] = type;
+    }
+
     public Case getCaseViseeJ1(){
         return caseViseeJ1;
     }
@@ -327,6 +336,8 @@ public class GameManager extends Observable implements Serializable{
     public int[][] getPlayerPlateau(){
         return playerH.getPlateau();
     }
+
+    public int[][] getIAPlateau(){ return playerIA.getPlateau();}
 
     public void switchOrientation() {
         if (this.orientation == GameManager.HORIZONTAL){
