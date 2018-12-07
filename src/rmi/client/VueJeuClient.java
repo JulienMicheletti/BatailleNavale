@@ -2,6 +2,7 @@ package rmi.client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.management.BufferPoolMXBean;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -10,6 +11,7 @@ public class VueJeuClient extends JPanel implements Observer {
     private Modele modele;
     private JButton[][] boardJoueur;
     private JButton[][] boardAdversaire;
+    private JButton retourMenu;
     private JRadioButton crossAmmo;
     private JRadioButton plusAmmo;
     private JRadioButton normalAmmo;
@@ -17,6 +19,7 @@ public class VueJeuClient extends JPanel implements Observer {
     private JPanel contentJoueur;
     private JPanel contentAdversaire;
     private JPanel munition;
+    private JPanel informationPanel;
     private JLabel information;
 
     public VueJeuClient(Modele mod){
@@ -24,21 +27,26 @@ public class VueJeuClient extends JPanel implements Observer {
         this.modele.addObserver(this);
         this.boardJoueur = new JButton[10][10];
         this.boardAdversaire = new JButton[10][10];
+        this.retourMenu = new JButton("Quitter");
         this.contentAdversaire = new JPanel();
         this.contentJoueur = new JPanel();
         this.gameLayout = new JPanel();
         this.information = new JLabel("Informations", SwingConstants.CENTER);
         this.munition = new JPanel();
+        this.informationPanel = new JPanel();
         setAffichage();
     }
 
     public void setAffichage(){
         this.setLayout(new BorderLayout());
+        this.informationPanel.setLayout(new GridLayout(2, 1));
         if (modele.myTurn())
             this.information.setText("A votre tour de jouer");
         else
             this.information.setText("A l'adversaire de jouer");
-        this.add(information, BorderLayout.NORTH);
+        this.retourMenu.addActionListener(e -> modele.endGame());
+        this.informationPanel.add(information);
+        this.add(informationPanel, BorderLayout.NORTH);
         this.gameLayout.setLayout(new GridLayout(1, 2));
         this.contentJoueur.setLayout(new GridLayout(11, 11));
         this.contentAdversaire.setLayout(new GridLayout(11, 11));
@@ -148,6 +156,7 @@ public class VueJeuClient extends JPanel implements Observer {
             }  else {
                 this.information.setText("Vous avez perdu la partie ...");
             }
+            this.informationPanel.add(retourMenu);
         }
     }
 }

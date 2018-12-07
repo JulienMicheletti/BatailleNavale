@@ -51,4 +51,6 @@ public abstract class Acteur implements Serializable {
     public int getCrossMunition() {return this.plateau.getCrossMunition();}
 
     public int getXMunition() {return this.plateau.getXMunition(); }
+
+    public void resetAllPos(){ plateau.resetAllPos(); }
 }

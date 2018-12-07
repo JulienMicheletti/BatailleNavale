@@ -76,6 +76,34 @@ public class GameManager extends Observable implements Serializable{
         turn = 1;
     }
 
+    public void resetGame(){
+        this.playerH.resetAllPos();
+        this.playerH2.resetAllPos();
+        this.playerIA.resetAllPos();
+        this.orientation = GameManager.HORIZONTAL;
+        this.orientationJ2 = GameManager.HORIZONTAL;
+        this.taille = -1;
+        this.tailleJ2 = -1;
+        currentPlayer = true;
+        caseViseeJ1 = new Case(-1, -1);
+        caseViseeJ2 = new Case(-1, -1);
+        caseColatJ1 = new Case[4];
+        caseColatJ2 = new Case[4];
+        for (int i = 0; i < caseColatJ1.length; i++) {
+            caseColatJ1[i] = new Case(-1, -1);
+            caseColatJ2[i] = new Case(-1, -1);
+        }
+        this.launchGame = false;
+        this.munition = 0;
+        this.munitionJ2 = 0;
+        this.IAgame = false;
+        turn = 1;
+        this.epoque = new XVIemeFactory();
+        this.playerH.setFactory(epoque);
+        this.playerIA.setFactory(epoque);
+        this.playerH2.setFactory(epoque);
+    }
+
     public void tirer_special(int x, int y, int case_id){
         caseColatJ1[case_id].setToucher(false);
         ArrayList<Case> adversaire;

@@ -108,6 +108,20 @@ public class Plateau implements Serializable{
         }
     }
 
+    public void resetAllPos(){
+        this.plateau = new int[10][10];
+        toConfirm[0] = false;
+        toConfirm[1] = false;
+        toConfirm[2] = false;
+        toConfirm[3] = false;
+        toConfirm[4] = false;
+        bateauDeux.resetPos();
+        bateauTrois.resetPos();
+        bateauTroisDeux.resetPos();
+        bateauQuatre.resetPos();
+        bateauCinq.resetPos();
+    }
+
     public ArrayList<Case> getCaseToCheck(int taille){
         ArrayList<Case> positionBateau = new ArrayList<Case>();
         Case[] c2 = bateauDeux.getCases();

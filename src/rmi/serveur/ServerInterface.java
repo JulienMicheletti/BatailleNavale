@@ -31,6 +31,9 @@ public interface ServerInterface extends Remote {
     void setMun(int ammo, int ID) throws RemoteException;
     int getMun(int type, int ID) throws RemoteException;
     //
+    void clientClose(int ID) throws RemoteException;
+    void endGame() throws RemoteException;
+    //
     void tirer(int x, int y, int player) throws RemoteException;
     int[][] getPlateauJ1() throws RemoteException;
     int[][] getPlateauJ2() throws RemoteException;

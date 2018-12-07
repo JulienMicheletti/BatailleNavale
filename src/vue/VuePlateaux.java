@@ -44,9 +44,6 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
         setAffichage();
     }
 
-    public void add(){
-        gm.addObserver(this);
-    }
     public void setAffichage(){
         //this.setLayout(new GridLayout(2, 0));
         //Board parts for self and CPU
@@ -219,6 +216,7 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
 
 
     private void restart() {
+        this.gm.resetGame();
         frame.remove(this);
         frame.setPreferredSize(new Dimension(600,600));
         frame.setContentPane(new VueGeneral(frame,gm));

@@ -25,6 +25,14 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         this.rdyToPlay = 0;
     }
 
+    public void resetServer(){
+        this.gameManager.resetGame();
+        this.playerConnected = 0;
+        this.rdyToPlay = 0;
+        client1 = null;
+        client2 = null;
+    }
+
     public boolean askConnect() throws RemoteException{
         if (playerConnected < 2){
             playerConnected++;
@@ -332,6 +340,24 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
                 return gameManager.getCrossMunitionJ2();
         }
         return 0;
+    }
+
+    @Override
+    public void endGame() throws RemoteException {
+        this.resetServer();
+    }
+
+    @Override
+    public void clientClose(int ID) throws RemoteException {
+        if (ID == 1 && playerConnected >= 2){
+            playerConnected--;
+            client2.notifyOtherClose();
+        } else if (ID == 2 && playerConnected >= 2){
+            playerConnected--;
+            client1.notifyOtherClose();
+        }
+        if (playerConnected < 2)
+            this.resetServer();
     }
 
     public static void main(String[] args){

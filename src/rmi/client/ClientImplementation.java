@@ -44,4 +44,9 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
     public void notifyVictoryJ2() throws RemoteException {
         modele.gameWon(2);
     }
+
+    @Override
+    public void notifyOtherClose() throws RemoteException {
+        modele.otherIsClose();
+    }
 }

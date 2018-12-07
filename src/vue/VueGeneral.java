@@ -1,6 +1,7 @@
 package vue;
 
 import modele.GameManager;
+import rmi.client.BatailleClient;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -116,7 +117,8 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
     }
 
     public void onlineGame() {
-        //TODO Online logic
+        String args[] = new String[0];
+        BatailleClient.main(args);
     }
 
     @Override

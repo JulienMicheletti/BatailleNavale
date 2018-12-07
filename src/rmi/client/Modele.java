@@ -22,6 +22,8 @@ public class Modele extends Observable {
     private int[][] plateauJ1;
     private int[][] plateauJ2;
     private int victory;
+    private boolean leave;
+    private boolean otherClose;
 
     public Modele(ServerInterface serverInterface){
         this.serveurInterface = serverInterface;
@@ -33,6 +35,8 @@ public class Modele extends Observable {
         plateauJ1 = new int[10][10];
         plateauJ2 = new int[10][10];
         victory = -1;
+        leave = false;
+        otherClose = false;
     }
 
     public void lancerChoixEpoque(){
@@ -163,10 +167,6 @@ public class Modele extends Observable {
         }
     }
 
-    public void leavingGame(){
-        System.out.println("rip :(");
-    }
-
     public void setMun(int mun){
         try {
             this.serveurInterface.setMun(mun, ID);
@@ -243,5 +243,38 @@ public class Modele extends Observable {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void endGame(){
+        leave = true;
+        setChanged();
+        notifyObservers();
+        try {
+            serveurInterface.endGame();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean getLeave(){
+        return leave;
+    }
+
+    public boolean isOtherClose(){
+        return otherClose;
+    }
+
+    public void otherIsClose(){
+        otherClose = true;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void clientClose(){
+        try {
+            serveurInterface.clientClose(this.ID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

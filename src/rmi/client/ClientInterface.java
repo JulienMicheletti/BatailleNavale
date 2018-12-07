@@ -11,4 +11,5 @@ public interface ClientInterface extends Remote {
     void notifyShot() throws RemoteException;
     void notifyVictoryJ1() throws RemoteException;
     void notifyVictoryJ2() throws RemoteException;
+    void notifyOtherClose() throws RemoteException;
 }
