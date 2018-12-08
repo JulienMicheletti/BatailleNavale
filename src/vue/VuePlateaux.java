@@ -83,12 +83,10 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
         }
         //End of initialisation, show Panels
         JPanel adv = new JPanel();
-        save.setVerticalAlignment(JLabel.EAST);
         adv.setLayout(new BoxLayout(adv,BoxLayout.Y_AXIS));
         JLabel jlab1 = new JLabel("Plateau adverse : ");
         jlab1.setVerticalAlignment(JLabel.CENTER);
         jlab1.setHorizontalAlignment(JLabel.CENTER);
-        adv.add(save);
         adv.add(jlab1);
         adv.add(this.contentIAdversaire);
         JPanel self = new JPanel();
@@ -100,8 +98,7 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
         self.add(this.contentJoueur);
         this.add(adv, BorderLayout.CENTER);
         this.add(self,BorderLayout.CENTER);
-
-
+        this.add(save, BorderLayout.SOUTH);
         //Check if munition game
         if (this.gm.isMunitionGame()){
             this.first = new JRadioButton("Tir + (3 restant)");
