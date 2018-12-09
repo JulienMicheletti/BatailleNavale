@@ -22,8 +22,7 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         f.setTitle("Bataille Navale");
         f.setPreferredSize(new Dimension(600, 600));
         try {
-            InputStream is = new BufferedInputStream(new FileInputStream("src/res/BN.jpg"));
-            Image image = ImageIO.read(is);
+            Image image = ImageIO.read(getClass().getResource("/res/BN.jpg"));
             JLabel label = new JLabel(new ImageIcon(image));
             label.setLayout(new FlowLayout());
 
