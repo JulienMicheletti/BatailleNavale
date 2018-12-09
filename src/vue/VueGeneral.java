@@ -28,8 +28,7 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         this.options = new JPanel();
         this.options.setLayout(new GridLayout(1, 6));
         try {
-            InputStream is = new BufferedInputStream(new FileInputStream("src/res/BN.jpg"));
-            BufferedImage image = ImageIO.read(is);
+            Image image = ImageIO.read(getClass().getResource("/res/BN.jpg"));
             JLabel label = new JLabel(new ImageIcon(image));
             this.add(label, BorderLayout.CENTER);
 
