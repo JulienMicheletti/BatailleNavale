@@ -6,7 +6,9 @@ import rmi.client.BatailleClient;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,30 +16,33 @@ import java.util.Observer;
 public class VueGeneral extends JPanel implements Observer, Serializable {
     private JFrame f;
     private GameManager gameManager;
+    private JPanel options = new JPanel();
 
     public VueGeneral(JFrame f, GameManager gm) {
         gm.addObserver(this);
         this.f = f;
         this.gameManager = gm;
         f.setTitle("Bataille Navale");
-        f.setPreferredSize(new Dimension(600, 600));
+        f.setPreferredSize(new Dimension(800, 600));
+        this.setLayout(new BorderLayout());
+        this.options = new JPanel();
+        this.options.setLayout(new GridLayout(1, 6));
         try {
             InputStream is = new BufferedInputStream(new FileInputStream("src/res/BN.jpg"));
-            Image image = ImageIO.read(is);
+            BufferedImage image = ImageIO.read(is);
             JLabel label = new JLabel(new ImageIcon(image));
-            label.setLayout(new FlowLayout());
-
+            this.add(label, BorderLayout.CENTER);
 
             String[] choices = {"XVI Siecle", "XX Siecle", "XXII Siecle"};
             JComboBox<String> cb = new JComboBox(choices);
             cb.setToolTipText("XVI : Bataille navale normale \n XX : Bateaux ont 1 pv \n XXII : Munitions");
             cb.addActionListener(e -> this.gameManager.setFactory(cb.getSelectedIndex()));
-            label.add(cb);
+            options.add(cb);
 
             String[] difficulty = {"Facile", "Normal","Difficile"};
             JComboBox<String> cbdiff = new JComboBox(difficulty);
             cbdiff.addActionListener(e -> this.gameManager.setDifficulty(cbdiff.getSelectedIndex()));
-            label.add(cbdiff);
+            options.add(cbdiff);
 
             JButton newbutton = new JButton("Nouvelle partie");
             newbutton.addActionListener(e -> {
@@ -55,12 +60,11 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
             exitbutton.addActionListener(e -> {
                 System.exit(1337);
             });
-            label.add(newbutton);
-            label.add(loadbutton);
-            label.add(onlinebutton);
-            label.add(exitbutton);
-            this.add(label);
-
+            options.add(newbutton);
+            options.add(loadbutton);
+            options.add(onlinebutton);
+            options.add(exitbutton);
+            this.add(options, BorderLayout.NORTH);
         } catch (Exception e) {
             System.out.println("Image not found");
         }

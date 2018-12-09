@@ -12,7 +12,5 @@ public class main {
         GameManager gm = new GameManager();
         JFrame f = new JFrame();
         f.setContentPane(new VueGeneral(f, gm));
-
-
     }
 }

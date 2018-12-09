@@ -19,34 +19,50 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
     protected JButton boardJoueur[][] = new JButton[10][10];
     protected JButton boardAdversaire[][] = new JButton[10][10];
     private GameManager gm;
+    private JPanel plateaux;
     private JPanel contentJoueur;
     private JPanel contentIAdversaire;
-    private JPanel afficheur;
-    private JPanel selectionBateau;
+    private JPanel munitions;
+    private JPanel options;
     private JFrame frame;
     private boolean shown;
     private JRadioButton second;
     private JRadioButton first;
-    private JButton save;
     private JRadioButton third;
+    private JButton save;
+    private JButton retourMenu;
 
     public VuePlateaux(JFrame frame,GameManager gm){
         super();
         this.frame = frame;
-        frame.setPreferredSize(new Dimension(650,700));
+        frame.setPreferredSize(new Dimension(1200,500));
         gm.addObserver(this);
         this.shown = false;
         this.gm = gm;
         this.save = new JButton("sauvegarder");
         this.contentIAdversaire = new JPanel();
         this.contentJoueur = new JPanel();
-        this.afficheur = new JPanel();
+        this.plateaux = new JPanel();
+        this.munitions = new JPanel();
+        this.options = new JPanel();
+        this.retourMenu = new JButton("Retourner au Menu");
         setAffichage();
     }
 
     public void setAffichage(){
-        //this.setLayout(new GridLayout(2, 0));
+        this.setLayout(new BorderLayout());
+        //
+        this.options.setLayout(new GridLayout(1, 2));
+        this.options.add(retourMenu);
+        this.options.add(save);
+        this.add(options, BorderLayout.NORTH);
+        retourMenu.addActionListener(e -> restart());
+        save.addActionListener(new SaveController(gm));
         //Board parts for self and CPU
+        this.add(plateaux, BorderLayout.CENTER);
+        this.plateaux.setLayout(new GridLayout(1, 2));
+        this.plateaux.add(contentJoueur);
+        this.plateaux.add(contentIAdversaire);
         contentIAdversaire.setLayout(new GridLayout(11, 11));
         contentJoueur.setLayout(new GridLayout(11, 11));
         for (int i = 0; i < 11; i++){
@@ -75,31 +91,10 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
                 contentJoueur.add(boardJoueur[i][j]);
             }
         }
-
-        save.addActionListener(new SaveController(gm));
         ArrayList<Case> postionHuman = this.gm.getCasesBateauxH();
         for (Case c : postionHuman){
             boardJoueur[c.getY()][c.getX()].setBackground(Color.GREEN);
         }
-        //End of initialisation, show Panels
-        JPanel adv = new JPanel();
-        adv.setLayout(new BoxLayout(adv,BoxLayout.Y_AXIS));
-        JLabel jlab1 = new JLabel("Plateau adverse : ");
-        jlab1.setVerticalAlignment(JLabel.CENTER);
-        jlab1.setHorizontalAlignment(JLabel.CENTER);
-        adv.add(jlab1);
-        adv.add(this.contentIAdversaire);
-        JPanel self = new JPanel();
-        self.setLayout(new BoxLayout(self,BoxLayout.Y_AXIS));
-        JLabel jlab2 = new JLabel("Votre plateau : ");
-        jlab2.setVerticalAlignment(JLabel.CENTER);
-        jlab2.setHorizontalAlignment(JLabel.CENTER);
-        self.add(jlab2);
-        self.add(this.contentJoueur);
-        this.add(adv, BorderLayout.CENTER);
-        this.add(self,BorderLayout.CENTER);
-        this.add(save, BorderLayout.SOUTH);
-        //Check if munition game
         if (this.gm.isMunitionGame()){
             this.first = new JRadioButton("Tir + (3 restant)");
             this.first.addActionListener(e -> gm.setMunition(2));
@@ -112,12 +107,12 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
             bg.add(second);
             bg.add(third);
             third.setSelected(true);
-            this.add(Box.createHorizontalStrut(150));
-            this.add(first,BorderLayout.SOUTH);
-            this.add(second,BorderLayout.SOUTH);
-            this.add(third,BorderLayout.SOUTH);
+            this.munitions.add(first);
+            this.munitions.add(second);
+            this.munitions.add(third);
         }
-
+        this.munitions.setLayout(new GridLayout(1, 3));
+        this.add(munitions, BorderLayout.SOUTH);
         int[][] tab = gm.getPlayerPlateau();
         for (int i = 0; i < tab.length; i++){
             for (int j = 0; j < tab[i].length; j++){
