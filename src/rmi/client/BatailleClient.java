@@ -16,7 +16,7 @@ import java.rmi.registry.Registry;
 public class BatailleClient{
     public static void main(String[] argv){
         try {
-            Registry registry = LocateRegistry.getRegistry(8081);
+            Registry registry = LocateRegistry.getRegistry(argv[0],8081);
             System.out.println("Registry bindings :");
             String[] e = registry.list();
             for (String s : e)

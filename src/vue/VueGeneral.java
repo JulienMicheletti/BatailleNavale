@@ -2,14 +2,15 @@ package vue;
 
 import modele.GameManager;
 import rmi.client.BatailleClient;
+import rmi.serveur.ServerImplementation;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,7 +24,7 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         this.f = f;
         this.gameManager = gm;
         f.setTitle("Bataille Navale");
-        f.setPreferredSize(new Dimension(800, 600));
+        f.setPreferredSize(new Dimension(900, 600));
         this.setLayout(new BorderLayout());
         this.options = new JPanel();
         this.options.setLayout(new GridLayout(1, 6));
@@ -51,18 +52,18 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
             loadbutton.addActionListener(e -> {
                 this.loadGame();
             });
-            JButton onlinebutton = new JButton("Jouer en ligne");
+            JButton onlinebutton = new JButton("Client");
             onlinebutton.addActionListener(e -> {
-                this.onlineGame();
+                this.onlineGame(false);
             });
-            JButton exitbutton = new JButton("Quitter");
-            exitbutton.addActionListener(e -> {
-                System.exit(1337);
+            JButton serverbutton = new JButton("Serveur");
+            serverbutton.addActionListener(e -> {
+                this.onlineGame(true);
             });
             options.add(newbutton);
             options.add(loadbutton);
             options.add(onlinebutton);
-            options.add(exitbutton);
+            options.add(serverbutton);
             this.add(options, BorderLayout.NORTH);
         } catch (Exception e) {
             System.out.println("Image not found");
@@ -119,9 +120,35 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         }
     }
 
-    public void onlineGame() {
-        String args[] = new String[0];
-        BatailleClient.main(args);
+    public void onlineGame(boolean b) {
+        if (b){//Serveur
+            String ip = "";
+            try {
+                ip = InetAddress.getLocalHost().toString();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            JFrame frame = new JFrame();
+            frame.setTitle("Serveur");
+            frame.setLayout(new GridLayout(2,0));
+            frame.setPreferredSize(new Dimension(500,200));
+            frame.add(new JLabel("Voici votre IP : "+ip+" (pour les clients)"));
+            frame.add(new JLabel("Fermer cette fenêtre clos le serveur."));
+
+            String args[] = new String[0];
+            ServerImplementation.main(args);
+
+            this.f.setVisible(false);
+            this.f.dispose();
+            frame.pack();
+            frame.setVisible(true);
+        }else{//Client
+            String args[] = new String[1];
+            args[0] = JOptionPane.showInputDialog("IP du serveur : ");;
+            BatailleClient.main(args);
+
+        }
+
     }
 
     @Override
