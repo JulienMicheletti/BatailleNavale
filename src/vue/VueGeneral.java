@@ -9,8 +9,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -124,8 +124,21 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         if (b){//Serveur
             String ip = "";
             try {
-                ip = InetAddress.getLocalHost().toString();
-            } catch (UnknownHostException e) {
+                String interfaceName = "eth0";
+                NetworkInterface networkInterface = NetworkInterface.getByName(interfaceName);
+                Enumeration<InetAddress> inetAddress = networkInterface.getInetAddresses();
+                InetAddress currentAddress;
+                currentAddress = inetAddress.nextElement();
+                while(inetAddress.hasMoreElements())
+                {
+                    currentAddress = inetAddress.nextElement();
+                    if(currentAddress instanceof Inet4Address && !currentAddress.isLoopbackAddress())
+                    {
+                        ip = currentAddress.toString();
+                        break;
+                    }
+                }
+            } catch (SocketException e) {
                 e.printStackTrace();
             }
             JFrame frame = new JFrame();
@@ -134,6 +147,7 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
             frame.setPreferredSize(new Dimension(500,200));
             frame.add(new JLabel("Voici votre IP : "+ip+" (pour les clients)"));
             frame.add(new JLabel("Fermer cette fenêtre clos le serveur."));
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             String args[] = new String[0];
             ServerImplementation.main(args);
