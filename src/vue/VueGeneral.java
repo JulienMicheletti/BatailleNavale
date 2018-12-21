@@ -9,8 +9,6 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.*;
-import java.net.*;
-import java.util.Enumeration;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -45,21 +43,13 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
             options.add(cbdiff);
 
             JButton newbutton = new JButton("Nouvelle partie");
-            newbutton.addActionListener(e -> {
-                this.newGame(f, gm);
-            });
+            newbutton.addActionListener(e -> this.newGame(f, gm));
             JButton loadbutton = new JButton("Charger partie");
-            loadbutton.addActionListener(e -> {
-                this.loadGame();
-            });
+            loadbutton.addActionListener(e -> this.loadGame());
             JButton onlinebutton = new JButton("Client");
-            onlinebutton.addActionListener(e -> {
-                this.onlineGame(false);
-            });
+            onlinebutton.addActionListener(e -> this.onlineGame(false));
             JButton serverbutton = new JButton("Serveur");
-            serverbutton.addActionListener(e -> {
-                this.onlineGame(true);
-            });
+            serverbutton.addActionListener(e -> this.onlineGame(true));
             options.add(newbutton);
             options.add(loadbutton);
             options.add(onlinebutton);
@@ -122,30 +112,11 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
 
     public void onlineGame(boolean b) {
         if (b){//Serveur
-            String ip = "";
-            try {
-                String interfaceName = "eth0";
-                NetworkInterface networkInterface = NetworkInterface.getByName(interfaceName);
-                Enumeration<InetAddress> inetAddress = networkInterface.getInetAddresses();
-                InetAddress currentAddress;
-                currentAddress = inetAddress.nextElement();
-                while(inetAddress.hasMoreElements())
-                {
-                    currentAddress = inetAddress.nextElement();
-                    if(currentAddress instanceof Inet4Address && !currentAddress.isLoopbackAddress())
-                    {
-                        ip = currentAddress.toString();
-                        break;
-                    }
-                }
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
             JFrame frame = new JFrame();
             frame.setTitle("Serveur");
             frame.setLayout(new GridLayout(2,0));
             frame.setPreferredSize(new Dimension(500,200));
-            frame.add(new JLabel("Voici votre IP : "+ip+" (pour les clients)"));
+            frame.add(new JLabel("Vous avez démarrer un serveur pour jouer sur ce pc"));
             frame.add(new JLabel("Fermer cette fenêtre clos le serveur."));
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -158,9 +129,7 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
             frame.setVisible(true);
         }else{//Client
             String args[] = new String[1];
-            args[0] = JOptionPane.showInputDialog("IP du serveur : ");;
             BatailleClient.main(args);
-
         }
 
     }

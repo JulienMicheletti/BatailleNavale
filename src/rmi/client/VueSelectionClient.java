@@ -1,15 +1,10 @@
 package rmi.client;
 
-import controleur.PositionController;
 import modele.GameManager;
-import modele.bateaux.Case;
 import rmi.client.Modele;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Observer;
 
 public class VueSelectionClient extends JPanel implements Observer {
@@ -58,21 +53,11 @@ public class VueSelectionClient extends JPanel implements Observer {
         bateaux[2] = new JButton("Bateau 3(2)");
         bateaux[3] = new JButton("Bateau 4");
         bateaux[4] = new JButton("Bateau 5");
-        bateaux[0].addActionListener(e -> {
-            modele.setTaille(GameManager.BATEAUDEUX);
-        });
-        bateaux[1].addActionListener(e -> {
-            modele.setTaille(GameManager.BATEAUTROIS1);
-        });
-        bateaux[2].addActionListener(e -> {
-            modele.setTaille(GameManager.BATEAUTROIS2);
-        });
-        bateaux[3].addActionListener(e -> {
-            modele.setTaille(GameManager.BATEAUQUATRE);
-        });
-        bateaux[4].addActionListener(e -> {
-            modele.setTaille(GameManager.BATEAUCINQ);
-        });
+        bateaux[0].addActionListener(e -> modele.setTaille(GameManager.BATEAUDEUX));
+        bateaux[1].addActionListener(e -> modele.setTaille(GameManager.BATEAUTROIS1));
+        bateaux[2].addActionListener(e -> modele.setTaille(GameManager.BATEAUTROIS2));
+        bateaux[3].addActionListener(e -> modele.setTaille(GameManager.BATEAUQUATRE));
+        bateaux[4].addActionListener(e -> modele.setTaille(GameManager.BATEAUCINQ));
         options.add(bateaux[0]);
         options.add(bateaux[1]);
         options.add(bateaux[2]);
@@ -81,9 +66,7 @@ public class VueSelectionClient extends JPanel implements Observer {
         options.add(new JLabel("Clic droit : rotation."));
 
         options.add(this.valider);
-        this.valider.addActionListener(e -> {
-            modele.confirmerSelection();
-        });
+        this.valider.addActionListener(e -> modele.confirmerSelection());
 
         this.add(board, BorderLayout.CENTER);
         this.add(options, BorderLayout.EAST);

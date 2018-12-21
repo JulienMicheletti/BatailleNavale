@@ -28,7 +28,7 @@ public class BotChasseur implements BotStrategie, Serializable{
             while (!interest.isEmpty() && !trouve){
                 c = this.interest.remove(0);
                 if (plateau[c.getX()][c.getY()] == 0) trouve = true; // Cas si on trouve une case d'interet eligible a un tir
-                if (plateau[c.getX()][c.getY()] != 0 && this.interest.isEmpty() ) return this.tirerAuHasard(plateau);;
+                if (plateau[c.getX()][c.getY()] != 0 && this.interest.isEmpty() ) return this.tirerAuHasard(plateau);
             }
 
             int x = c.getX();

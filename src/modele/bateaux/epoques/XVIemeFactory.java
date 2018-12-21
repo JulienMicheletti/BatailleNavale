@@ -1,6 +1,5 @@
 package modele.bateaux.epoques;
 
-import modele.bateaux.Case;
 import modele.bateaux.ShipFactory;
 import modele.bateaux.bateauCinq.BateauCinq;
 import modele.bateaux.bateauCinq.Galeasse;

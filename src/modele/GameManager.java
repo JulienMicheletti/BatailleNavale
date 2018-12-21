@@ -12,7 +12,6 @@ import modele.joueurs.Joueur;
 import modele.joueurs.JoueurIA;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observable;
 

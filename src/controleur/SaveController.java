@@ -1,7 +1,6 @@
 package controleur;
 
 import modele.GameManager;
-import vue.VuePlateaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

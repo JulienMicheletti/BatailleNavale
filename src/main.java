@@ -1,11 +1,7 @@
 import modele.GameManager;
-import rmi.client.Modele;
-import rmi.client.VueSelectionClient;
 import vue.VueGeneral;
-import vue.VuePlateaux;
 
 import javax.swing.*;
-import java.io.*;
 
 public class main {
     public static void main(String[] args) {

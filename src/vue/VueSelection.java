@@ -6,8 +6,6 @@ import modele.bateaux.Case;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observer;
@@ -58,21 +56,11 @@ public class VueSelection extends JPanel implements Observer, Serializable {
         bateaux[2] = new JButton("Bateau 3(2)");
         bateaux[3] = new JButton("Bateau 4");
         bateaux[4] = new JButton("Bateau 5");
-        bateaux[0].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUDEUX);
-        });
-        bateaux[1].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUTROIS1);
-        });
-        bateaux[2].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUTROIS2);
-        });
-        bateaux[3].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUQUATRE);
-        });
-        bateaux[4].addActionListener(e -> {
-            gameManager.setTaille(GameManager.BATEAUCINQ);
-        });
+        bateaux[0].addActionListener(e -> gameManager.setTaille(GameManager.BATEAUDEUX));
+        bateaux[1].addActionListener(e -> gameManager.setTaille(GameManager.BATEAUTROIS1));
+        bateaux[2].addActionListener(e -> gameManager.setTaille(GameManager.BATEAUTROIS2));
+        bateaux[3].addActionListener(e -> gameManager.setTaille(GameManager.BATEAUQUATRE));
+        bateaux[4].addActionListener(e -> gameManager.setTaille(GameManager.BATEAUCINQ));
         options.add(bateaux[0]);
         options.add(bateaux[1]);
         options.add(bateaux[2]);
@@ -80,9 +68,7 @@ public class VueSelection extends JPanel implements Observer, Serializable {
         options.add(bateaux[4]);
         options.add(new JLabel("Clic droit : rotation."));
 
-        this.valider.addActionListener(e -> {
-            this.gameManager.confirmerSelection();
-        });
+        this.valider.addActionListener(e -> this.gameManager.confirmerSelection());
         options.add(this.valider);
 
         this.add(board, BorderLayout.CENTER);

@@ -1,6 +1,5 @@
 package rmi.client;
 
-import modele.bateaux.Case;
 import rmi.serveur.ServerInterface;
 
 import java.rmi.RemoteException;

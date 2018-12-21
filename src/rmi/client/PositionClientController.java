@@ -1,6 +1,5 @@
 package rmi.client;
 
-import modele.GameManager;
 import rmi.client.Modele;
 
 import javax.swing.*;

@@ -1,7 +1,5 @@
 package rmi.client;
 
-import modele.bateaux.Case;
-
 import java.io.Serializable;
 
 public class CaseClient implements Serializable{

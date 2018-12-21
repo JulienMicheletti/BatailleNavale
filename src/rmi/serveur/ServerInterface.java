@@ -39,6 +39,7 @@ public interface ServerInterface extends Remote {
     int[][] getPlateauJ2() throws RemoteException;
     boolean askConnect() throws RemoteException;
     int getPlayerConnected() throws RemoteException;
-    int getVictory() throws RemoteException;;
+    int getVictory() throws RemoteException;
+
     void askLancerJeu() throws RemoteException;
 }

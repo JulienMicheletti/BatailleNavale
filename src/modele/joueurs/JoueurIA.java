@@ -2,13 +2,11 @@ package modele.joueurs;
 
 import modele.GameManager;
 import modele.bateaux.Case;
-import modele.bots.BotChasseur;
 import modele.bots.BotFullRandom;
 import modele.bots.BotStrategie;
 
 import java.io.Serializable;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class JoueurIA extends Acteur implements Serializable {

@@ -3,18 +3,18 @@ package modele.bateaux.bateauQuatre;
 import modele.bateaux.Case;
 
 public interface BateauQuatre {
-    public void resetPos();
-    public int getX();
-    public int getY();
-    public int getOrientation();
-    public Case[] getCases();
-    public int getTaille();
-    public boolean setCoord(int x, int y);
-    public void setX(int x);
-    public void setY(int y);
-    public void setOrientation(int orientation);
-    public void setCases(Case cases[]);
-    public boolean isDead();
-    public int getMunition();
-    public void setMunition(int i);
+    void resetPos();
+    int getX();
+    int getY();
+    int getOrientation();
+    Case[] getCases();
+    int getTaille();
+    boolean setCoord(int x, int y);
+    void setX(int x);
+    void setY(int y);
+    void setOrientation(int orientation);
+    void setCases(Case cases[]);
+    boolean isDead();
+    int getMunition();
+    void setMunition(int i);
 }

@@ -1,7 +1,5 @@
 package rmi.client;
 
-import vue.VueGeneral;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
