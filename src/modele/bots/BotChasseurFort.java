@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The type Bot chasseur fort.
+ */
 public class BotChasseurFort implements BotStrategie, Serializable{
 
     private boolean chasseur = false;
@@ -42,6 +45,12 @@ public class BotChasseurFort implements BotStrategie, Serializable{
         }
     }
 
+    /**
+     * Tirer au hasard int [ ].
+     *
+     * @param plateau the plateau
+     * @return the int [ ]
+     */
     public int[] tirerAuHasard(int[][] plateau){
         //Viser au random ant qu'on a pas trouvé une case a bateau
         int x = 0;

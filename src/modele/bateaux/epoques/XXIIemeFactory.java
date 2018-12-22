@@ -12,6 +12,9 @@ import modele.bateaux.bateauTrois.Intercepter;
 
 import java.io.Serializable;
 
+/**
+ * The type Xxi ieme factory.
+ */
 public class XXIIemeFactory implements ShipFactory, Serializable {
 
     public boolean isMunition(){

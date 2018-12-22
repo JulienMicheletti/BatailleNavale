@@ -3,10 +3,16 @@ package modele.bots;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * The type Bot full random.
+ */
 public class BotFullRandom implements BotStrategie, Serializable {
 
     private final Random rng = new Random();
 
+    /**
+     * Instantiates a new Bot full random.
+     */
     public BotFullRandom(){
     }
 

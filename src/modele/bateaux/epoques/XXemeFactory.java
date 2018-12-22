@@ -12,6 +12,9 @@ import modele.bateaux.bateauTrois.Furtif;
 
 import java.io.Serializable;
 
+/**
+ * The type X xeme factory.
+ */
 public class XXemeFactory implements ShipFactory, Serializable {
 
     public boolean isMunition(){

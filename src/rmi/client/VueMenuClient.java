@@ -5,6 +5,9 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The type Vue menu client.
+ */
 public class VueMenuClient extends JPanel implements Observer {
     private Modele modele;
     private JPanel waitingBoard;
@@ -14,6 +17,11 @@ public class VueMenuClient extends JPanel implements Observer {
     private JComboBox<String> comboBox;
     private JButton validerEpoque;
 
+    /**
+     * Instantiates a new Vue menu client.
+     *
+     * @param mod the mod
+     */
     public VueMenuClient(Modele mod){
         super();
         this.setLayout(new BorderLayout());
@@ -27,6 +35,9 @@ public class VueMenuClient extends JPanel implements Observer {
         setAfficher();
     }
 
+    /**
+     * Set afficher.
+     */
     public void setAfficher(){
         String[] choices = {"XVI Siecle", "XX Siecle", "XXII Siecle"};
         this.comboBox = new JComboBox(choices);

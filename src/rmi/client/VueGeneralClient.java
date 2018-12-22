@@ -7,6 +7,9 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The type Vue general client.
+ */
 public class VueGeneralClient extends JFrame implements Observer {
     private Modele mod;
     private VueMenuClient vueMenuClient;
@@ -14,6 +17,11 @@ public class VueGeneralClient extends JFrame implements Observer {
     private VueJeuClient vueJeuClient;
     private JPanel otherIsClose;
 
+    /**
+     * Instantiates a new Vue general client.
+     *
+     * @param modele the modele
+     */
     public VueGeneralClient(Modele modele){
         super();
         modele.addObserver(this);
@@ -33,6 +41,9 @@ public class VueGeneralClient extends JFrame implements Observer {
         setAffichage();
     }
 
+    /**
+     * Set affichage.
+     */
     public void setAffichage(){
         this.otherIsClose.add(new JLabel("L'adversaire est partit ...", SwingConstants.CENTER));
         this.setTitle("Bataille Navale");

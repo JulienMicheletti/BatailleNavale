@@ -11,6 +11,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The type Plateau.
+ */
 public class Plateau implements Serializable{
     private int[][] plateau;
     private ShipFactory shipFactory;
@@ -21,10 +24,18 @@ public class Plateau implements Serializable{
     private BateauDeux bateauDeux;
     private boolean[] toConfirm;
 
+    /**
+     * Instantiates a new Plateau.
+     */
     public Plateau(){
         this.plateau = new int[10][10]; //List ou double tab de "Cases" ?
     }
 
+    /**
+     * Set ship factory.
+     *
+     * @param factory the factory
+     */
     public void setShipFactory(ShipFactory factory){
         this.shipFactory = factory;
         this.toConfirm = new boolean[5];
@@ -35,6 +46,11 @@ public class Plateau implements Serializable{
         bateauCinq = shipFactory.getBateauCinq();
     }
 
+    /**
+     * Set orientation.
+     *
+     * @param orientation the orientation
+     */
     public void setOrientation(int orientation){
         bateauDeux.setOrientation(orientation);
         bateauTrois.setOrientation(orientation);
@@ -43,6 +59,14 @@ public class Plateau implements Serializable{
         bateauCinq.setOrientation(orientation);
     }
 
+    /**
+     * Set selection boolean.
+     *
+     * @param x      the x
+     * @param y      the y
+     * @param taille the taille
+     * @return the boolean
+     */
     public boolean setSelection(int x, int y, int taille){
         if (taille == GameManager.BATEAUDEUX){
             toConfirm[0] = bateauDeux.setCoord(x,y);
@@ -63,6 +87,12 @@ public class Plateau implements Serializable{
         return false;
     }
 
+    /**
+     * Get selection case [ ].
+     *
+     * @param taille the taille
+     * @return the case [ ]
+     */
     public Case[] getSelection(int taille){
         if (taille == GameManager.BATEAUDEUX){
             return bateauDeux.getCases();
@@ -78,6 +108,13 @@ public class Plateau implements Serializable{
         return null;
     }
 
+    /**
+     * Validation case boolean.
+     *
+     * @param valider the valider
+     * @param taille  the taille
+     * @return the boolean
+     */
     public boolean validationCase(Case[] valider, int taille){
         ArrayList<Case> positionBateau = getCaseToCheck(taille);
         for (Case c : valider) {
@@ -88,6 +125,11 @@ public class Plateau implements Serializable{
         return true;
     }
 
+    /**
+     * Reset pos.
+     *
+     * @param taille the taille
+     */
     public void resetPos(int taille){
         if (taille == GameManager.BATEAUDEUX){
             bateauDeux.resetPos();
@@ -107,6 +149,9 @@ public class Plateau implements Serializable{
         }
     }
 
+    /**
+     * Reset all pos.
+     */
     public void resetAllPos(){
         this.plateau = new int[10][10];
         toConfirm[0] = false;
@@ -121,6 +166,12 @@ public class Plateau implements Serializable{
         bateauCinq.resetPos();
     }
 
+    /**
+     * Get case to check array list.
+     *
+     * @param taille the taille
+     * @return the array list
+     */
     public ArrayList<Case> getCaseToCheck(int taille){
         ArrayList<Case> positionBateau = new ArrayList<Case>();
         Case[] c2 = bateauDeux.getCases();
@@ -142,6 +193,11 @@ public class Plateau implements Serializable{
         return positionBateau;
     }
 
+    /**
+     * Get case valider array list.
+     *
+     * @return the array list
+     */
     public ArrayList<Case> getCaseValider(){
         ArrayList<Case> positionBateau = new ArrayList<Case>(17);
         Case[] c2 = bateauDeux.getCases();
@@ -159,6 +215,11 @@ public class Plateau implements Serializable{
         return positionBateau;
     }
 
+    /**
+     * Is valide boolean.
+     *
+     * @return the boolean
+     */
     public boolean isValide(){
         for (int i = 0; i < toConfirm.length; i++){
             if (!toConfirm[i]) {
@@ -168,10 +229,20 @@ public class Plateau implements Serializable{
         return true;
     }
 
+    /**
+     * Get plateau int [ ] [ ].
+     *
+     * @return the int [ ] [ ]
+     */
     public int[][] getPlateau() {
         return plateau;
     }
 
+    /**
+     * Is over boolean.
+     *
+     * @return the boolean
+     */
     public boolean isOver() {
         if (!this.bateauCinq.isDead()) return false;
         if (!this.bateauQuatre.isDead()) return false;
@@ -181,15 +252,30 @@ public class Plateau implements Serializable{
         return true;
     }
 
+    /**
+     * Remove munition.
+     *
+     * @param ammoType the ammo type
+     */
     public void removeMunition(int ammoType) {
         if (ammoType == 1) this.bateauQuatre.setMunition(this.bateauQuatre.getMunition()-1);
         if (ammoType == 2) this.bateauCinq.setMunition(this.bateauCinq.getMunition()-1);
     }
 
+    /**
+     * Gets x munition.
+     *
+     * @return the x munition
+     */
     public int getXMunition() {
         return this.bateauQuatre.getMunition();
     }
 
+    /**
+     * Gets cross munition.
+     *
+     * @return the cross munition
+     */
     public int getCrossMunition() {return this.bateauCinq.getMunition();
     }
 }

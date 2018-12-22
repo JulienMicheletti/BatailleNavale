@@ -8,8 +8,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+/**
+ * The type Save controller.
+ */
 public class SaveController implements ActionListener {
+    /**
+     * The Gm.
+     */
     GameManager gm;
+
+    /**
+     * Instantiates a new Save controller.
+     *
+     * @param gm the gm
+     */
     public SaveController(GameManager gm){
         this.gm = gm;
     }

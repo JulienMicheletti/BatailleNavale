@@ -11,9 +11,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observer;
 
+/**
+ * The type Vue plateaux.
+ */
 public class VuePlateaux extends JPanel implements Observer, Serializable {
 
+    /**
+     * The Board joueur.
+     */
     protected JButton boardJoueur[][] = new JButton[10][10];
+    /**
+     * The Board adversaire.
+     */
     protected JButton boardAdversaire[][] = new JButton[10][10];
     private GameManager gm;
     private JPanel plateaux;
@@ -29,6 +38,12 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
     private JButton save;
     private JButton retourMenu;
 
+    /**
+     * Instantiates a new Vue plateaux.
+     *
+     * @param frame the frame
+     * @param gm    the gm
+     */
     public VuePlateaux(JFrame frame,GameManager gm){
         super();
         this.frame = frame;
@@ -46,6 +61,9 @@ public class VuePlateaux extends JPanel implements Observer, Serializable {
         setAffichage();
     }
 
+    /**
+     * Set affichage.
+     */
     public void setAffichage(){
         this.setLayout(new BorderLayout());
         //

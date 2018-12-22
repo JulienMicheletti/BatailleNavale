@@ -12,6 +12,9 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+/**
+ * The type Server implementation.
+ */
 public class ServerImplementation extends UnicastRemoteObject implements ServerInterface {
     private GameManager gameManager;
     private int playerConnected;
@@ -19,12 +22,21 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
     private ClientInterface client2;
     private int rdyToPlay;
 
+    /**
+     * Instantiates a new Server implementation.
+     *
+     * @param gm the gm
+     * @throws RemoteException the remote exception
+     */
     protected ServerImplementation(GameManager gm) throws RemoteException {
         this.gameManager = gm;
         this.playerConnected = 0;
         this.rdyToPlay = 0;
     }
 
+    /**
+     * Reset server.
+     */
     public void resetServer(){
         this.gameManager.resetGame();
         this.playerConnected = 0;
@@ -75,6 +87,13 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             return setSelectionJ2(x, y, taille);
     }
 
+    /**
+     * Set plateau int [ ] [ ].
+     *
+     * @param player  the player
+     * @param plateau the plateau
+     * @return the int [ ] [ ]
+     */
     public int[][] setPlateau(int player, int[][] plateau){
         ArrayList<Case> bateaux = new ArrayList<>();
         Case[] cases = new Case[0];
@@ -103,6 +122,11 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         return plateau;
     }
 
+    /**
+     * Init plateau int [ ] [ ].
+     *
+     * @return the int [ ] [ ]
+     */
     public int[][] initPlateau(){
         int[][] plateau = new int[10][10];
         for (int i = 0; i < plateau.length; i++){
@@ -113,6 +137,14 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         return plateau;
     }
 
+    /**
+     * Set selection int [ ] [ ].
+     *
+     * @param x      the x
+     * @param y      the y
+     * @param taille the taille
+     * @return the int [ ] [ ]
+     */
     public int[][] setSelection(int x, int y, int taille) {
         int[][] plateau = initPlateau();
         this.gameManager.setTaille(taille);
@@ -120,6 +152,15 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         return setPlateau(1, plateau);
     }
 
+    /**
+     * Set selection j 2 int [ ] [ ].
+     *
+     * @param x      the x
+     * @param y      the y
+     * @param taille the taille
+     * @return the int [ ] [ ]
+     * @throws RemoteException the remote exception
+     */
     public int[][] setSelectionJ2(int x, int y, int taille) throws RemoteException {
         int[][] plateau = initPlateau();
         this.gameManager.setTailleJ2(taille);
@@ -146,6 +187,11 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             return validerSelectionJ2();
     }
 
+    /**
+     * Valider selection int [ ] [ ].
+     *
+     * @return the int [ ] [ ]
+     */
     public int[][] validerSelection() {
         int[][] plateau = initPlateau();
         ArrayList<Case> bateaux = this.gameManager.getCasesBateauxH();
@@ -157,6 +203,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         return plateau;
     }
 
+    /**
+     * Valider selection j 2 int [ ] [ ].
+     *
+     * @return the int [ ] [ ]
+     * @throws RemoteException the remote exception
+     */
     public int[][] validerSelectionJ2() throws RemoteException {
         int[][] plateau = initPlateau();
         ArrayList<Case> bateaux = this.gameManager.getCasesBateauxJ2();
@@ -292,6 +344,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         }
     }
 
+    /**
+     * Gets cases joueur.
+     *
+     * @return the cases joueur
+     * @throws RemoteException the remote exception
+     */
     public ArrayList<CaseClient> getCasesJoueur() throws RemoteException {
         ArrayList<Case> cases = this.gameManager.getCasesBateauxH();
         ArrayList<CaseClient> casesJ = new ArrayList<CaseClient>(cases.size());
@@ -300,6 +358,12 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
         return casesJ;
     }
 
+    /**
+     * Gets cases joueur 2.
+     *
+     * @return the cases joueur 2
+     * @throws RemoteException the remote exception
+     */
     public ArrayList<CaseClient> getCasesJoueur2() throws RemoteException {
         ArrayList<Case> cases = this.gameManager.getCasesBateauxJ2();
         ArrayList<CaseClient> casesJ2 = new ArrayList<CaseClient>(cases.size());
@@ -360,6 +424,11 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
             this.resetServer();
     }
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String[] args){
         try {
             ServerImplementation serverImplementation = new ServerImplementation(new GameManager());

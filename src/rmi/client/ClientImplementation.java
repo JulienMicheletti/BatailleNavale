@@ -6,9 +6,18 @@ import rmi.serveur.ServerInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * The type Client implementation.
+ */
 public class ClientImplementation extends UnicastRemoteObject implements ClientInterface {
     private Modele modele;
 
+    /**
+     * Instantiates a new Client implementation.
+     *
+     * @param serverInterface the server interface
+     * @throws RemoteException the remote exception
+     */
     public ClientImplementation(ServerInterface serverInterface) throws RemoteException{
         this.modele = new Modele(serverInterface);
         modele.setID(serverInterface.getPlayerConnected());

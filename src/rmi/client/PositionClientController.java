@@ -6,12 +6,22 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * The type Position client controller.
+ */
 public class PositionClientController implements MouseListener {
 
     private Modele modele;
     private int x;
     private int y;
 
+    /**
+     * Instantiates a new Position client controller.
+     *
+     * @param modele the modele
+     * @param x      the x
+     * @param y      the y
+     */
     public PositionClientController(Modele modele, int x, int y){
         this.modele = modele;
         this.x = x;

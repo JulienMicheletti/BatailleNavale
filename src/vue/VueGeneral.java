@@ -15,11 +15,20 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The type Vue general.
+ */
 public class VueGeneral extends JPanel implements Observer, Serializable {
     private JFrame f;
     private GameManager gameManager;
     private JPanel options = new JPanel();
 
+    /**
+     * Instantiates a new Vue general.
+     *
+     * @param f  the f
+     * @param gm the gm
+     */
     public VueGeneral(JFrame f, GameManager gm) {
         gm.addObserver(this);
         this.f = f;
@@ -68,6 +77,12 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         f.setVisible(true);
     }
 
+    /**
+     * New game.
+     *
+     * @param f  the f
+     * @param gm the gm
+     */
     public void newGame(JFrame f, GameManager gm) {
         f.remove(this);
         //    gm.initIA();
@@ -81,6 +96,9 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         f.setVisible(true);
     }
 
+    /**
+     * Load game.
+     */
     public void loadGame() {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Save file", "ser");
@@ -113,6 +131,11 @@ public class VueGeneral extends JPanel implements Observer, Serializable {
         }
     }
 
+    /**
+     * Online game.
+     *
+     * @param b the b
+     */
     public void onlineGame(boolean b) {
         if (b){//Serveur
             JFrame frame = new JFrame();

@@ -7,14 +7,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Observer;
 
+/**
+ * The type Vue selection client.
+ */
 public class VueSelectionClient extends JPanel implements Observer {
     private Modele modele;
+    /**
+     * The Board joueur.
+     */
     protected JButton boardJoueur[][] = new JButton[10][10];
     private JPanel board;
     private JPanel options;
     private JButton bateaux[] = new JButton[5];
     private JButton valider;
 
+    /**
+     * Instantiates a new Vue selection client.
+     *
+     * @param modele the modele
+     */
     public VueSelectionClient(Modele modele){
         super();
         modele.addObserver(this);
@@ -25,6 +36,9 @@ public class VueSelectionClient extends JPanel implements Observer {
         setAffichage();
     }
 
+    /**
+     * Set affichage.
+     */
     public void setAffichage(){
         this.setLayout(new BorderLayout());
         board.setLayout(new GridLayout(11, 11));

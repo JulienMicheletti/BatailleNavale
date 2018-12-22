@@ -15,8 +15,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 
+/**
+ * The type Game manager.
+ */
 public class GameManager extends Observable implements Serializable{
-
     public static int BATEAUDEUX = 2;
     public static int BATEAUTROIS1 = 31;
     public static int BATEAUTROIS2 = 32;
@@ -47,6 +49,9 @@ public class GameManager extends Observable implements Serializable{
     private boolean IAgame;
     private int turn; //1 = J1, 2 = J2
 
+    /**
+     * Instantiates a new Game manager.
+     */
     public GameManager(){
         this.orientation = GameManager.HORIZONTAL;
         this.orientationJ2 = GameManager.HORIZONTAL;
@@ -75,6 +80,9 @@ public class GameManager extends Observable implements Serializable{
         turn = 1;
     }
 
+    /**
+     * Reset game.
+     */
     public void resetGame(){
         this.playerH.resetAllPos();
         this.playerH2.resetAllPos();
@@ -103,6 +111,13 @@ public class GameManager extends Observable implements Serializable{
         this.playerH2.setFactory(epoque);
     }
 
+    /**
+     * Tirer special.
+     *
+     * @param x       the x
+     * @param y       the y
+     * @param case_id the case id
+     */
     public void tirer_special(int x, int y, int case_id){
         caseColatJ1[case_id].setToucher(false);
         ArrayList<Case> adversaire;
@@ -120,6 +135,12 @@ public class GameManager extends Observable implements Serializable{
         caseColatJ1[case_id].setY(y);
     }
 
+    /**
+     * Munition special.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void munition_special(int x, int y){
         if (this.munition == 1 && this.getXMunition() != 0){
             this.playerH.removeMunition(1);
@@ -137,6 +158,13 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Tirer special j 2.
+     *
+     * @param x       the x
+     * @param y       the y
+     * @param case_id the case id
+     */
     public void tirer_specialJ2(int x, int y, int case_id){
         caseColatJ2[case_id].setToucher(false);
         for(Case c : getCasesBateauxH()){
@@ -149,6 +177,12 @@ public class GameManager extends Observable implements Serializable{
         caseColatJ2[case_id].setY(y);
     }
 
+    /**
+     * Munition special j 2.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void munition_specialJ2(int x, int y){
         if (this.munitionJ2 == 1 && this.getXMunitionJ2() != 0){
             this.playerH2.removeMunition(1);
@@ -166,6 +200,12 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Tirer.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void tirer(int x, int y) {
         caseViseeJ1.setToucher(false);
         currentPlayer = true;
@@ -194,6 +234,12 @@ public class GameManager extends Observable implements Serializable{
         notifyObservers();
     }
 
+    /**
+     * Tirer j 2.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void tirerJ2(int x, int y){
         caseViseeJ2.setToucher(false);
         for (Case c : getCasesBateauxH()){
@@ -208,10 +254,18 @@ public class GameManager extends Observable implements Serializable{
         turn = 1;
     }
 
+    /**
+     * Get victory int.
+     *
+     * @return the int
+     */
     public int getVictory(){
         return this.victory;
     }
 
+    /**
+     * Notifier ia.
+     */
     public void notifierIA(){
         currentPlayer = false;
         caseViseeJ2.setToucher(false);
@@ -228,37 +282,86 @@ public class GameManager extends Observable implements Serializable{
         caseViseeJ2.setY(coord[1]);
     }
 
+    /**
+     * Set plateau humain.
+     *
+     * @param x    the x
+     * @param y    the y
+     * @param type the type
+     */
     public void setPlateauHumain(int x, int y, int type){
         playerH.getPlateau()[x][y] = type;
     }
 
+    /**
+     * Set plateau ia.
+     *
+     * @param x    the x
+     * @param y    the y
+     * @param type the type
+     */
     public void setPlateauIA(int x, int y, int type){
         playerIA.getPlateau()[x][y] = type;
     }
 
+    /**
+     * Get case visee j 1 case.
+     *
+     * @return the case
+     */
     public Case getCaseViseeJ1(){
         return caseViseeJ1;
     }
 
+    /**
+     * Get case visee j 2 case.
+     *
+     * @return the case
+     */
     public Case getCaseViseeJ2(){
         return caseViseeJ2;
     }
 
+    /**
+     * Get case colat j 1 case [ ].
+     *
+     * @return the case [ ]
+     */
     public Case[] getCaseColatJ1() {
         return caseColatJ1;
     }
 
+    /**
+     * Get case colat j 2 case [ ].
+     *
+     * @return the case [ ]
+     */
     public Case[] getCaseColatJ2(){ return caseColatJ2; }
 
+    /**
+     * Set orientation.
+     *
+     * @param orientation the orientation
+     */
     public void setOrientation(int orientation){
         this.orientation = orientation;
         this.playerH.setOrientation(orientation);
     }
 
+    /**
+     * Set orientation j 2.
+     *
+     * @param orientation the orientation
+     */
     public void setOrientationJ2(int orientation){
         this.playerH2.setOrientation(orientation);
     }
 
+    /**
+     * Set taille.
+     *
+     * @param taille the taille
+     */
     public void setTaille(int taille){
         this.taille = taille;
         this.playerH.resetPos(this.taille);
@@ -268,6 +371,11 @@ public class GameManager extends Observable implements Serializable{
         notifyObservers();
     }
 
+    /**
+     * Set taille j 2.
+     *
+     * @param taille the taille
+     */
     public void setTailleJ2(int taille){
         this.tailleJ2 = taille;
         this.playerH2.resetPos(taille);
@@ -275,6 +383,12 @@ public class GameManager extends Observable implements Serializable{
         this.selectionBateauJ2[0] = new Case(-1, -1);
     }
 
+    /**
+     * Set selection.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void setSelection(int x, int y){
         if (taille != -1) {
             if (this.playerH.setSelection(x, y, this.taille)) {
@@ -285,6 +399,12 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Set selection j 2.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void setSelectionJ2(int x, int y){
         if (tailleJ2 != -1){
             if (this.playerH2.setSelection(x, y, this.tailleJ2)) {
@@ -293,6 +413,9 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Valider selection.
+     */
     public void validerSelection() {
         if (this.playerH.validerCase(getSelectionBateau(), taille)) {
             taille = 0;
@@ -302,12 +425,18 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Valider selection j 2.
+     */
     public void validerSelectionJ2(){
         if (this.playerH2.validerCase(getSelectionBateauJ2(), tailleJ2)){
             tailleJ2 = -1;
         }
     }
 
+    /**
+     * Confirmer selection.
+     */
     public void confirmerSelection(){
         this.launchGame = this.playerH.plateauValide();
         if (this.launchGame) initIA();
@@ -315,58 +444,137 @@ public class GameManager extends Observable implements Serializable{
         notifyObservers();
     }
 
+    /**
+     * Confirmer selection j 2.
+     */
     public void confirmerSelectionJ2(){
         this.launchGame = this.playerH2.plateauValide();
     }
 
+    /**
+     * Reset launch.
+     */
     public void resetLaunch(){
         launchGame = false;
     }
 
+    /**
+     * Get taille int.
+     *
+     * @return the int
+     */
     public int getTaille(){
         return taille;
     }
 
+    /**
+     * Get taille j 2 int.
+     *
+     * @return the int
+     */
     public int getTailleJ2(){ return tailleJ2; }
 
+    /**
+     * Get launch game boolean.
+     *
+     * @return the boolean
+     */
     public boolean getLaunchGame(){
         return launchGame;
     }
 
+    /**
+     * Get cases bateaux h array list.
+     *
+     * @return the array list
+     */
     public ArrayList<Case> getCasesBateauxH(){
         return this.playerH.getCaseValider(0);
     }
 
+    /**
+     * Get cases bateaux j 2 array list.
+     *
+     * @return the array list
+     */
     public ArrayList<Case> getCasesBateauxJ2(){ return this.playerH2.getCaseValider(0); }
 
+    /**
+     * Get cases bateaux ia array list.
+     *
+     * @return the array list
+     */
     public ArrayList<Case> getCasesBateauxIA(){
         return this.playerIA.getCaseValider(0);
     }
 
+    /**
+     * Is ia victory boolean.
+     *
+     * @return the boolean
+     */
     public boolean isIAVictory(){
         return this.playerH.isOver();
     }
 
+    /**
+     * Is h victory boolean.
+     *
+     * @return the boolean
+     */
     public boolean isHVictory(){
         return this.playerIA.isOver();
     }
 
+    /**
+     * Get selection bateau case [ ].
+     *
+     * @return the case [ ]
+     */
     public Case[] getSelectionBateau() {
         return selectionBateau;
     }
 
+    /**
+     * Get selection bateau j 2 case [ ].
+     *
+     * @return the case [ ]
+     */
     public Case[] getSelectionBateauJ2(){return selectionBateauJ2;}
 
+    /**
+     * Gets case valider.
+     *
+     * @return the case valider
+     */
     public ArrayList<Case> getCaseValider() { return this.playerH.getCaseValider(this.taille); }
 
+    /**
+     * Gets case valider j 2.
+     *
+     * @return the case valider j 2
+     */
     public ArrayList<Case> getCaseValiderJ2() { return this.playerH2.getCaseValider(this.tailleJ2); }
 
+    /**
+     * Get player plateau int [ ] [ ].
+     *
+     * @return the int [ ] [ ]
+     */
     public int[][] getPlayerPlateau(){
         return playerH.getPlateau();
     }
 
+    /**
+     * Get ia plateau int [ ] [ ].
+     *
+     * @return the int [ ] [ ]
+     */
     public int[][] getIAPlateau(){ return playerIA.getPlateau();}
 
+    /**
+     * Switch orientation.
+     */
     public void switchOrientation() {
         if (this.orientation == GameManager.HORIZONTAL){
             this.orientation = GameManager.VERTICAL;
@@ -377,6 +585,9 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Switch orientation j 2.
+     */
     public void switchOrientationJ2(){
         if (this.orientationJ2 == GameManager.HORIZONTAL) {
             this.orientationJ2 = GameManager.VERTICAL;
@@ -387,10 +598,18 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Case exited.
+     */
     public void caseExited(){
         this.playerH.resetPos(this.taille);
     }
 
+    /**
+     * Sets factory.
+     *
+     * @param selectedIndex the selected index
+     */
     public void setFactory(int selectedIndex) {
         if (selectedIndex == 0){
             this.epoque = new XVIemeFactory();
@@ -412,6 +631,9 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Init ia.
+     */
     public void initIA() {
         this.playerIA.setFactory(epoque);
         this.playerIA.poserBateaux();
@@ -419,6 +641,11 @@ public class GameManager extends Observable implements Serializable{
         this.victory = 0;
     }
 
+    /**
+     * Sets difficulty.
+     *
+     * @param selectedIndex the selected index
+     */
     public void setDifficulty(int selectedIndex) {
         if (selectedIndex == 0) {
             this.playerIA.setDifficulty(new BotFullRandom());
@@ -431,44 +658,112 @@ public class GameManager extends Observable implements Serializable{
         }
     }
 
+    /**
+     * Is munition game boolean.
+     *
+     * @return the boolean
+     */
     public boolean isMunitionGame(){
         return this.epoque.isMunition();
     }
 
+    /**
+     * Sets munition.
+     *
+     * @param munition the munition
+     */
     public void setMunition(int munition) {
         this.munition = munition;
     }
 
+    /**
+     * Gets munition.
+     *
+     * @return the munition
+     */
     public int getMunition() {
         return munition;
     }
 
+    /**
+     * Sets munition j 2.
+     *
+     * @param munition the munition
+     */
     public void setMunitionJ2(int munition) { this.munitionJ2 = munition; }
 
+    /**
+     * Get munition j 2 int.
+     *
+     * @return the int
+     */
     public int getMunitionJ2(){ return this.munitionJ2; }
 
+    /**
+     * Get cross munition int.
+     *
+     * @return the int
+     */
     public int getCrossMunition(){return this.playerH.getCrossMunition();}
 
+    /**
+     * Get x munition int.
+     *
+     * @return the int
+     */
     public int getXMunition(){return this.playerH.getXMunition();}
 
+    /**
+     * Gets cross munition j 2.
+     *
+     * @return the cross munition j 2
+     */
     public int getCrossMunitionJ2() {return this.playerH2.getCrossMunition(); }
 
+    /**
+     * Gets x munition j 2.
+     *
+     * @return the x munition j 2
+     */
     public int getXMunitionJ2() { return this.playerH2.getXMunition(); }
 
+    /**
+     * Get turn int.
+     *
+     * @return the int
+     */
     public int getTurn(){ return this.turn; }
 
+    /**
+     * Sets est touche.
+     *
+     * @param est_touche the est touche
+     */
     public void setEst_touche(boolean est_touche) {
         this.est_touche = est_touche;
     }
 
+    /**
+     * Set ia game.
+     */
     public void setIAGame(){
         IAgame = true;
     }
 
+    /**
+     * Is j 1 winner boolean.
+     *
+     * @return the boolean
+     */
     public boolean isJ1Winner(){
         return this.playerH2.isOver();
     }
 
+    /**
+     * Is j 2 winner boolean.
+     *
+     * @return the boolean
+     */
     public boolean isJ2Winner(){
         return this.playerH.isOver();
     }

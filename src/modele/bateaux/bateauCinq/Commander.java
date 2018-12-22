@@ -14,6 +14,9 @@ public class Commander implements BateauCinq, Serializable {
     public final int taille = 5;
     private int munition;
 
+    /**
+     * Instantiates a new Commander.
+     */
     public Commander(){
         this.x = 0;
         this.y = 0;

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The type Vue jeu client.
+ */
 public class VueJeuClient extends JPanel implements Observer {
     private Modele modele;
     private JButton[][] boardJoueur;
@@ -21,6 +24,11 @@ public class VueJeuClient extends JPanel implements Observer {
     private JPanel informationPanel;
     private JLabel information;
 
+    /**
+     * Instantiates a new Vue jeu client.
+     *
+     * @param mod the mod
+     */
     public VueJeuClient(Modele mod){
         this.modele = mod;
         this.modele.addObserver(this);
@@ -36,6 +44,9 @@ public class VueJeuClient extends JPanel implements Observer {
         setAffichage();
     }
 
+    /**
+     * Set affichage.
+     */
     public void setAffichage(){
         this.setLayout(new BorderLayout());
         this.informationPanel.setLayout(new GridLayout(2, 1));

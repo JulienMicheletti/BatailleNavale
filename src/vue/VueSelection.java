@@ -10,14 +10,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observer;
 
+/**
+ * The type Vue selection.
+ */
 public class VueSelection extends JPanel implements Observer, Serializable {
     private GameManager gameManager;
+    /**
+     * The Board joueur.
+     */
     protected JButton boardJoueur[][] = new JButton[10][10];
     private JPanel board;
     private JPanel options;
     private JButton bateaux[] = new JButton[5];
     private JButton valider;
 
+    /**
+     * Instantiates a new Vue selection.
+     *
+     * @param gm the gm
+     */
     public VueSelection(GameManager gm){
         super();
         gm.addObserver(this);
@@ -28,6 +39,9 @@ public class VueSelection extends JPanel implements Observer, Serializable {
         setAffichage();
     }
 
+    /**
+     * Set affichage.
+     */
     public void setAffichage(){
         this.setLayout(new BorderLayout());
         board.setLayout(new GridLayout(11, 11));

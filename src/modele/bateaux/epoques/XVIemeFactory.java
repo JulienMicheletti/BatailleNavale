@@ -12,6 +12,9 @@ import modele.bateaux.bateauTrois.TroisMats;
 
 import java.io.Serializable;
 
+/**
+ * The type Xv ieme factory.
+ */
 public class XVIemeFactory implements ShipFactory, Serializable {
 
     public boolean isMunition(){
