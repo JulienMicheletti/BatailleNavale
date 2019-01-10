@@ -57,6 +57,8 @@ public class GameManager extends Observable implements Serializable{
         this.orientationJ2 = GameManager.HORIZONTAL;
         this.taille = -1;
         this.tailleJ2 = -1;
+        this.selectionBateau = new Case[0];
+        this.selectionBateauJ2 = new Case[0];
         currentPlayer = true;
         caseViseeJ1 = new Case(-1, -1);
         caseViseeJ2 = new Case(-1, -1);
@@ -91,6 +93,8 @@ public class GameManager extends Observable implements Serializable{
         this.orientationJ2 = GameManager.HORIZONTAL;
         this.taille = -1;
         this.tailleJ2 = -1;
+        this.selectionBateau = new Case[0];
+        this.selectionBateauJ2 = new Case[0];
         currentPlayer = true;
         caseViseeJ1 = new Case(-1, -1);
         caseViseeJ2 = new Case(-1, -1);
